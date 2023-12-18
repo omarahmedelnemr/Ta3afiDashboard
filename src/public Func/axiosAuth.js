@@ -14,15 +14,20 @@ axios.interceptors.response.use(
       return response;
     },
     (error) => {
-      if (error.response.status === 401) {
-        // Redirect to the login page when a 401 error is encountered
-        if (window.location.pathname !== '/login'){
-            window.location.href = '/login'
-        }else{
-            console.log("Already on Login")
+      if (error.response !== undefined){
+
+        if (error.response.status === 401) {
+          // Redirect to the login page when a 401 error is encountered
+          if (window.location.pathname !== '/login'){
+              window.location.href = '/login'
+          }else{
+              console.log("Already on Login")
+          }
         }
+      }else{
+        return Promise.reject("Error Connecting to The Server",error);
       }
-      return Promise.reject(error);
+       
     }
   );
 
