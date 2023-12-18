@@ -1,0 +1,26 @@
+body {
+    margin: 0px;
+    padding: 0px;
+}
+
+.sideMinu{
+    align-items: center;
+    /* border-bottom: 1px solid black; */
+    text-align: start;
+}
+.sideMinu svg{
+    display: inline-block;
+    padding: 10px;
+    font-size: 20px;
+    border-radius: 100%;
+    background-color: #ffffff2e;
+    margin: 0px 10px;
+    border: 1px solid black;
+    margin: 5px;
+    display: none;
+}
+@media (max-width:1090px) {
+    .sideMinu svg{
+        display: block;
+    }
+}
