@@ -1,0 +1,78 @@
+#supervisorsPage{
+    background: #e5e7eb;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    font-size: 20px;
+    flex-basis: 100%;
+    overflow-y: auto;
+}
+.SupervisorCard{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    border-radius: 10px;
+    margin: 20px;
+    transition: 0.5s;
+    /* border:1px solid black; */
+    box-shadow: -2px 2px 10px gray;
+    width: max-content;
+    height: max-content;
+}
+.SupervisorCard:hover{
+    box-shadow: -5px 5px 10px gray;
+
+}
+.SupervisorCard img{
+
+    width: 100px;
+    height: 100px;
+    border-radius: 100%;
+}
+.SupervisorCard .SupervisorCardInfo{
+    margin-bottom: 50px;
+}
+.SupervisorCard .SupervisorCardInfo h3{
+    margin: 0px;
+    margin-top: 15px;
+}
+.SupervisorCard .SupervisorCardInfo h4{
+    color: gray;
+    margin: 0px;
+}
+.SupervisorCardButtons{
+    justify-content: space-evenly;
+    width: 100%;
+}
+.SupervisorCard .SupervisorCardButtons .deleteButton{
+    color: rgb(255, 105, 105);
+    cursor: pointer;
+    transition: 0.2s;
+}
+.SupervisorCard .SupervisorCardButtons .deleteButton:hover{
+    color: rgb(163, 0, 0);
+
+}
+
+.pendingButton .Status{
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    margin: 0px 5px;
+}
+.pendingButton .Status.online{
+    background-color: rgb(0, 176, 12);
+}
+.pendingButton .Status.offline{
+    background-color: rgb(111, 111, 111);
+}
+.pendingButton .Status.pending{
+    /* background-color: rgb(111, 111, 111); */
+    background-image: linear-gradient(-45deg, rgb(111, 111, 111) 60%, white 50%);
+}
