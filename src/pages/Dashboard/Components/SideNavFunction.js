@@ -1,5 +1,5 @@
 import "./styles/SideNav.css"
-import logoImage from '../content/smallLogo.png'
+import logoImage from '../../../content/smallLogo.png'
 import { useEffect } from "react";
 
 function SideNavigation({navList,children}) {

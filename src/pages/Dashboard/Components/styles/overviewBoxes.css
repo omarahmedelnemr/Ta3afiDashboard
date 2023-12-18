@@ -1,0 +1,42 @@
+.overviewBoxes{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-top: 20px;
+}
+.contentBoxSize1{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 250px;
+    min-width: 190px;
+    padding: 20px 20px;
+    border-radius: 10px;
+    background-color: #ffffffa6;
+    margin: 10px 1%;
+    /* box-shadow: 0px 0px 10px #0000002e; */
+
+}
+.contentBoxSize1 .boxIcon{
+    padding: 10px;
+    background-color: lightblue;
+    border-radius: 100%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    flex-direction: revert;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    color: white;
+}
+.contentBoxSize1 .boxTitle{}
+.contentBoxSize1 .boxTitle p{}
+.contentBoxSize1 .boxValue h2{
+    margin: 0;
+}
+.contentBoxSize1 .boxComment{
+    color: rgb(106, 106, 106);
+}

@@ -1,8 +1,9 @@
 import React from 'react';
 import axios from '../../public Func/axiosAuth';
 import './Dashboard.css';
-import globalVar from '../../globalVar'
+import globalVar from '../../public Func/globalVar'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import StatusBoxes from './Components/overviewBoxes';
 
 function Dashboard() {
   // Check Authentication
@@ -24,8 +25,7 @@ return (
         <div className="sideMinu row">
             <FontAwesomeIcon icon="fa-solid fa-list" onClick={showHideMinu} />   
         </div>
-        <p>Hello</p>
-        
+        <StatusBoxes/>
     </div>
 )
 }

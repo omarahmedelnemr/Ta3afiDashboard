@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './Login.css';
 import logoImage from '../../content/ta3afiLogo.png';
-import globalVar from '../../globalVar'
+import globalVar from '../../public Func/globalVar'
 
 function LoginPage() {
   const [email, setEmail] = useState('');
