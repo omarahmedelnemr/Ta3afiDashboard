@@ -1,7 +1,5 @@
 import React from 'react';
-import axios from '../../public Func/axiosAuth';
 import './Dashboard.css';
-import globalVar from '../../public Func/globalVar'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import StatusBoxes from './Components/overviewBoxes';
 
