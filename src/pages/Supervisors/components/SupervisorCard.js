@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import '../Supervisors.css';
 
 function SupervisorsCard({img,name,email,status}) {

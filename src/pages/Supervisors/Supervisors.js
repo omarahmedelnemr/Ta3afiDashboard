@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React from 'react';
 import './Supervisors.css';
 import logoImage from '../../content/ta3afiLogo.png';
-import globalVar from '../../public Func/globalVar'
 import SupervisorsCard from './components/SupervisorCard';
 
 function SupervisorsPage() {
