@@ -10,7 +10,7 @@ function OverviewBoxes() {
     const [SupervisrosCount,setSupervisrosCount] = useState('-')
     const [PostsCount,setPostsCount] = useState('-')
     const [PendingCount,setPendingCount] = useState('-')
-    const [assignmentsCount,setAssignmentsCount] = useState('-')
+    // const [assignmentsCount,setAssignmentsCount] = useState('-')
     useEffect(()=>{
         axios.get(Global.BackendURL+"/student/totalhomeworkcount?studentID="+localStorage.getItem('id')).then((res)=>{
             console.log("Error Stats res: ",res.status)
