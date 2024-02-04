@@ -1,0 +1,22 @@
+#AdminPostsPage{
+    width: 100%;
+    /* display: flex; */
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    overflow-y: auto;
+    background-color: #e5e7eb;
+}
+
+#PostsFilters{
+    background-color: white;
+    width: 75%;
+    margin: auto;
+    padding: 20px;
+    border-radius: 0px 0px 10px 10px;
+}
+#PostsFilters input{
+    width: 80%;
+    font-size: 1px;
+    padding: 5px;
+}
