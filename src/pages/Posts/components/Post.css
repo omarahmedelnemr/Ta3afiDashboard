@@ -10,8 +10,9 @@
     min-height: max-content;
     box-sizing: border-box;
     min-width: 370px;
-
+    
 }
+
 .PostBox .PostHeader{
     display: flex;
     flex-direction: row;
@@ -162,12 +163,137 @@ background-color: rgb(194, 194, 194);; /* Set a different color on hover if desi
     transition: 0.5s;
     cursor: pointer;
 }
-.PostBox .PostCommentsButtons:hover{
+.PostBox .PostCommentsButtons:hover.enabled{
     background-color: rgb(234, 234, 234);
 
 }
+.PostBox .PostCommentsButtons.disabled{
+    cursor: default;
+}
 
 
+
+.ReportPopupWindow{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+    display: none;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+.ReportPopupWindow .backgroundBlock{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(86, 86, 86, 0.189);
+    z-index: 5;
+
+}
+.ReportPopupWindow .ReportForm{
+    background-color: white;
+    border-radius: 20px;
+    width: 480px;
+    min-width: 390px;
+    min-height: 200px;
+    z-index: 9;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    padding: 50px;
+    font-family:sans-serif ;
+    position: relative;
+    top: 100%;
+    transition: 0.5s;
+
+}
+.ReportPopupWindow .ReportForm .TitleReport{
+    font-size: 30px;
+}
+
+.ReportPopupWindow .ReportForm .ForNextPost{
+    font-size: 20px;
+    margin-bottom: 0px;
+
+}
+.ReportPopupWindow .ReportForm .ReportMainPostText{
+    width: 50ch;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.ReportPopupWindow .ReportForm .ReportTagOptions{
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+.ReportPopupWindow .ReportForm .ReportTagOptions .ReportTag{
+    background-color: #eeeeee;
+    color: gray;
+    padding: 15px;
+    margin: 5px;
+    font-size: 20px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.ReportPopupWindow .ReportForm .ReportTagOptions .ReportTag:hover{
+    background-color: #cecdcd;
+    /* color: white; */
+
+}
+.ReportPopupWindow .ReportForm .ReportTagOptions .ReportTag.selected{
+    background-color: #fbcbcb;
+    color: #ff1919;
+}
+.ReportPopupWindow .ReportForm .submutReportButton{
+    background-color: #079eb0;
+    color: white;
+    border: none;
+    font-size: 25px;
+    padding: 20px;
+    border-radius: 100px;
+    margin-top: 50px;
+    cursor: pointer;
+    transition: 0.5s;
+}   
+.ReportPopupWindow .ReportForm .submutReportButton:hover{
+    background-color: #026671;
+
+}
+
+.ReportPopupWindow .ReportForm .ReasonInputForm{
+    transition: 0.5s;
+    display: none;
+
+}
+.ReportPopupWindow .ReportForm .ReasonInputForm.show{
+    display: block;
+}
+.ReportPopupWindow .ReportForm .ReasonInputForm input{  
+    width: 96%;
+    min-height: 40px;
+    border-radius: 10px;
+    border:1px solid gray;
+    font-size: 15px;
+    padding: 1% 2%;
+}
+.ReportPopupWindow .ReportForm .ErrorMessage{
+    color: red;
+    text-align: center;
+    margin-bottom: 0px;
+    display: none;
+}
+.ReportPopupWindow .ReportForm .ErrorMessage.show{
+    display: block;
+}
 
 .PostBox .GrayText{
     color: gray;

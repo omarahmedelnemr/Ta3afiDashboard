@@ -8,15 +8,105 @@
     background-color: #e5e7eb;
 }
 
-#PostsFilters{
+#PostsSearchFilters{
     background-color: white;
-    width: 75%;
-    margin: auto;
+    width: 72%;
+    margin: 20px auto;
     padding: 20px;
-    border-radius: 0px 0px 10px 10px;
+    border-radius: 10px 10px 10px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    min-width: 375px;
+    box-shadow: 0px 0px 10px rgba(149, 149, 149, 0.286);
+
 }
-#PostsFilters input{
-    width: 80%;
-    font-size: 1px;
-    padding: 5px;
+#PostsSearchFilters p{
+    margin-left: 10px;
+    font-weight: bolder;
+    font-size: 20px;
+    margin-top: 0px
+}
+#PostsSearchFilters .row{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+#PostsSearchFilters input{
+    flex-basis: 80%;
+    margin: 0px;
+    margin-right:  0.2%;
+    font-size: 15px;
+    padding: 10px;
+    border-radius: 5px;
+    border:1px solid gray;
+}
+#PostsSearchFilters .categories{
+    flex-basis: 20%;
+    border-radius: 5px;
+    background-color: white;
+    border:1px solid gray;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin: 0px 0.2%;
+    position: relative;
+
+}
+#PostsSearchFilters .categories .arrowIcon{
+    transition: 0.3s;
+}
+
+#PostsSearchFilters .categories .CategoryOptionsDropList{
+    /* display: none; */
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top: 50px;
+    left: 0px;
+    background-color: #ffffff;
+    width: 100%;
+    border-radius: 5px;
+    z-index: 9999;
+    height: max-content;
+    overflow: hidden;
+    transition: 0.3s;
+    height: 0px;
+    
+    box-shadow: 0px 5px 10px rgb(112, 112, 112);
+     /* rgba(149, 149, 149, 0.286); */
+}
+#PostsSearchFilters .categories .categoryOption{
+    padding: 10px;
+    margin: 3PX;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+#PostsSearchFilters .categories .categoryOption:hover{
+    background-color: rgb(215, 215, 215);
+
+}
+#PostsSearchFilters .categories .categoryOption.activeCategory{
+    background-color: rgb(159, 159, 159);
+
+}
+#PostsSearchFilters .searchButton{
+    flex-basis: 5%;
+    border: 1px solid rgba(0, 0, 0, 0);
+    border-radius: 5px;
+    margin: 0px 0.2%;
+    background-color: #0a808e;
+    color: white;
+    font-weight: bolder;
+    font-size: 17px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#PostsSearchFilters .searchButton:hover{
+    background-color: #0db2c4;
+
 }
