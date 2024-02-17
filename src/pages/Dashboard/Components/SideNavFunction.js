@@ -37,7 +37,7 @@ function SideNavigation({navList,children}) {
 
     function blockBackground(){
         if (lang === 'en'){
-            document.getElementsByClassName('sideNav')[0].style.setProperty('left','-280px')
+            document.getElementsByClassName('sideNav')[0].style.setProperty('left','-100%')
         }else{
             document.getElementsByClassName('sideNav')[0].style.setProperty('right','-280px')
         }
