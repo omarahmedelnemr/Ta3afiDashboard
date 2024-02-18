@@ -142,7 +142,7 @@ function PostBox({post}) {
 
     }
     return (
-        <div className="PostBox">
+        <div className="PostBox" id={post.id}>
             <span className='hidden postID'>{post.id}</span>
             <div className='PostHeader'>
                 <div  className='UserPic'>

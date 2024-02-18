@@ -1,4 +1,4 @@
-#AdminPostsPage{
+#SuperPostsPage{
     width: 100%;
     /* display: flex; */
     flex-direction: column;
@@ -109,4 +109,19 @@
 #PostsSearchFilters .searchButton:hover{
     background-color: #0db2c4;
 
+}
+
+#AdminPostsFeed .NoPostsToDisplay{
+    color: rgba(128, 128, 128, 0.395);
+    font-weight: bolder;
+    height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+}
+
+#AdminPostsFeed .noMorePosts{
+    color: rgba(128, 128, 128, 0.395);
+    font-weight: bolder;
 }
