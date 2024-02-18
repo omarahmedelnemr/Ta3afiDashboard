@@ -78,7 +78,7 @@
 .sideNav .backgroundActive{
     position: absolute;
     height: 50px;
-    width: 170px;
+    width: 210px;
     background-color: white;
     border-radius: 30px;
     margin: 0px 50px;
@@ -120,29 +120,13 @@
 .sideNav .bottom{
     flex-grow: 1;
     display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: flex-start;
-}
-
-.sideNav .bottom .chooseLang{
+    flex-direction: row;
     justify-content: center;
-    width: 170px;
-    background-color: white;
-    border-radius: 30px;
-    overflow: hidden;
-    margin: 0px 50px;}
-.sideNav .bottom .chooseLang p{
-    margin: 0px;
+    align-items: flex-end;
     width: 100%;
-    color:black;
-    background-color: #c9ddfe;
-    cursor: pointer;
 }
-.sideNav .bottom .chooseLang .activeLang{
-    background-color: #3d5ef0;
-    color:white;
-    cursor:default    ;
+.sideNav .bottom a{
+    text-decoration: none;
 }
 .sideNav .bottom .reportIssuText{
     width: 75%;
@@ -180,7 +164,23 @@
     display: block;
 }
 
-
+.sideNav .bottom .logoutButton{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    border-radius: 30px;
+    font-weight: bolder;
+    background-color: rgba(255, 255, 255, 0.478);
+    color: rgb(0, 0, 0);
+}
+.sideNav .bottom .logoutButton svg{
+    color: #0a808e;
+}
+.sideNav .bottom .logoutButton p{
+    margin-left: 20px;
+}
 
 .sideMinu{
     align-items: center;

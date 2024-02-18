@@ -10,9 +10,11 @@ function SideNavBar() {
     const compText = {
         Dashboard:         lang === 'en' ? "Dashboard":"الرئيسية",
         posts:             lang === 'en' ? "Posts":"المنشورات",
-        postsUnapproved:   lang === 'en' ? "Posts (Pending)":"المنشورات",
+        postsPending:   lang === 'en' ? "Posts (Pending)":"المنشورات المتوقفه ",
         artilces:          lang === 'en' ? "Articles" : "المقالات" ,
+        artilcesPending:          lang === 'en' ? "Articles (Pending)" : "المقالات المتوقفه" ,
         supervisors:       lang === 'en' ? "Supervisors" :"المسئولون",
+        Issues:            lang === 'en' ? "Issues":"البلاغات" 
     }
     function showHideMinu(){
         document.getElementsByClassName('sideNav')[0].style.setProperty('left','0px')
@@ -27,9 +29,11 @@ return (
         <SideNavigation navList={navList}>
             <SideNavigationButton route={"dashboard"} text={compText["Dashboard"]} icon={<FontAwesomeIcon icon="fa-solid fa-chart-pie" />} active={true}/>
             <SideNavigationButton route={"supervisors"} text={compText["supervisors"]} icon={<FontAwesomeIcon icon="fa-solid fa-user-tie" />}/>
+            <SideNavigationButton route={"posts-pending"} text={compText["postsPending"]} icon={<FontAwesomeIcon icon="fa-solid fa-comments" />}/>
             <SideNavigationButton route={"posts"} text={compText["posts"]} icon={<FontAwesomeIcon icon="fa-solid fa-comments" />}/>
-            <SideNavigationButton route={"posts"} text={compText["postsUnapproved"]} icon={<FontAwesomeIcon icon="fa-solid fa-comments" />}/>
+            <SideNavigationButton route={"artilces-pending"} text={compText["artilcesPending"]} icon={<FontAwesomeIcon icon="fa-solid fa-newspaper" />}/>
             <SideNavigationButton route={"artilces"} text={compText["artilces"]} icon={<FontAwesomeIcon icon="fa-solid fa-newspaper" />}/>
+            <SideNavigationButton route={"issues"} text={compText["Issues"]} icon={<FontAwesomeIcon icon="fa-solid fa-flag" />}/>
         </SideNavigation>
     </div>
 )

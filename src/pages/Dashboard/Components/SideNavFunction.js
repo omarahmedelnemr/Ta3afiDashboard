@@ -1,6 +1,7 @@
 import "./styles/SideNav.css"
 import logoImage from '../../../content/smallLogo.png'
 import { useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function SideNavigation({navList,children}) {
     
@@ -60,6 +61,13 @@ function SideNavigation({navList,children}) {
                 {children}        
             </div>
             <div className="bottom">
+                <a href={"./logout"}>
+
+                    <div className="logoutButton">
+                        <FontAwesomeIcon icon="fa-solid fa-right-from-bracket" />
+                        <p>logout</p>
+                    </div>
+                </a>
                 {/* <a href={"./reportIssu"}>
                     <div className='reportIssu'>
                         <FontAwesomeIcon icon="fa-solid fa-circle-question" />
