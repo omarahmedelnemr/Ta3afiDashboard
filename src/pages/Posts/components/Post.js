@@ -19,6 +19,16 @@ function PostBox({post}) {
         UserName = post.userName
     }
 
+    // AI Rating Colors
+    var RateColor = 'rateGreen'
+    console.log(Number(post.AI_saftyRate))
+    if (Number(post.AI_saftyRate)<50){
+        RateColor = 'rateRed'
+    }else if (Number(post.AI_saftyRate)<75){
+        RateColor = 'rateYellow'
+    }
+
+
     // Uploaded Images
     const images = []
     for(var i of post.images){
@@ -154,7 +164,9 @@ function PostBox({post}) {
                         <p>{UserName} {post.edited? <span className='GrayText'>(edited)</span>:''}</p>
                         <span className='GrayText'>{formatDate(post.date)}</span>
                     </div>
-
+                    <div className='center AIRate'>
+                        <p>AI Rating: <span className={RateColor}>{post.AI_saftyRate}%</span> - ({post.AI_saftyWord})</p>
+                    </div>
                     <div className='Tags right'>
                         <span className='Community'>{post.community}</span>
                         <span className='Report' onClick={ShowPopupReportForm}>Report</span>

@@ -62,6 +62,17 @@
 .PostBox .PostHeader .NameAndDateAndData .left p{
     margin: 0px;
 }
+
+.PostBox .PostHeader .AIRate .rateGreen{
+    color: green;
+}
+.PostBox .PostHeader .AIRate .rateYellow{
+    color: rgb(176, 176, 0);
+}
+.PostBox .PostHeader .AIRate .rateRed{
+    color: red;
+}
+
 .PostBox .PostHeader .NameAndDateAndData .Tags{
     display: flex;
     flex-direction: column;
