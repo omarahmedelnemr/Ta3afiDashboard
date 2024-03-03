@@ -9,6 +9,7 @@ import SupervisorsPage from './pages/Supervisors/Supervisors';
 import TestChatPage from './pages/test/TestChat';
 import TestNotifyPage from './pages/test/TestNotify';
 import PostsPage from './pages/Posts/PostsPage';
+import ArtilcesPage from './pages/Articles/ArticlesPage';
 function App() {
   return (
     <div className="App">
@@ -19,6 +20,7 @@ function App() {
                 <Route path='/dashboard' element={<Dashboard/>} />
                 <Route path='/supervisors' element={<SupervisorsPage/>} />
                 <Route path='/posts' element={<PostsPage/>} />
+                <Route path='/artilces' element={<ArtilcesPage/>} />
                 <Route path='/test' element={<TestChatPage/>} />
                 <Route path='/testnotify' element={<TestNotifyPage/>} />
             </Routes>

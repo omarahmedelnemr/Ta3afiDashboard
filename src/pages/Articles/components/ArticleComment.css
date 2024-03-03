@@ -1,0 +1,86 @@
+.ArticleCommentBox{
+    display: flex;
+    flex-direction: row;
+    /* background-color: rgba(200, 200, 200, 0.357); */
+    border-radius: 10px;
+    margin: 10px 0px;
+    padding: 10px 5px;
+    padding: 1%;
+
+    border-bottom-color: rgb(221, 221, 221);
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+}
+.ArticleCommentBox .CommentHeader{
+    display: flex;
+    flex-direction: row;
+    flex-basis: 5%;
+}
+.ArticleCommentBox .CommentHeader .UserPic{
+    margin: 0px 10px;
+    flex-basis: 5%;
+    position: relative;
+
+}
+.ArticleCommentBox .CommentHeader .UserPic img{
+    width: 100%;
+    border-radius: 100%;
+    min-width: 50px;
+}
+.ArticleCommentBox .CommentHeader .UserPic .profileLink{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+}
+.ArticleCommentBox .CommentHeader .NameAndDate .UserName{
+    margin: 0;
+}
+
+.ArticleCommentBox .CommentData{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-basis: 90%;
+
+}
+.ArticleCommentBox .CommentData .CommentBlank{
+    flex-basis: 5%;
+    min-width: 70px;
+
+}
+
+.ArticleCommentBox .CommentData .CommentBody{
+    text-align: left;
+}
+.ArticleCommentBox .CommentData .NameAndDate{
+    text-align: left;
+}
+
+
+.ArticleCommentBox .ArticleCommentKeys{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.ArticleCommentBox .ArticleCommentKeys .ArticleCommentReport{
+    background-color:#ff7b7b ;
+
+    padding: 10px;
+    border-radius: 10px;
+    color: white;
+    font-weight: bolder;
+    width: 100%;
+    margin-top: 5px;
+    opacity: 0;
+    cursor: pointer;
+    transition: 0.1s;
+}
+
+.ArticleCommentBox:hover .ArticleCommentKeys .ArticleCommentReport{
+    opacity: 1;
+
+}
