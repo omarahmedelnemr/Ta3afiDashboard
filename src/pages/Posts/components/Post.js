@@ -4,7 +4,7 @@ import CommentBox from './Comment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import formatDate from '../../../public Func/DateFix';
 import globalVar from '../../../public Func/globalVar';
-import axios from 'axios';
+import axios from '../../../public Func/axiosAuth';
 
 function PostBox({post}) {
     // Validate For anonymous
@@ -141,7 +141,7 @@ function PostBox({post}) {
         }
         setshowErrorMessage(null)
         try{
-            const delResponse = await axios.delete(globalVar.backendURL+"/admin/post",{data:{postID:post.id,reason:reason}})
+            const delResponse = await axios.delete(globalVar.backendURL+"/super/post",{data:{postID:post.id,reason:reason}})
             console.log(delResponse.data)
             parent.querySelector('.backgroundBlock').click()
             parent.parentElement.style.display = 'none'

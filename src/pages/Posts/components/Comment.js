@@ -3,7 +3,7 @@ import './Comment.css';
 import globalVar from '../../../public Func/globalVar';
 import formatDate from '../../../public Func/DateFix';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import axios from 'axios';
+import axios from '../../../public Func/axiosAuth';
 
 function PostCommentBox({commentData}) {
     //// Report Part
@@ -18,7 +18,7 @@ function PostCommentBox({commentData}) {
 
     // Showing the Popup Window
     function ShowPopupReportForm(event){
-        const ReportForm = event.currentTarget.parentElement.parentElement.parentElement.parentElement.querySelector(".ReportPopupWindow")
+        const ReportForm = event.currentTarget.parentElement.parentElement.querySelector(".ReportPopupWindow")
         ReportForm.style.display = 'flex'
         setTimeout(()=> {
             ReportForm.querySelector(".ReportForm").style.top = "0px";
@@ -79,63 +79,63 @@ function PostCommentBox({commentData}) {
         }
 
     }
-  return (
-    <div className='PostCommentBox'>
-        <span className='hidden commentID'>{commentData.id}</span>
-        <div className='CommentHeader'>
-            <div  className='UserPic'>
-                <img src={globalVar.backendURL+"/profilepic/"+commentData.patientProfileImage}/>
-                <a href={"./profile/patient/"+commentData.patientID} target="_blank" className='profileLink'></a>
+    return (
+        <div className='PostCommentBox'>
+            <span className='hidden commentID'>{commentData.id}</span>
+            <div className='CommentHeader'>
+                <div  className='UserPic'>
+                    <img src={globalVar.backendURL+"/profilepic/"+commentData.patientProfileImage}/>
+                    <a href={"./profile/patient/"+commentData.patientID} target="_blank" className='profileLink'></a>
+                </div>
+                
             </div>
-            
-        </div>
-        <div className='CommentData'>
-            <div className='NameAndDate'>
-                <p className='UserName'>{commentData.patientName}</p>
-                <span className='GrayText'>{formatDate(commentData.date)}</span>
+            <div className='CommentData'>
+                <div className='NameAndDate'>
+                    <p className='UserName'>{commentData.patientName}</p>
+                    <span className='GrayText'>{formatDate(commentData.date)}</span>
+                </div>
+                <div className='CommentBody'>
+                    <p>{commentData.comment}</p>
+                </div>
+                
             </div>
-            <div className='CommentBody'>
-                <p>{commentData.comment}</p>
-            </div>
-            
-        </div>
-        <div className='PostCommentKeys'>
-            <div className='PostCommentReport' onClick={ShowPopupReportForm}>
-                Report
-            </div>
-            <div className='PostCommentReactions'>
-                <FontAwesomeIcon icon="fa-solid fa-heart" /> {commentData.reactions}
+            <div className='PostCommentKeys'>
+                <div className='PostCommentReport' onClick={ShowPopupReportForm}>
+                    Report
+                </div>
+                <div className='PostCommentReactions'>
+                    <FontAwesomeIcon icon="fa-solid fa-heart" /> {commentData.reactions}
 
+                </div>
+            </div>
+            
+            <div className='ReportPopupWindow'>
+                <div className='backgroundBlock' onClick={hideReportForm}></div>
+                <div className='ReportForm'>
+                    <h1 className='TitleReport'>Report</h1>
+                    <h3 className='ForNextPost'>The Comment:</h3>
+                    <p className='ReportMainPostText'>{commentData.comment}</p>
+                    <div className='ReportTagOptions'>
+                        <span className='ReportTag' onClick={SelectReportReason}>Spam</span>
+                        <span className='ReportTag' onClick={SelectReportReason}>Nudity</span>
+                        <span className='ReportTag' onClick={SelectReportReason}>Scam</span>
+                        <span className='ReportTag' onClick={SelectReportReason}>Illigal</span>
+                        <span className='ReportTag' onClick={SelectReportReason}>Sucide or Self-injury</span>
+                        <span className='ReportTag' onClick={SelectReportReason}>Violance</span>
+                        <span className='ReportTag' onClick={SelectReportReason}>Hate Speech</span>
+                        <span className='ReportTag' onClick={SelectReportReason}>Somthing Else</span>
+                    </div>
+                    <div className={'ReasonInputForm'+(somthingElse?" show":"")}>
+                        <h2>Reason:</h2>
+                        <p>Write a Simple Message For the Report Reason</p>
+                        <input type='text' placeholder='Write the Message'/>
+                    </div>
+                    <button className='submutReportButton' onClick={submitReportForm}>Submit Report</button>
+                    <p className={'ErrorMessage'+(showErrorMessage?" show":"")}>{showErrorMessage}</p>
+                </div>
             </div>
         </div>
-        
-        <div className='ReportPopupWindow'>
-            <div className='backgroundBlock' onClick={hideReportForm}></div>
-            <div className='ReportForm'>
-                <h1 className='TitleReport'>Report</h1>
-                <h3 className='ForNextPost'>The Comment:</h3>
-                <p className='ReportMainPostText'>{commentData.comment}</p>
-                <div className='ReportTagOptions'>
-                    <span className='ReportTag' onClick={SelectReportReason}>Spam</span>
-                    <span className='ReportTag' onClick={SelectReportReason}>Nudity</span>
-                    <span className='ReportTag' onClick={SelectReportReason}>Scam</span>
-                    <span className='ReportTag' onClick={SelectReportReason}>Illigal</span>
-                    <span className='ReportTag' onClick={SelectReportReason}>Sucide or Self-injury</span>
-                    <span className='ReportTag' onClick={SelectReportReason}>Violance</span>
-                    <span className='ReportTag' onClick={SelectReportReason}>Hate Speech</span>
-                    <span className='ReportTag' onClick={SelectReportReason}>Somthing Else</span>
-                </div>
-                <div className={'ReasonInputForm'+(somthingElse?" show":"")}>
-                    <h2>Reason:</h2>
-                    <p>Write a Simple Message For the Report Reason</p>
-                    <input type='text' placeholder='Write the Message'/>
-                </div>
-                <button className='submutReportButton' onClick={submitReportForm}>Submit Report</button>
-                <p className={'ErrorMessage'+(showErrorMessage?" show":"")}>{showErrorMessage}</p>
-            </div>
-        </div>
-    </div>
-  );
+    );
 }
 
 export default PostCommentBox;
