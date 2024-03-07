@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import './Posts.css';
 import PostBox from './components/Post';
 // import randomizeData from '../../public Func/RandomData';
-import axios from 'axios';
+import axios from '../../public Func/axiosAuth';
 import globalVar from '../../public Func/globalVar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSearchParams } from 'react-router-dom';
