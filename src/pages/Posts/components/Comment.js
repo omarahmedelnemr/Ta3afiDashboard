@@ -69,11 +69,27 @@ function PostCommentBox({commentData}) {
         }
         setshowErrorMessage(null)
         try{
-            const delResponse = await axios.delete(globalVar.backendURL+"/admin/post-comment",{data:{commentID:commentData.id,patientID:commentData.patientID,reason:reason}})
-            console.log(delResponse.data)
+
+
             parent.querySelector('.backgroundBlock').click()
-            parent.parentElement.style.display = 'none'
-            console.log(parent)
+            parent.parentElement.style.height =  parent.parentElement.scrollHeight+"px"
+            console.log(parent.parentElement.scrollHeight)
+            function hideScroll(){
+                parent.parentElement.style.height = '0px'
+                parent.parentElement.style.padding = '0px'
+                parent.parentElement.style.margin = '0px auto'
+            }
+            function dissolve(){
+                parent.parentElement.style.display = 'none'
+
+            }
+            axios.delete(globalVar.backendURL+"/super/post-comment",{data:{commentID:commentData.id,patientID:commentData.patientID,reason:reason}}).then((res)=>{
+                setTimeout(hideScroll, 100)
+                setTimeout(dissolve, 2000)
+            }).catch((err)=>{
+                console.log("Error!!\n",err)
+            })
+
         }catch(err){
             console.log("Error!!\n",err)
         }

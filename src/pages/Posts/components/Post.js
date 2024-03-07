@@ -141,11 +141,25 @@ function PostBox({post}) {
         }
         setshowErrorMessage(null)
         try{
-            const delResponse = await axios.delete(globalVar.backendURL+"/super/post",{data:{postID:post.id,reason:reason}})
-            console.log(delResponse.data)
+
             parent.querySelector('.backgroundBlock').click()
-            parent.parentElement.style.display = 'none'
-            console.log(parent)
+
+            parent.parentElement.style.height =  parent.parentElement.scrollHeight+"px"
+            function hideScroll(){
+                parent.parentElement.style.height = '0px'
+                parent.parentElement.style.padding = '0px'
+                parent.parentElement.style.margin = '0px auto'
+            }
+            function dissolve(){
+                parent.parentElement.style.display = 'none'
+
+            }
+            axios.delete(globalVar.backendURL+"/super/post",{data:{postID:post.id,reason:reason}}).then((res)=>{
+                setTimeout(hideScroll, 100) 
+                setTimeout(dissolve, 2000) 
+            }).catch((err)=>{
+                console.log("Error!!\n",err)
+            })
         }catch(err){
             console.log("Error!!\n",err)
         }
