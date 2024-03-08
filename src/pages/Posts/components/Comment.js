@@ -51,7 +51,7 @@ function PostCommentBox({commentData}) {
     const [showErrorMessage,setshowErrorMessage] = useState(null)
     async function submitReportForm(event){
         var reason = ''
-        const parent = event.currentTarget.parentElement.parentElement
+        const parent = event.currentTarget.closest(".PostCommentBox")
         // Data Reading and Validation
         const selected = event.currentTarget.parentElement.querySelector(".ReportTag.selected")
         if (selected === null){
@@ -72,15 +72,14 @@ function PostCommentBox({commentData}) {
 
 
             parent.querySelector('.backgroundBlock').click()
-            parent.parentElement.style.height =  parent.parentElement.scrollHeight+"px"
-            console.log(parent.parentElement.scrollHeight)
+            parent.style.height =  parent.scrollHeight+"px"
             function hideScroll(){
-                parent.parentElement.style.height = '0px'
-                parent.parentElement.style.padding = '0px'
-                parent.parentElement.style.margin = '0px auto'
+                parent.style.height = '0px'
+                parent.style.padding = '0px'
+                parent.style.margin = '0px auto'
             }
             function dissolve(){
-                parent.parentElement.style.display = 'none'
+                parent.style.display = 'none'
 
             }
             axios.delete(globalVar.backendURL+"/super/post-comment",{data:{commentID:commentData.id,patientID:commentData.patientID,reason:reason}}).then((res)=>{

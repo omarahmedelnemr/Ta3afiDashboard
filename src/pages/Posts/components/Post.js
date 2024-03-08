@@ -90,7 +90,7 @@ function PostBox({post}) {
 
     // Showing the Popup Window
     function ShowPopupReportForm(event){
-        const ReportForm = event.currentTarget.parentElement.parentElement.parentElement.parentElement.querySelector(".ReportPopupWindow")
+        const ReportForm = event.currentTarget.closest(".PostBox").querySelector(".ReportPopupWindow")
         ReportForm.style.display = 'flex'
         setTimeout(()=> {
             ReportForm.querySelector(".ReportForm").style.top = "0px";
@@ -123,7 +123,7 @@ function PostBox({post}) {
     const [showErrorMessage,setshowErrorMessage] = useState(null)
     async function submitReportForm(event){
         var reason = ''
-        const parent = event.currentTarget.parentElement.parentElement
+        const parent = event.currentTarget.closest(".PostBox")
         // Data Reading and Validation
         const selected = event.currentTarget.parentElement.querySelector(".ReportTag.selected")
         if (selected === null){
@@ -144,14 +144,14 @@ function PostBox({post}) {
 
             parent.querySelector('.backgroundBlock').click()
 
-            parent.parentElement.style.height =  parent.parentElement.scrollHeight+"px"
+            parent.style.height =  parent.scrollHeight+"px"
             function hideScroll(){
-                parent.parentElement.style.height = '0px'
-                parent.parentElement.style.padding = '0px'
-                parent.parentElement.style.margin = '0px auto'
+                parent.style.height = '0px'
+                parent.style.padding = '0px'
+                parent.style.margin = '0px auto'
             }
             function dissolve(){
-                parent.parentElement.style.display = 'none'
+                parent.style.display = 'none'
 
             }
             axios.delete(globalVar.backendURL+"/super/post",{data:{postID:post.id,reason:reason}}).then((res)=>{

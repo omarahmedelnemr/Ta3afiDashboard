@@ -81,7 +81,7 @@ function PostBox({post}) {
     const [showErrorMessage,setshowErrorMessage] = useState(null)
     async function submitReportForm(event){
         var reason = ''
-        const parent = event.currentTarget.parentElement.parentElement
+        const parent = event.currentTarget.closest(".PendingPostBox")
         // Data Reading and Validation
         const selected = event.currentTarget.parentElement.querySelector(".ReportTag.selected")
         if (selected === null){
@@ -101,16 +101,16 @@ function PostBox({post}) {
         try{
             parent.querySelector('.backgroundBlock').click()
 
-            parent.parentElement.style.height =  parent.parentElement.scrollHeight+"px"
+            parent.style.height =  parent.scrollHeight+"px"
             function hid(){
-                parent.parentElement.style.height = '0px'
-                parent.parentElement.style.padding = '0px'
-                parent.parentElement.style.margin = '0px auto'
+                parent.style.height = '0px'
+                parent.style.padding = '0px'
+                parent.style.margin = '0px auto'
             }
 
             axios.post(globalVar.backendURL+"/super/post-decision",{postID:post.id,approve:false,reason:reason}).then((res)=>{
                 setTimeout(hid, 100).then(()=>{
-                    parent.parentElement.style.display = 'none'
+                    parent.style.display = 'none'
                 }); 
             }).catch((err)=>{
                 console.log("Error!!\n",err)
