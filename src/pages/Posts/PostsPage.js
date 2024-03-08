@@ -16,7 +16,7 @@ function PostsPage() {
     let [searchParams, setSearchParams] = useSearchParams();
     let keyword  = searchParams.get('keyword');
     let category  = searchParams.get('category');
-    
+    const [loadingStatus,setLoadingStatus] = useState('shown')
     const [activeCategory,setActiveCategory] = useState(category?category:-1)
     const [activeCategoryName,setActiveCategoryName] = useState("All")
     const divRef = useRef(null);
@@ -82,6 +82,7 @@ function PostsPage() {
             else{
                 setPostList([...postList,<p className='noMorePosts'>No More Posts To Display</p>])
             }
+            setLoadingStatus("disabled")
         }
         } catch (err) {
             console.log("Error!!");
@@ -153,6 +154,9 @@ function PostsPage() {
 
     return (
         <div id="SuperPostsPage"  ref={divRef}>
+            <div className={'LoadingScreen '+loadingStatus} >
+                <div className='loadingCircle'></div>
+            </div>
             <div id='PostsSearchFilters'>
                 <p>Find Posts</p>
                 <div className='row'> 
