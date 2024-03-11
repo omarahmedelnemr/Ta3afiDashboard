@@ -2,6 +2,7 @@
     background-color: rgb(246, 246, 246);
     /* box-shadow: -5px 5px 5px gray; */
     width: 75%;
+    padding: 20px;
     padding-bottom: 0;
     margin: 1% auto;
     border-radius: 10px;
@@ -13,7 +14,18 @@
     transition: 0.5s;
     
 }
+@media (max-width:1530px) {
+    .ArticleBox{
+        width: 80%;
 
+    }
+}
+@media (max-width:440px) {
+    .ArticleBox{
+        width: 95%;
+
+    }
+}
 .ArticleBox .ArticleHeader{
     display: flex;
     flex-direction: row;
@@ -203,8 +215,12 @@ background-color: rgb(194, 194, 194);; /* Set a different color on hover if desi
 .ArticleBox .ArticleReadmoreButtons a{
     text-decoration: none;
     color: black;
+    padding: 16px 0px;
+    display: block;
 }
-
+.ArticleBox .ArticleReadmoreButtons a p{
+    margin: 0;
+}
 .ReportPopupWindow{
     position: absolute;
     top: 0px;

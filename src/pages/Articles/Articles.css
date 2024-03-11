@@ -7,6 +7,13 @@
     overflow-y: auto;
     background-color: #e5e7eb;
 }
+@media (max-width:440px) {
+    #SuperArticlesPage{
+        zoom:0.9;
+        height: 115vh;
+
+    }
+}
 #SuperArticlesPage .LoadingScreen{
     position: absolute;
     top: 0px;

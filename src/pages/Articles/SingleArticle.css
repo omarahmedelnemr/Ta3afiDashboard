@@ -24,6 +24,8 @@
 .SingleArticleBox .ArticleHeader .center{
     display: flex;
     flex-direction: row;
+    justify-content: center;
+    align-items: center;
 
 }
 .SingleArticleBox .ArticleHeader .center img{
@@ -162,4 +164,23 @@
 .SingleArticleBox .CommentsButton:hover{
     background-color: rgb(243, 243, 243);
 
+}
+
+
+
+@media (max-width:440px) {
+    .SingleArticleBox{
+        zoom:0.9;
+        padding: 2vh 4%;
+        padding-top: 50px;
+
+
+    }
+    .SingleArticleBox .ArticleHeader{
+        zoom:0.8
+    }
+    .SingleArticleBox .ArticleHeader .center img{
+        width: 75px;
+        height: 75px;
+    }
 }
