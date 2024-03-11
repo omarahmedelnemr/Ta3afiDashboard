@@ -5,14 +5,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 function SideNavBar() {
 
-  const navList = ['dashboard',"posts","posts-pending","artilces","issues","artilces-pending","supervisors"] 
+  const navList = ['dashboard',"posts","posts-pending","articles","issues","artilces-pending","supervisors"] 
     const lang = 'en'// localStorage.getItem('lang') 
     const compText = {
         Dashboard:         lang === 'en' ? "Dashboard":"الرئيسية",
         posts:             lang === 'en' ? "Posts":"المنشورات",
         postsPending:   lang === 'en' ? "Posts (Pending)":"المنشورات المتوقفه ",
-        artilces:          lang === 'en' ? "Articles" : "المقالات" ,
-        artilcesPending:          lang === 'en' ? "Articles (Pending)" : "المقالات المتوقفه" ,
+        Articles:          lang === 'en' ? "Articles" : "المقالات" ,
+        ArticlesPending:          lang === 'en' ? "Articles (Pending)" : "المقالات المتوقفه" ,
         supervisors:       lang === 'en' ? "Supervisors" :"المسئولون",
         Issues:            lang === 'en' ? "Issues":"البلاغات" 
     }
@@ -31,8 +31,8 @@ return (
             <SideNavigationButton route={"supervisors"} text={compText["supervisors"]} icon={<FontAwesomeIcon icon="fa-solid fa-user-tie" />}/>
             <SideNavigationButton route={"posts-pending"} text={compText["postsPending"]} icon={<FontAwesomeIcon icon="fa-solid fa-comments" />}/>
             <SideNavigationButton route={"posts"} text={compText["posts"]} icon={<FontAwesomeIcon icon="fa-solid fa-comments" />}/>
-            <SideNavigationButton route={"artilces-pending"} text={compText["artilcesPending"]} icon={<FontAwesomeIcon icon="fa-solid fa-newspaper" />}/>
-            <SideNavigationButton route={"artilces"} text={compText["artilces"]} icon={<FontAwesomeIcon icon="fa-solid fa-newspaper" />}/>
+            <SideNavigationButton route={"articles-pending"} text={compText["ArticlesPending"]} icon={<FontAwesomeIcon icon="fa-solid fa-newspaper" />}/>
+            <SideNavigationButton route={"articles"} text={compText["Articles"]} icon={<FontAwesomeIcon icon="fa-solid fa-newspaper" />}/>
             <SideNavigationButton route={"issues"} text={compText["Issues"]} icon={<FontAwesomeIcon icon="fa-solid fa-flag" />}/>
         </SideNavigation>
     </div>
