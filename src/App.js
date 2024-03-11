@@ -11,6 +11,7 @@ import TestNotifyPage from './pages/test/TestNotify';
 import PostsPage from './pages/Posts/PostsPage';
 import ArtilcesPage from './pages/Articles/ArticlesPage';
 import PostsPendingPage from './pages/PostsPending/PostsPendingPage';
+import SingleArticlesPage from './pages/Articles/SingleArticle';
 function App() {
   return (
     <div className="App">
@@ -22,7 +23,8 @@ function App() {
                 <Route path='/supervisors' element={<SupervisorsPage/>} />
                 <Route path='/posts' element={<PostsPage/>} />
                 <Route path='/posts-pending' element={<PostsPendingPage/>} />
-                <Route path='/artilces' element={<ArtilcesPage/>} />
+                <Route path='/articles' element={<ArtilcesPage/>} />
+                <Route path='/article/:articleID' element={<SingleArticlesPage/>} />
                 {/* <Route path='/issues' element={<IssusPage/>} /> */}
                 <Route path='/test' element={<TestChatPage/>} />
                 <Route path='/testnotify' element={<TestNotifyPage/>} />

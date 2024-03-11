@@ -7,7 +7,34 @@
     overflow-y: auto;
     background-color: #e5e7eb;
 }
+#SuperArticlesPage .LoadingScreen{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(212, 212, 212, 0.354);
+    z-index: 99;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#SuperArticlesPage .LoadingScreen.disabled{
+    display: none;
+}
+#SuperArticlesPage .LoadingScreen .loadingCircle{
+    width: 70px;
+    height: 70px;
+    border: 7px white dashed;
+    border-radius: 100%;
+    /* background-color: red; */
+}
 
+@media (prefers-reduced-motion: no-preference) {
+    #SuperArticlesPage .LoadingScreen .loadingCircle {
+      animation: App-logo-spin infinite 20s linear;
+    }
+  }
 #ArticlesSearchFilters{
     background-color: white;
     width: 72%;

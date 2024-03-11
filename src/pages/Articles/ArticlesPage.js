@@ -2,13 +2,13 @@ import React, { useRef, useEffect, useState } from 'react';
 import './Articles.css';
 import ArticleBox from './components/Article';
 // import randomizeData from '../../public Func/RandomData';
-import axios from 'axios';
+import axios from '../../public Func/axiosAuth';
 import globalVar from '../../public Func/globalVar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSearchParams } from 'react-router-dom';
 
 
-function ArtilcesPage() {
+function ArticlesPage() {
     const [articleList,setArticleList] = useState([])
     const [isAtEnd, setIsAtEnd] = useState(true);
     const [loadBlock,setIncreaseLoadBlock] = useState(1);
@@ -16,7 +16,7 @@ function ArtilcesPage() {
     let [searchParams, setSearchParams] = useSearchParams();
     let keyword  = searchParams.get('keyword');
     let category  = searchParams.get('category');
-    
+    const [loadingStatus,setLoadingStatus] = useState('shown')
     const [activeCategory,setActiveCategory] = useState(category?category:-1)
     const [activeCategoryName,setActiveCategoryName] = useState("All")
     const divRef = useRef(null);
@@ -37,10 +37,10 @@ function ArtilcesPage() {
             for(var cat of res.data){
 
                 if(Number(activeCategory) === Number(cat.id)){
-                    setActiveCategoryName(cat.category)
-                    categoryListElements.push(<span id={cat.id} key={cat.id} className={'categoryOption activeCategory'} onClick={SelectCategory}>{cat.category}</span>)
+                    setActiveCategoryName(cat.name)
+                    categoryListElements.push(<span id={cat.id} key={cat.id} className={'categoryOption activeCategory'} onClick={SelectCategory}>{cat.name}</span>)
                 }else{
-                    categoryListElements.push(<span id={cat.id} key={cat.id} className={'categoryOption'} onClick={SelectCategory}>{cat.category}</span>)
+                    categoryListElements.push(<span id={cat.id} key={cat.id} className={'categoryOption'} onClick={SelectCategory}>{cat.name}</span>)
 
                 }
             }
@@ -82,6 +82,7 @@ function ArtilcesPage() {
             else{
                 setArticleList([...articleList,<p className='noMoreArticles'>No More Articles To Display</p>])
             }
+            setLoadingStatus("disabled")
         }
         } catch (err) {
             console.log("Error!!");
@@ -153,6 +154,9 @@ function ArtilcesPage() {
 
     return (
         <div id="SuperArticlesPage"  ref={divRef}>
+            <div className={'LoadingScreen '+loadingStatus} >
+                <div className='loadingCircle'></div>
+            </div>
             <div id='ArticlesSearchFilters'>
                 <p>Find Articles</p>
                 <div className='row'> 
@@ -178,4 +182,4 @@ function ArtilcesPage() {
     );
 }
 
-export default ArtilcesPage;
+export default ArticlesPage;

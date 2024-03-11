@@ -4,20 +4,13 @@ import CommentBox from './ArticleComment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import formatDate from '../../../public Func/DateFix';
 import globalVar from '../../../public Func/globalVar';
-import axios from 'axios';
+import axios from '../../../public Func/axiosAuth';
 
 function ArticleBox({article}) {
     // Validate For anonymous
-    var UserImage,UserName;
-    if(article.hideIdentity){
-        UserImage= <div className='anonymous'>
-                        <FontAwesomeIcon icon="fa-solid fa-user-secret" />
-                    </div>
-        UserName = "Anonymous Member"
-    }else{
-        UserImage= <img src={globalVar.backendURL+"/profilepic/"+article.doctorProfileImage} alt={article.doctorName + " Profile Pic"}/>
-        UserName = article.doctorName+ " - " + article.doctorTitle
-    }
+    var UserImage= <img src={globalVar.backendURL+"/profilepic/"+article.doctorProfileImage} alt={article.doctorName + " Profile Pic"}/>
+    var UserName = article.doctorName
+    
 
     // AI Rating Colors
     var RateColor = 'rateGreen'
@@ -28,54 +21,13 @@ function ArticleBox({article}) {
         RateColor = 'rateYellow'
     }
 
-
-    // Uploaded Images
-    const images = []
-    for(var i of article.images){
-        images.push(<img src={globalVar.backendURL+"/file/"+i.link}/>)
-    }
-    
-
     // Comments
     var [SeeCommentButton,setButtonText] = useState("See Comments")
     var [CommentButtenState,SetButtonState] = useState("enabled")
     const [commentList,setCommentList] = useState([]) 
-    const [loadBlock,IncreaseLoadBlock] = useState(1) 
-
     if (article.commentsNumber ==0){
         SeeCommentButton   = "No Comments on This Article"
         CommentButtenState = "disabled"
-    }
-    
-    // Load a Comment according to the Current LoadBlock
-    async function loadComments(event){
-        if(event.currentTarget.classList.contains("disabled")){
-            return;
-        }
-        setButtonText("Loading ...")
-        try{
-            const res  = await axios.get(globalVar.backendURL+"/blog/comment-list?loadBlock="+loadBlock+"&articleID="+article.id)
-            
-            const TempCommentList = commentList
-            for(var comment of res.data){
-                TempCommentList.push(<CommentBox commentData = {comment}/>)
-            }
-            setCommentList(TempCommentList)
-            console.log(res.data)
-            IncreaseLoadBlock(loadBlock+1)
-            setButtonText("See More Comments")
-            if(res.data.length <2 || commentList.length >= article.commentsNumber){
-                setButtonText("No More Comments")
-                SetButtonState("disabled")
-            }
-        
-
-
-        }catch(err){
-            console.log("Error!!")
-            console.log(err)
-            setButtonText("See Comments")
-        }
     }
 
     //// Report Part
@@ -90,7 +42,7 @@ function ArticleBox({article}) {
 
     // Showing the Popup Window
     function ShowPopupReportForm(event){
-        const ReportForm = event.currentTarget.parentElement.parentElement.parentElement.parentElement.querySelector(".ReportPopupWindow")
+        const ReportForm = event.currentTarget.closest(".ArticleBox").querySelector(".ReportPopupWindow")
         ReportForm.style.display = 'flex'
         setTimeout(()=> {
             ReportForm.querySelector(".ReportForm").style.top = "0px";
@@ -123,7 +75,7 @@ function ArticleBox({article}) {
     const [showErrorMessage,setshowErrorMessage] = useState(null)
     async function submitReportForm(event){
         var reason = ''
-        const parent = event.currentTarget.parentElement.parentElement
+        const parent = event.currentTarget.closest(".ArticleBox")
         // Data Reading and Validation
         const selected = event.currentTarget.parentElement.querySelector(".ReportTag.selected")
         if (selected === null){
@@ -141,11 +93,25 @@ function ArticleBox({article}) {
         }
         setshowErrorMessage(null)
         try{
-            const delResponse = await axios.delete(globalVar.backendURL+"/admin/article",{data:{articleID:article.id,reason:reason}})
-            console.log(delResponse.data)
+
             parent.querySelector('.backgroundBlock').click()
-            parent.parentElement.style.display = 'none'
-            console.log(parent)
+
+            parent.style.height =  parent.scrollHeight+"px"
+            function hideScroll(){
+                parent.style.height = '0px'
+                parent.style.padding = '0px'
+                parent.style.margin = '0px auto'
+            }
+            function dissolve(){
+                parent.style.display = 'none'
+
+            }
+            axios.delete(globalVar.backendURL+"/super/article",{data:{articleID:article.id,reason:reason}}).then((res)=>{
+                setTimeout(hideScroll, 100) 
+                setTimeout(dissolve, 2000) 
+            }).catch((err)=>{
+                console.log("Error!!\n",err)
+            })
         }catch(err){
             console.log("Error!!\n",err)
         }
@@ -157,7 +123,7 @@ function ArticleBox({article}) {
             <div className='ArticleHeader'>
                 <div  className='UserPic'>
                     {UserImage}
-                    {article.hideIdentity?'':<a href={"./profile/patient/"+article.patientID} className='profileLink' target="_blank"></a>}
+                    <a href={"./profile/doctor/"+article.doctorID} className='profileLink' target="_blank"></a>
                 </div>
                 <div className='NameAndDateAndData'>
                     <div className='left'>
@@ -174,16 +140,17 @@ function ArticleBox({article}) {
                 </div>
             </div>
             <div className='ArticleBody'>
-                <h3>{article.title}</h3>
-                <p>{article.mainText}</p>
-                <div className='ArticleImageContainer one'>
-                    {images}
+                <div  className={'CoverImage '+(article.covorImage?'':'notShown')}>
+                    <img src={globalVar.backendURL+"/file/"+article.covorImage} alt='Cover Image'/>
                 </div>
+                <h2>{article.title}</h2>
+                <p>{article.mainText} ... </p>
+                
             </div>
             <div className='ArticleReactions'>
                 <div className='left'>
                     <span title='How Many Times the Article Was Displayed on a Screen'>
-                        <FontAwesomeIcon icon="fa-solid fa-eye" /> {article.views}
+                        <FontAwesomeIcon icon="fa-solid fa-eye" /> {article.seenCount}
                     </span>
                 
                 </div>
@@ -196,11 +163,8 @@ function ArticleBox({article}) {
                     </span>
                 </div>
             </div>
-            <div className='ArticleCommentSection'>
-                {commentList}
-            </div>
-            <div className={'ArticleCommentsButtons '+CommentButtenState} onClick={loadComments}>
-                <p>{SeeCommentButton}</p>
+            <div className='ArticleReadmoreButtons'>
+                <a href={'/article/'+article.id}><p>Read More</p></a>
             </div>
 
             <div className='ReportPopupWindow'>
