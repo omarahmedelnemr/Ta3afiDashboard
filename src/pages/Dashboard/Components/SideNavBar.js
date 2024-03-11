@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 function SideNavBar() {
 
-  const navList = ['dashboard',"posts","posts-pending","articles","issues","artilces-pending","supervisors"] 
+  const navList = ['dashboard',"posts","posts-pending","articles","issues","articles-pending","supervisors"] 
     const lang = 'en'// localStorage.getItem('lang') 
     const compText = {
         Dashboard:         lang === 'en' ? "Dashboard":"الرئيسية",

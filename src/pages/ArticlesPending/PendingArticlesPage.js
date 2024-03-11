@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
-import './PostsPending.css';
-import PostBox from './components/PostPending';
+import './Articles.css';
+import ArticleBox from './components/Article';
 // import randomizeData from '../../public Func/RandomData';
 import axios from '../../public Func/axiosAuth';
 import globalVar from '../../public Func/globalVar';
@@ -8,15 +8,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSearchParams } from 'react-router-dom';
 
 
-function PostsPendingPage() {
-    const [postList,setPostList] = useState([])
+function PendingArticlesPage() {
+    const [articleList,setArticleList] = useState([])
     const [isAtEnd, setIsAtEnd] = useState(true);
     const [loadBlock,setIncreaseLoadBlock] = useState(1);
     const [categoryList,setCategoryList]   = useState([])
     let [searchParams, setSearchParams] = useSearchParams();
     let keyword  = searchParams.get('keyword');
     let category  = searchParams.get('category');
-    
     const [loadingStatus,setLoadingStatus] = useState('shown')
     const [activeCategory,setActiveCategory] = useState(category?category:-1)
     const [activeCategoryName,setActiveCategoryName] = useState("All")
@@ -24,7 +23,7 @@ function PostsPendingPage() {
 
     // Getting All Available Categories
     useEffect(()=>{
-        axios.get(globalVar.backendURL + "/community/community-list").then((res)=>{
+        axios.get(globalVar.backendURL + "/blog/category-list").then((res)=>{
             console.log(res.data)
             const categoryListElements = []
             // Remove Active From Default All Category
@@ -53,35 +52,35 @@ function PostsPendingPage() {
         })
     },[])
 
-    // Sending To Get The First Posts
+    // Sending To Get The First Articles
     useEffect(() => {
         const fetchData = async () => {
         try {
             if (isAtEnd){
             const res = await axios.get(
             globalVar.backendURL +
-                "/super/unapproved-posts?loadBlock=" +
+                "/blog/article-feed-admin?loadBlock=" +
                 loadBlock +
                 "&effect=0" +
                 (keyword ? "&searchText=" + keyword : '') +
-                ((Number(category)!== -1 &&category) ? "&communityID=" + category : "")
+                ((Number(category)!== -1 &&category) ? "&categoryID=" + category : "")
             );
     
-            const newPostList = res.data.map((post) => (
-                <PostBox id={post.id} key={post.id} post={post} />
+            const newArticleList = res.data.map((article) => (
+                <ArticleBox id={article.id} key={article.id} article={article} />
             ));
-            if (newPostList.length >0){
-                setPostList([...postList,newPostList]);
+            if (newArticleList.length >0){
+                setArticleList([...articleList,newArticleList]);
                 setIncreaseLoadBlock(loadBlock + 1);
                 setIsAtEnd(false)
             }
-            else if(postList.length === 0){
-                setPostList([<div className={'NoPostsToDisplay'}>
-                                <p>No Posts To Display</p>
+            else if(articleList.length === 0){
+                setArticleList([<div className={'NoArticlesToDisplay'}>
+                                <p>No Articles To Display</p>
                             </div>])
             }
             else{
-                setPostList([...postList,<p className='noMorePosts'>No More Posts To Display</p>])
+                setArticleList([...articleList,<p className='noMoreArticles'>No More Articles To Display</p>])
             }
             setLoadingStatus("disabled")
         }
@@ -154,12 +153,12 @@ function PostsPendingPage() {
     }
 
     return (
-        <div id="SuperPendingPostsPage"  ref={divRef}>
+        <div id="SuperArticlesPage"  ref={divRef}>
             <div className={'LoadingScreen '+loadingStatus} >
                 <div className='loadingCircle'></div>
             </div>
-            <div id='PostsSearchFilters'>
-                <p>Find Posts</p>
+            <div id='ArticlesSearchFilters'>
+                <p>Find Articles</p>
                 <div className='row'> 
                     <input type='text' className='SearchKeyWord' placeholder='Search By Key Word' defaultValue={keyword?keyword:""}/>
                     <div className='categories' onClick={DropDownMenuToggle}>
@@ -174,13 +173,13 @@ function PostsPendingPage() {
                 </div> 
 
             </div>
-            <div id='AdminPostsFeed'>
+            <div id='AdminArticlesFeed'>
             
-                {postList}  
+                {articleList}  
 
             </div>
         </div>
     );
 }
 
-export default PostsPendingPage;
+export default PendingArticlesPage;

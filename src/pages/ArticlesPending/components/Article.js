@@ -1,40 +1,33 @@
 import React, { useEffect, useState } from 'react';
-import './PostPending.css';
-// import CommentBox from './Comment';
+import './Article.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import formatDate from '../../../public Func/DateFix';
 import globalVar from '../../../public Func/globalVar';
 import axios from '../../../public Func/axiosAuth';
 
-function PostBox({post}) {
+function ArticleBox({article}) {
     // Validate For anonymous
-    var UserImage,UserName;
-    if(post.hideIdentity){
-        UserImage= <div className='anonymous'>
-                        <FontAwesomeIcon icon="fa-solid fa-user-secret" />
-                    </div>
-        UserName = "Anonymous Member"
-    }else{
-        UserImage= <img src={globalVar.backendURL+"/profilepic/"+post.userProfileImage} alt={post.userName + " Profile Pic"}/>
-        UserName = post.userName
-    }
+    var UserImage= <img src={globalVar.backendURL+"/profilepic/"+article.doctorProfileImage} alt={article.doctorName + " Profile Pic"}/>
+    var UserName = article.doctorName
+    
 
     // AI Rating Colors
     var RateColor = 'rateGreen'
-    console.log(Number(post.AI_saftyRate))
-    if (Number(post.AI_saftyRate)<50){
+    console.log(Number(article.AI_saftyRate))
+    if (Number(article.AI_saftyRate)<50){
         RateColor = 'rateRed'
-    }else if (Number(post.AI_saftyRate)<75){
+    }else if (Number(article.AI_saftyRate)<75){
         RateColor = 'rateYellow'
     }
 
-
-    // Uploaded Images
-    const images = []
-    for(var i of post.images){
-        images.push(<img src={globalVar.backendURL+"/file/"+i.link}/>)
+    // Comments
+    var [SeeCommentButton,setButtonText] = useState("See Comments")
+    var [CommentButtenState,SetButtonState] = useState("enabled")
+    const [commentList,setCommentList] = useState([]) 
+    if (article.commentsNumber ==0){
+        SeeCommentButton   = "No Comments on This Article"
+        CommentButtenState = "disabled"
     }
-    
 
     //// Report Part
     const [somthingElse,setsomthingElse] = useState(false)
@@ -47,8 +40,8 @@ function PostBox({post}) {
     }
 
     // Showing the Popup Window
-    function RejectPost(event){
-        const ReportForm = event.currentTarget.parentElement.parentElement.parentElement.parentElement.querySelector(".ReportPopupWindow")
+    function ShowPopupReportForm(event){
+        const ReportForm = event.currentTarget.closest(".ArticleBox").querySelector(".ReportPopupWindow")
         ReportForm.style.display = 'flex'
         setTimeout(()=> {
             ReportForm.querySelector(".ReportForm").style.top = "0px";
@@ -81,7 +74,7 @@ function PostBox({post}) {
     const [showErrorMessage,setshowErrorMessage] = useState(null)
     async function submitReportForm(event){
         var reason = ''
-        const parent = event.currentTarget.closest(".PendingPostBox")
+        const parent = event.currentTarget.closest(".ArticleBox")
         // Data Reading and Validation
         const selected = event.currentTarget.parentElement.querySelector(".ReportTag.selected")
         if (selected === null){
@@ -99,88 +92,111 @@ function PostBox({post}) {
         }
         setshowErrorMessage(null)
         try{
+
             parent.querySelector('.backgroundBlock').click()
 
             parent.style.height =  parent.scrollHeight+"px"
-            function hid(){
+            function hideScroll(){
                 parent.style.height = '0px'
                 parent.style.padding = '0px'
                 parent.style.margin = '0px auto'
             }
+            function dissolve(){
+                parent.style.display = 'none'
 
-            axios.post(globalVar.backendURL+"/super/post-decision",{postID:post.id,approve:false,reason:reason}).then((res)=>{
-                setTimeout(hid, 100).then(()=>{
-                    parent.style.display = 'none'
-                }); 
+            }
+            axios.delete(globalVar.backendURL+"/super/article",{data:{articleID:article.id,reason:reason}}).then((res)=>{
+                setTimeout(hideScroll, 100) 
+                setTimeout(dissolve, 2000) 
             }).catch((err)=>{
                 console.log("Error!!\n",err)
             })
-
         }catch(err){
             console.log("Error!!\n",err)
         }
 
     }
-
-    async function AcceptPost(event){
+        // Showing the Popup Window
+        // function RejectPost(event){
+        //     const ReportForm = event.currentTarget.parentElement.parentElement.parentElement.parentElement.querySelector(".ReportPopupWindow")
+        //     ReportForm.style.display = 'flex'
+        //     setTimeout(()=> {
+        //         ReportForm.querySelector(".ReportForm").style.top = "0px";
+        //       }, 100);
+    
+        //     // Clear the Window
+        //     setsomthingElse(false)
+        //     setshowErrorMessage(null)
+        //     const selected = ReportForm.querySelector(".selected")
+        //     if (selected !== null){
+        //         selected.classList.remove("selected")
+        //     }
+        // }
+        // async function AcceptPost(event){
         
-        try{
-            const parent = event.currentTarget.parentElement.parentElement.parentElement.parentElement
-            parent.style.height =  parent.scrollHeight+"px"
-            function hid(){
-                parent.style.height = '0px'
-                parent.style.padding = '0px'
-                parent.style.margin = '0px auto'
-            }
-
-            axios.post(globalVar.backendURL+"/super/post-decision",{postID:post.id,approve:true}).then((res)=>{
-                setTimeout(hid, 100).then(()=>{
-                    parent.style.display = 'none'
-                }); 
-            }).catch((err)=>{
-                console.log("Error!!\n",err)
-            })
-            
-
-        }catch(err){
-            console.log("Error!!\n",err)
-        }
-    }
+        //     try{
+        //         const parent = event.currentTarget.parentElement.parentElement.parentElement.parentElement
+        //         parent.style.height =  parent.scrollHeight+"px"
+        //         function hid(){
+        //             parent.style.height = '0px'
+        //             parent.style.padding = '0px'
+        //             parent.style.margin = '0px auto'
+        //         }
+    
+        //         axios.post(globalVar.backendURL+"/super/post-decision",{postID:post.id,approve:true}).then((res)=>{
+        //             setTimeout(hid, 100).then(()=>{
+        //                 parent.style.display = 'none'
+        //             }); 
+        //         }).catch((err)=>{
+        //             console.log("Error!!\n",err)
+        //         })
+                
+    
+        //     }catch(err){
+        //         console.log("Error!!\n",err)
+        //     }
+        // }
     return (
-        <div className="PendingPostBox" id={post.id}>
-            <span className='hidden postID'>{post.id}</span>
-            <div className='PostHeader'>
+        <div className="ArticleBox" id={article.id}>
+            <span className='hidden articleID'>{article.id}</span>
+            <div className='ArticleHeader'>
                 <div  className='UserPic'>
                     {UserImage}
-                    {post.hideIdentity?'':<a href={"./profile/patient/"+post.patientID} className='profileLink' target="_blank"></a>}
+                    <a href={"./profile/doctor/"+article.doctorID} className='profileLink' target="_blank"></a>
                 </div>
                 <div className='NameAndDateAndData'>
                     <div className='left'>
-                        <p>{UserName} {post.edited? <span className='GrayText'>(edited)</span>:''}</p>
-                        <span className='GrayText'>{formatDate(post.date)}</span>
+                        <p>{UserName} {article.edited? <span className='GrayText'>(edited)</span>:''}</p>
+                        <span className='GrayText'>{formatDate(article.date)}</span>
                     </div>
                     <div className='center AIRate'>
-                        <p>AI Rating: <span className={RateColor}>{post.AI_saftyRate}%</span> - ({post.AI_saftyWord})</p>
+                        <p>AI Rating: <span className={RateColor}>{article.AI_saftyRate}%</span> - ({article.AI_saftyWord})</p>
                     </div>
                     <div className='Tags right'>
-                        <span className='Community'>{post.community}</span>
-                        <span className='Accept' onClick={AcceptPost}>Accept</span>
-                        <span className='Report' onClick={RejectPost}>Reject</span>
+                        <span className='Community'>{article.category}</span>
+                        {/* <span className='Accept' onClick={AcceptPost}>Accept</span>
+                        <span className='Report' onClick={RejectPost}>Reject</span> */}
+                        <span className='Accept' >Accept</span>
+                        <span className='Report'>Reject</span>
                     </div>
                 </div>
             </div>
-            <div className='PostBody'>
-                <p>{post.mainText}</p>
-                <div className='PostImageContainer one'>
-                    {images}
+            <div className='ArticleBody'>
+                <div  className={'CoverImage '+(article.covorImage?'':'notShown')}>
+                    <img src={globalVar.backendURL+"/file/"+article.covorImage} alt='Cover Image'/>
                 </div>
+                <h2>{article.title}</h2>
+                <p>{article.mainText} ... </p>
+                
             </div>
-            <div className='PostReactions'>
+            <div className='ArticleReactions'>
                 <div className='left'>
+                    {/* <span title='How Many Times the Article Was Displayed on a Screen'>
+                        <FontAwesomeIcon icon="fa-solid fa-eye" /> {article.seenCount}
+                    </span> */}
                 
                 </div>
                 <div className='right'>
-                    
                     {/* <span title='How Many Times the Post Was Displayed on a Screen'>
                         <FontAwesomeIcon icon="fa-solid fa-bookmark" />
                     </span> */}
@@ -189,13 +205,16 @@ function PostBox({post}) {
                     </span>
                 </div>
             </div>
+            <div className='ArticleReadmoreButtons'>
+                <a href={'/article/'+article.id}><p>Read More</p></a>
+            </div>
 
             <div className='ReportPopupWindow'>
                 <div className='backgroundBlock' onClick={hideReportForm}></div>
                 <div className='ReportForm'>
-                    <h1 className='TitleReport'>Reject</h1>
-                    <h3 className='ForNextPost'>The Post:</h3>
-                    <p className='ReportMainPostText'>{post.mainText}</p>
+                    <h1 className='TitleReport'>Report</h1>
+                    <h3 className='ForNextArticle'>The Article:</h3>
+                    <p className='ReportMainArticleText'>{article.title}</p>
                     <div className='ReportTagOptions'>
                         <span className='ReportTag' onClick={SelectReportReason}>Spam</span>
                         <span className='ReportTag' onClick={SelectReportReason}>Nudity</span>
@@ -208,10 +227,10 @@ function PostBox({post}) {
                     </div>
                     <div className={'ReasonInputForm'+(somthingElse?" show":"")}>
                         <h2>Reason:</h2>
-                        <p>Write a Simple Message For the Reject Reason</p>
+                        <p>Write a Simple Message For the Report Reason</p>
                         <input type='text' placeholder='Write the Message'/>
                     </div>
-                    <button className='submutReportButton' onClick={submitReportForm}>Submit Reject</button>
+                    <button className='submutReportButton' onClick={submitReportForm}>Submit Report</button>
                     <p className={'ErrorMessage'+(showErrorMessage?" show":"")}>{showErrorMessage}</p>
                 </div>
             </div>
@@ -219,4 +238,4 @@ function PostBox({post}) {
   );
 }
 
-export default PostBox;
+export default ArticleBox;

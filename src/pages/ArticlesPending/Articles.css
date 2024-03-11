@@ -1,4 +1,4 @@
-#SuperPendingPostsPage{
+#SuperArticlesPage{
     width: 100%;
     /* display: flex; */
     flex-direction: column;
@@ -7,8 +7,42 @@
     overflow-y: auto;
     background-color: #e5e7eb;
 }
+@media (max-width:440px) {
+    #SuperArticlesPage{
+        zoom:0.9;
+        height: 115vh;
 
-#PostsSearchFilters{
+    }
+}
+#SuperArticlesPage .LoadingScreen{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(212, 212, 212, 0.354);
+    z-index: 99;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#SuperArticlesPage .LoadingScreen.disabled{
+    display: none;
+}
+#SuperArticlesPage .LoadingScreen .loadingCircle{
+    width: 70px;
+    height: 70px;
+    border: 7px white dashed;
+    border-radius: 100%;
+    /* background-color: red; */
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    #SuperArticlesPage .LoadingScreen .loadingCircle {
+      animation: App-logo-spin infinite 20s linear;
+    }
+  }
+#ArticlesSearchFilters{
     background-color: white;
     width: 72%;
     margin: 20px auto;
@@ -21,46 +55,18 @@
     box-shadow: 0px 0px 10px rgba(149, 149, 149, 0.286);
 
 }
-#SuperPendingPostsPage .LoadingScreen{
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    height: 100%;
-    width: 100%;
-    background-color: rgba(212, 212, 212, 0.354);
-    z-index: 99;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-#SuperPendingPostsPage .LoadingScreen.disabled{
-    display: none;
-}
-#SuperPendingPostsPage .LoadingScreen .loadingCircle{
-    width: 70px;
-    height: 70px;
-    border: 7px white dashed;
-    border-radius: 100%;
-    /* background-color: red; */
-}
-
-@media (prefers-reduced-motion: no-preference) {
-    #SuperPendingPostsPage .LoadingScreen .loadingCircle {
-      animation: App-logo-spin infinite 20s linear;
-    }
-  }
-#PostsSearchFilters p{
+#ArticlesSearchFilters p{
     margin-left: 10px;
     font-weight: bolder;
     font-size: 20px;
     margin-top: 0px
 }
-#PostsSearchFilters .row{
+#ArticlesSearchFilters .row{
     width: 100%;
     display: flex;
     flex-direction: row;
 }
-#PostsSearchFilters input{
+#ArticlesSearchFilters input{
     flex-basis: 80%;
     margin: 0px;
     margin-right:  0.2%;
@@ -69,7 +75,7 @@
     border-radius: 5px;
     border:1px solid gray;
 }
-#PostsSearchFilters .categories{
+#ArticlesSearchFilters .categories{
     flex-basis: 20%;
     border-radius: 5px;
     background-color: white;
@@ -83,11 +89,11 @@
     position: relative;
 
 }
-#PostsSearchFilters .categories .arrowIcon{
+#ArticlesSearchFilters .categories .arrowIcon{
     transition: 0.3s;
 }
 
-#PostsSearchFilters .categories .CategoryOptionsDropList{
+#ArticlesSearchFilters .categories .CategoryOptionsDropList{
     /* display: none; */
     position: absolute;
     display: flex;
@@ -106,22 +112,22 @@
     box-shadow: 0px 5px 10px rgb(112, 112, 112);
      /* rgba(149, 149, 149, 0.286); */
 }
-#PostsSearchFilters .categories .categoryOption{
+#ArticlesSearchFilters .categories .categoryOption{
     padding: 10px;
     margin: 3PX;
     border-radius: 5px;
     cursor: pointer;
     transition: 0.3s;
 }
-#PostsSearchFilters .categories .categoryOption:hover{
+#ArticlesSearchFilters .categories .categoryOption:hover{
     background-color: rgb(215, 215, 215);
 
 }
-#PostsSearchFilters .categories .categoryOption.activeCategory{
+#ArticlesSearchFilters .categories .categoryOption.activeCategory{
     background-color: rgb(159, 159, 159);
 
 }
-#PostsSearchFilters .searchButton{
+#ArticlesSearchFilters .searchButton{
     flex-basis: 5%;
     border: 1px solid rgba(0, 0, 0, 0);
     border-radius: 5px;
@@ -134,12 +140,12 @@
     transition: 0.3s;
 }
 
-#PostsSearchFilters .searchButton:hover{
+#ArticlesSearchFilters .searchButton:hover{
     background-color: #0db2c4;
 
 }
 
-#AdminPostsFeed .NoPostsToDisplay{
+#AdminArticlesFeed .NoArticlesToDisplay{
     color: rgba(128, 128, 128, 0.395);
     font-weight: bolder;
     height: 50vh;
@@ -149,7 +155,7 @@
     font-size: 25px;
 }
 
-#AdminPostsFeed .noMorePosts{
+#AdminArticlesFeed .noMoreArticles{
     color: rgba(128, 128, 128, 0.395);
     font-weight: bolder;
 }

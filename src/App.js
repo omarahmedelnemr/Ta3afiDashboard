@@ -12,6 +12,7 @@ import PostsPage from './pages/Posts/PostsPage';
 import ArtilcesPage from './pages/Articles/ArticlesPage';
 import PostsPendingPage from './pages/PostsPending/PostsPendingPage';
 import SingleArticlesPage from './pages/Articles/SingleArticle';
+import PendingArticlesPage from './pages/ArticlesPending/PendingArticlesPage';
 function App() {
   return (
     <div className="App">
@@ -25,6 +26,7 @@ function App() {
                 <Route path='/posts-pending' element={<PostsPendingPage/>} />
                 <Route path='/articles' element={<ArtilcesPage/>} />
                 <Route path='/article/:articleID' element={<SingleArticlesPage/>} />
+                <Route path='/articles-pending' element={<PendingArticlesPage/>} />
                 {/* <Route path='/issues' element={<IssusPage/>} /> */}
                 <Route path='/test' element={<TestChatPage/>} />
                 <Route path='/testnotify' element={<TestNotifyPage/>} />
