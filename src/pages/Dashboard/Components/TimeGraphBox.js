@@ -34,18 +34,21 @@ const data = {
     label: 'My First Dataset',
     data: [65, 59, 80, 81, 56, 55, 40],
     fill: false,
+    backgroundColor:"Yellow",
     borderColor: 'Yellow',
     tension: 0.1
   },{
     label: 'My First Dataset',
     data: [10, 20, 30, 23, 15, 25, 66],
     fill: false,
+    backgroundColor:"red",
     borderColor: 'red',
     tension: 0.1
   },{
     label: 'My First Dataset',
     data: [10, 20, 30, 40, 45, 52, 60],
     fill: false,
+    backgroundColor:"green",
     borderColor: 'green',
     tension: 0.1
   }]
