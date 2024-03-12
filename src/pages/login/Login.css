@@ -1,6 +1,7 @@
 #adminLoginPage{
     background: #e5e7eb;
     height: 100vh;
+    width: 100%;
     /* overflow: hidden; */
     display: flex;
     flex-direction: column;
@@ -58,7 +59,7 @@
 #adminLoginPage form input[type="submit"]{
     border:none;
     color: white;
-    background-image: linear-gradient(135deg, #0a808e, #46e5b4);
+    background-image: linear-gradient(135deg, #0a808e, #0995a4);
     font-weight: bolder;
     padding: 10px;
     border-radius: 5px;
