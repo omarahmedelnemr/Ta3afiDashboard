@@ -13,8 +13,8 @@ import ArtilcesPage from './pages/Articles/ArticlesPage';
 import PostsPendingPage from './pages/PostsPending/PostsPendingPage';
 import SingleArticlesPage from './pages/Articles/SingleArticle';
 import PendingArticlesPage from './pages/ArticlesPending/PendingArticlesPage';
-import PatientProfile from './pages/PatientProfile/PatientProfile';
-import DoctorProfile from './pages/PatientProfile/DoctorProfile';
+import PatientProfile from './pages/Profiles/PatientProfile';
+import DoctorProfile from './pages/Profiles/DoctorProfile';
 function App() {
   return (
     <div className="App">
