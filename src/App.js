@@ -13,6 +13,8 @@ import ArtilcesPage from './pages/Articles/ArticlesPage';
 import PostsPendingPage from './pages/PostsPending/PostsPendingPage';
 import SingleArticlesPage from './pages/Articles/SingleArticle';
 import PendingArticlesPage from './pages/ArticlesPending/PendingArticlesPage';
+import PatientProfile from './pages/PatientProfile/PatientProfile';
+import DoctorProfile from './pages/PatientProfile/DoctorProfile';
 function App() {
   return (
     <div className="App">
@@ -31,6 +33,8 @@ function App() {
                           <Route path='/articles' element={<ArtilcesPage/>} />
                           <Route path='/article/:articleID' element={<SingleArticlesPage/>} />
                           <Route path='/articles-pending' element={<PendingArticlesPage/>} />
+                          <Route path='/profile/patient/:patientID' element={<PatientProfile/>} />
+                          <Route path='/profile/doctor/:doctorID' element={<DoctorProfile/>} />
                           {/* <Route path='/issues' element={<IssusPage/>} /> */}
                           <Route path='/test' element={<TestChatPage/>} />
                           <Route path='/testnotify' element={<TestNotifyPage/>} />

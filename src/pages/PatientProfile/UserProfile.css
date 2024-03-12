@@ -1,0 +1,88 @@
+#UserProfile{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+#UserProfile #UserMain{
+    background-color: #E5E7EB;
+    height: 96vh;
+    padding-top: 4vh;
+    flex-grow: 1;
+    flex-basis: 30%;
+    min-width: 300px;
+}
+#UserProfile #UserMain .ProfileImage{
+    width: 200px;
+    border-radius: 20px;
+    margin: auto;
+}
+#UserProfile #UserMain  .textMain{
+    text-align: left;
+    margin: auto;
+    width: max-content;
+
+}
+#UserProfile #UserData{
+    height: 96vh;
+    padding-top: 4vh;
+    flex-grow: 1;
+    flex-basis: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding-left: 30px;
+    overflow-y: auto;
+}
+#UserProfile #UserData .DataSection{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+#UserProfile #UserData .DataSection .DataTitle{
+    margin-bottom: 0px;
+}
+#UserProfile #UserData .DataSection hr{
+    width: 10%;
+    margin-left: 0px;
+    border:3px solid gray
+}
+
+#UserProfile #UserData .DataSection .DataEntry{
+    width: 40%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 20px;
+}
+
+#UserProfile #UserData .DataSection .DataEntry .key{
+    font-weight: bolder;
+}
+
+@media (max-width: 1000px) {
+    #UserProfile{
+        flex-direction: column;
+    }
+    #UserProfile #UserMain{
+        border-radius: 0px 0px 20px 20px;
+        text-align: center;
+        height: auto;
+    
+    }
+    #UserProfile #UserMain .textMain{
+        text-align: center;
+    }
+
+    #UserProfile #UserData{
+        /* width: 100%; */
+        flex-basis: 100%;
+        height: auto;
+        overflow:inherit;
+    }
+    #UserProfile #UserData .DataSection .DataEntry{
+        width: 70%;
+    }
+}
