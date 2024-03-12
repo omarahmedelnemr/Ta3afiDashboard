@@ -3,7 +3,7 @@ import logoImage from '../../../content/smallLogo.png'
 import { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-function SideNavigation({navList,children}) {
+function SideNavigation({navList,defualtRoute,children}) {
     
     const lang = 'en'// localStorage.getItem('lang') 
     const compText = {
@@ -14,6 +14,7 @@ function SideNavigation({navList,children}) {
     useEffect(()=>{
         const endpoints = window.location.pathname.split("/")
         const path = endpoints[endpoints.length-1].toLowerCase()
+        console.log("path: ",path)
         try{
             try{
                 document.getElementsByClassName("activeNavButton")[0].classList.remove("activeNavButton")
@@ -21,8 +22,12 @@ function SideNavigation({navList,children}) {
                 console.log("No Active Found")
             }
             document.getElementsByClassName("backgroundActive")[0].style.setProperty("display","block")
+            if (path === ''){
+                document.getElementById(defualtRoute+"NavButton").classList.add("activeNavButton")
+                document.getElementsByClassName("backgroundActive")[0].style.setProperty("top",document.getElementById(defualtRoute+"NavButton").getBoundingClientRect().y+"px")
 
-           if(navList.includes(path)){
+            }
+            else if(navList.includes(path)){
             
                 document.getElementById(path+"NavButton").classList.add("activeNavButton")
                 document.getElementsByClassName("backgroundActive")[0].style.setProperty("top",document.getElementById(path+"NavButton").getBoundingClientRect().y+"px")
