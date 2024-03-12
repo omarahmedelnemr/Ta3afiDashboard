@@ -19,6 +19,20 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    /* border-bottom: 2px solid gray; */
+    margin-bottom: 20px;
+}
+#supervisorsPage .titleHeader .AddNewButton{
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+}
+#supervisorsPage .titleHeader .AddNewButton svg{
+    transition: 0.5s;
+}
+#supervisorsPage .titleHeader .AddNewButton svg.clicked{
+    transform: rotate(180deg);
 }
 #supervisorsPage .SupervisorsListSection{
     display: flex;
@@ -26,7 +40,7 @@
     width: 100%;
     border-radius: 20px;
     overflow: hidden;
-    box-shadow: -2px 2px 10px rgb(179, 179, 179);
+    /* box-shadow: -2px 2px 10px rgb(179, 179, 179); */
 }
 #supervisorsPage .SupervisorsListSection .supervisorCard{
     display: flex;
@@ -35,15 +49,29 @@
     justify-content: space-between;
     width: 98%;
     padding: 1%;
-    background-color: white;
+    /* background-color: white; */
     transition: 0.2s;
+    border-bottom: 1px solid gray;
+
 }
 #supervisorsPage .SupervisorsListSection .supervisorCard:hover{
     background-color: rgb(236, 236, 236);
 
 }
+#supervisorsPage .SupervisorsListSection .supervisorCard .email{
+    color: rgb(93, 93, 255);
+}
+#supervisorsPage .SupervisorsListSection .supervisorCard .active{
+    color: green;
+}
+#supervisorsPage .SupervisorsListSection .supervisorCard .superControlButton .inactiveButton,
+#supervisorsPage .SupervisorsListSection .supervisorCard .superControlButton .deleteButton{
 
-
+    cursor: pointer;
+}
+#supervisorsPage .SupervisorsListSection .supervisorCard .superControlButton .deleteButton{
+    color: red;
+}
 .SupervisorCard{
     display: flex;
     flex-direction: column;
