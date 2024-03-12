@@ -14,7 +14,6 @@ function SideNavigation({navList,defualtRoute,children}) {
     useEffect(()=>{
         const endpoints = window.location.pathname.split("/")
         const path = endpoints[endpoints.length-1].toLowerCase()
-        console.log("path: ",path)
         try{
             try{
                 document.getElementsByClassName("activeNavButton")[0].classList.remove("activeNavButton")
@@ -22,7 +21,7 @@ function SideNavigation({navList,defualtRoute,children}) {
                 console.log("No Active Found")
             }
             document.getElementsByClassName("backgroundActive")[0].style.setProperty("display","block")
-            if (path === ''){
+            if (path === '' && endpoints.length===2){
                 document.getElementById(defualtRoute+"NavButton").classList.add("activeNavButton")
                 document.getElementsByClassName("backgroundActive")[0].style.setProperty("top",document.getElementById(defualtRoute+"NavButton").getBoundingClientRect().y+"px")
 
