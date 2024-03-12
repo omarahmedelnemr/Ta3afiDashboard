@@ -1,10 +1,26 @@
 #DashboardPage{
     background: #e5e7eb;
-    height: 100vh;
-    /* display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center; */
+    height: 100%;
+    min-height: 100vh;
     font-size: 20px;
     flex-basis: 100%;
+    padding: 0px 6vh;
+    overflow-y: auto;
+}
+.infoBoxes{
+    justify-content: space-evenly;
+
+}
+@media (max-width:1420px){
+    #DashboardPage{
+        padding: 0px 2vh;
+    }
+    .infoBoxes{
+        flex-wrap: wrap;
+    
+    }
+    .SecondLevel{
+        flex-wrap: wrap;
+        justify-content: center;
+    }
 }
