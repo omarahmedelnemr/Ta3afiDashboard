@@ -27,15 +27,16 @@
     width: 100%;
     text-align: left;
     margin: 0px;
+    color: #444444;
 
 }
 .GraphBox hr{
-    border-bottom: 5px solid black;
+    border-bottom: 5px solid gray;
     width: 20%;
     margin-left: 0px;
 }
 
-.chart-container{
+.GraphBox .chart-container{
     width: 350px;
     height: 350px;
     margin: -60px auto;
