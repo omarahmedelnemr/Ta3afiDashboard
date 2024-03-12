@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import LoginForm from './pages/login/Login';
 import Dashboard from './pages/Dashboard/Dashboad';
 import './components/FontawesomeIcons'
@@ -16,22 +16,30 @@ import PendingArticlesPage from './pages/ArticlesPending/PendingArticlesPage';
 function App() {
   return (
     <div className="App">
-        <Router>
-          <SideNavBar />
-            <Routes>
-                <Route path='/Login' element={<LoginForm/>} />
-                <Route path='/dashboard' element={<Dashboard/>} />
-                <Route path='/supervisors' element={<SupervisorsPage/>} />
-                <Route path='/posts' element={<PostsPage/>} />
-                <Route path='/posts-pending' element={<PostsPendingPage/>} />
-                <Route path='/articles' element={<ArtilcesPage/>} />
-                <Route path='/article/:articleID' element={<SingleArticlesPage/>} />
-                <Route path='/articles-pending' element={<PendingArticlesPage/>} />
-                {/* <Route path='/issues' element={<IssusPage/>} /> */}
-                <Route path='/test' element={<TestChatPage/>} />
-                <Route path='/testnotify' element={<TestNotifyPage/>} />
-            </Routes>
-        </Router>
+      <Router>
+        <Routes>
+          <Route path='/Login' element={<LoginForm/>} />
+          <Route path='/*' element={
+                    <>
+                    <SideNavBar />
+                      <Routes>
+                          <Route path='/' element={<Navigate to="/dashboard"/>} />
+                          <Route path='/dashboard' element={<Dashboard/>} />
+                          <Route path='/supervisors' element={<SupervisorsPage/>} />
+                          <Route path='/posts' element={<PostsPage/>} />
+                          <Route path='/posts-pending' element={<PostsPendingPage/>} />
+                          <Route path='/articles' element={<ArtilcesPage/>} />
+                          <Route path='/article/:articleID' element={<SingleArticlesPage/>} />
+                          <Route path='/articles-pending' element={<PendingArticlesPage/>} />
+                          {/* <Route path='/issues' element={<IssusPage/>} /> */}
+                          <Route path='/test' element={<TestChatPage/>} />
+                          <Route path='/testnotify' element={<TestNotifyPage/>} />
+                      </Routes>
+                  </>
+          } />
+        </Routes>
+      </Router>
+
     </div>
   );
 }
