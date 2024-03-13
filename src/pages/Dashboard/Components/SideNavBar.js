@@ -15,7 +15,7 @@ function SideNavBar() {
         Articles:          lang === 'en' ? "Articles" : "المقالات" ,
         ArticlesPending:          lang === 'en' ? "Articles (Pending)" : "المقالات المتوقفه" ,
         supervisors:       lang === 'en' ? "Supervisors" :"المسئولون",
-        Issues:            lang === 'en' ? "Issues":"البلاغات" 
+        Support:            lang === 'en' ? "Support Issues":"البلاغات" 
     }
     function showHideMinu(){
         document.getElementsByClassName('sideNav')[0].style.setProperty('left','0px')
@@ -34,7 +34,7 @@ return (
             <SideNavigationButton route={"posts"} text={compText["posts"]} icon={<FontAwesomeIcon icon="fa-solid fa-comments" />}/>
             <SideNavigationButton route={"articles-pending"} text={compText["ArticlesPending"]} icon={<FontAwesomeIcon icon="fa-solid fa-newspaper" />}/>
             <SideNavigationButton route={"articles"} text={compText["Articles"]} icon={<FontAwesomeIcon icon="fa-solid fa-newspaper" />}/>
-            <SideNavigationButton route={"issues"} text={compText["Issues"]} icon={<FontAwesomeIcon icon="fa-solid fa-flag" />}/>
+            <SideNavigationButton route={"issues"} text={compText["Support"]} icon={<FontAwesomeIcon icon="fa-solid fa-flag" />}/>
         </SideNavigation>
     </div>
 )

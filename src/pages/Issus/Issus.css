@@ -1,0 +1,68 @@
+#IssuesPage{
+    padding-left: 30px;
+    /* padding-top: 30px; */
+    background-color: #e5e7eb;
+    width: 100%;
+    text-align: left;
+    height: 100vh
+}
+
+#IssuesPage .issuesContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#IssuesPage .issuesContainer .issue{
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: -2px 2px 5px rgb(199, 199, 199);
+    width: 80%;
+    height: 160;
+    transition: 0.5s;
+    margin:10px 0px;
+}
+#IssuesPage .issuesContainer .issue .issueHeader{
+
+}
+#IssuesPage .issuesContainer .issue .issueHeader{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
+    height: max-content;
+
+}
+#IssuesPage .issuesContainer .issue .issueHeader .left,
+#IssuesPage .issuesContainer .issue .issueHeader .right{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    /* flex-basis: 30%; */
+    /* justify-content: space-evenly; */
+}
+#IssuesPage .issuesContainer .issue .issueHeader .right .IssueDate{
+    color:gray
+}
+#IssuesPage .issuesContainer .issue .issueHeader svg{
+    margin: 0px 20px;
+    font-size: 20px;
+    transition: 0.5s;
+}
+
+#IssuesPage .issuesContainer .issue .issueHeader.active svg{
+    transform: rotate(180deg);
+}
+
+#IssuesPage .issuesContainer .issue img{
+    width: 60px;
+    border-radius: 100%;
+}
+
+#IssuesPage .issuesContainer .issue .IssuesBody{
+    padding: 5px 20px;
+    /* display: none; */
+    transition: 0.5s;
+    height: 0px;
+    overflow: hidden;
+}

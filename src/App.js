@@ -1,20 +1,21 @@
 import './App.css';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import LoginForm from './pages/login/Login';
-import Dashboard from './pages/Dashboard/Dashboad';
-import './components/FontawesomeIcons'
-import SideNavBar from './pages/Dashboard/Components/SideNavBar';
 import './components/styles/general.css'
-import SupervisorsPage from './pages/Supervisors/Supervisors';
-import TestChatPage from './pages/test/TestChat';
-import TestNotifyPage from './pages/test/TestNotify';
-import PostsPage from './pages/Posts/PostsPage';
-import ArtilcesPage from './pages/Articles/ArticlesPage';
-import PostsPendingPage from './pages/PostsPending/PostsPendingPage';
-import SingleArticlesPage from './pages/Articles/SingleArticle';
-import PendingArticlesPage from './pages/ArticlesPending/PendingArticlesPage';
-import PatientProfile from './pages/Profiles/PatientProfile';
-import DoctorProfile from './pages/Profiles/DoctorProfile';
+import './components/FontawesomeIcons'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import LoginForm            from './pages/login/Login';
+import Dashboard            from './pages/Dashboard/Dashboad';
+import SideNavBar           from './pages/Dashboard/Components/SideNavBar';
+import SupervisorsPage      from './pages/Supervisors/Supervisors';
+import PostsPage            from './pages/Posts/PostsPage';
+import PostsPendingPage     from './pages/PostsPending/PostsPendingPage';
+import ArtilcesPage         from './pages/Articles/ArticlesPage';
+import SingleArticlesPage   from './pages/Articles/SingleArticle';
+import PendingArticlesPage  from './pages/ArticlesPending/PendingArticlesPage';
+import PatientProfile       from './pages/Profiles/PatientProfile';
+import DoctorProfile        from './pages/Profiles/DoctorProfile';
+import IssusPage            from './pages/Issus/Issus';
+import TestChatPage         from './pages/test/TestChat';
+import TestNotifyPage       from './pages/test/TestNotify';
 function App() {
   return (
     <div className="App">
@@ -35,7 +36,7 @@ function App() {
                           <Route path='/articles-pending' element={<PendingArticlesPage/>} />
                           <Route path='/profile/patient/:patientID' element={<PatientProfile/>} />
                           <Route path='/profile/doctor/:doctorID' element={<DoctorProfile/>} />
-                          {/* <Route path='/issues' element={<IssusPage/>} /> */}
+                          <Route path='/issues' element={<IssusPage/>} />
                           <Route path='/test' element={<TestChatPage/>} />
                           <Route path='/testnotify' element={<TestNotifyPage/>} />
                       </Routes>
