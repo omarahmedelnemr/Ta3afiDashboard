@@ -16,6 +16,7 @@ import DoctorProfile        from './pages/Profiles/DoctorProfile';
 import IssusPage            from './pages/Issus/Issus';
 import TestChatPage         from './pages/test/TestChat';
 import TestNotifyPage       from './pages/test/TestNotify';
+import TestPayment from './pages/test/TestPayment';
 function App() {
   return (
     <div className="App">
@@ -39,6 +40,7 @@ function App() {
                           <Route path='/issues' element={<IssusPage/>} />
                           <Route path='/test' element={<TestChatPage/>} />
                           <Route path='/testnotify' element={<TestNotifyPage/>} />
+                          <Route path='/testPay' element={<TestPayment/>} />
                       </Routes>
                   </>
           } />
