@@ -5,18 +5,18 @@ import axios from '../../../public Func/axiosAuth';
 import Global from '../../../public Func/globalVar';
 import PieChart from './PieChart';
 
-function GraphBox({title}) {
+function GraphBox({title, Data}) {
     
 
-    const [chartValues,setChartValue] = useState([50,7,8])
+    const chartValues= [Data['completed'],Data['canceled'],Data['scheduled']]
     const chartData = {
-        labels: [  'Done','Pending', 'Canceled' ],
+        labels: [  'Completed','Canceled', 'Scheduled' ],
         datasets: [
             {
               label: 'Popularity of colours',
               data: chartValues,
-              backgroundColor: [ 'lightgreen', "#EFEE8F" , "#ff00007a"],
-              borderWidth: 0,
+              backgroundColor: [ 'lightgreen', "#ff00007a" , "#EFEE8F"],
+              borderWidth: 2,
             }
         ]
     }

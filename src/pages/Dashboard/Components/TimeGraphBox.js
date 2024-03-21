@@ -3,7 +3,7 @@ import './styles/TimeGraphBox.css'
 import PieChart from './PieChart';
 import LineChart from './LineChart';
 
-function TimeGraphBox({title}) {
+function TimeGraphBox({title,postsData, articlesData,appointmentsData}) {
     
 
     const [chartValues,setChartValue] = useState([50,7,8])
@@ -18,41 +18,36 @@ function TimeGraphBox({title}) {
             }
         ]
     }
-    const labels = [
-        "January", 
-        "February", 
-        "March", 
-        "April", 
-        "May", 
-        "June", 
-        "July"
-        
-      ];
-const data = {
-  labels: labels,
-  datasets: [{
-    label: 'My First Dataset',
-    data: [65, 59, 80, 81, 56, 55, 40],
-    fill: false,
-    backgroundColor:"Yellow",
-    borderColor: 'Yellow',
-    tension: 0.1
-  },{
-    label: 'My First Dataset',
-    data: [10, 20, 30, 23, 15, 25, 66],
-    fill: false,
-    backgroundColor:"red",
-    borderColor: 'red',
-    tension: 0.1
-  },{
-    label: 'My First Dataset',
-    data: [10, 20, 30, 40, 45, 52, 60],
-    fill: false,
-    backgroundColor:"green",
-    borderColor: 'green',
-    tension: 0.1
-  }]
-};
+    const labels =  postsData.map(item => item.month);
+
+    const postsColor = "rgb(244, 192, 117)"
+    const articlessColor = "#8ee9ff"
+    const appointmentsColor =  "rgb(215, 152, 235)"
+    const data = {
+      labels: labels,
+      datasets: [{
+        label: 'posts',
+        data: postsData.map(item => item.count),
+        fill: false,
+        backgroundColor:postsColor,
+        borderColor: postsColor,
+        tension: 0.1
+      },{
+        label: 'Articles',
+        data: articlesData.map(item => item.count),
+        fill: false,
+        backgroundColor:articlessColor,
+        borderColor: articlessColor,
+        tension: 0.1
+      },{
+        label: 'Appointments',
+        data: appointmentsData.map(item => item.count),
+        fill: false,
+        backgroundColor:appointmentsColor,
+        borderColor: appointmentsColor,
+        tension: 0.1
+      }]
+    };
     return (
         <div className="TimeGraphBox">
             <h3 className='BoxTitle'>{title}</h3>

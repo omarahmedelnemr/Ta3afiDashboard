@@ -1,7 +1,7 @@
 #DashboardPage{
     background: #e5e7eb;
-    height: 100%;
-    min-height: 100vh;
+    height: 100vh;
+    /* min-height: 100vh; */
     font-size: 20px;
     flex-basis: 100%;
     padding: 0px 6vh;
