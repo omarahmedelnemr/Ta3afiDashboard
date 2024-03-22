@@ -21,14 +21,14 @@ function ArticleBox({article}) {
         RateColor = 'rateYellow'
     }
 
-    // Comments
-    var [SeeCommentButton,setButtonText] = useState("See Comments")
-    var [CommentButtenState,SetButtonState] = useState("enabled")
-    const [commentList,setCommentList] = useState([]) 
-    if (article.commentsNumber ==0){
-        SeeCommentButton   = "No Comments on This Article"
-        CommentButtenState = "disabled"
-    }
+    // // Comments
+    // var [SeeCommentButton,setButtonText] = useState("See Comments")
+    // var [CommentButtenState,SetButtonState] = useState("enabled")
+    // const [commentList,setCommentList] = useState([]) 
+    // if (article.commentsNumber ==0){
+    //     // SeeCommentButton   = "No Comments on This Article"
+    //     // CommentButtenState = "disabled"
+    // }
 
     //// Report Part
     const [somthingElse,setsomthingElse] = useState(false)

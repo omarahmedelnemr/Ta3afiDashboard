@@ -10,7 +10,6 @@ import PostsPage            from './pages/Posts/PostsPage';
 import PostsPendingPage     from './pages/PostsPending/PostsPendingPage';
 import ArtilcesPage         from './pages/Articles/ArticlesPage';
 import SingleArticlesPage   from './pages/Articles/SingleArticle';
-import PendingArticlesPage  from './pages/ArticlesPending/PendingArticlesPage';
 import PatientProfile       from './pages/Profiles/PatientProfile';
 import DoctorProfile        from './pages/Profiles/DoctorProfile';
 import TestChatPage         from './pages/test/TestChat';
@@ -33,7 +32,6 @@ function App() {
                           <Route path='/posts-pending' element={<PostsPendingPage/>} />
                           <Route path='/articles' element={<ArtilcesPage/>} />
                           <Route path='/article/:articleID' element={<SingleArticlesPage/>} />
-                          <Route path='/articles-pending' element={<PendingArticlesPage/>} />
                           <Route path='/profile/patient/:patientID' element={<PatientProfile/>} />
                           <Route path='/profile/doctor/:doctorID' element={<DoctorProfile/>} />
                           <Route path='/test' element={<TestChatPage/>} />
