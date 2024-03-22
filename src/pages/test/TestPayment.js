@@ -13,19 +13,13 @@ function TestPayment() {
             const data = {
                 "auth_token": token,
                 "delivery_needed": "false",
-                "amount_cents": "100",
+                "amount_cents": "500",
                 "currency": "EGP",
                 "items": [
                   {
-                      "name": "ASC1515",
-                      "amount_cents": "500000",
+                      "name": "Item 1",
+                      "amount_cents": "500",
                       "description": "Smart Watch",
-                      "quantity": "1"
-                  },
-                  { 
-                      "name": "ERT6565",
-                      "amount_cents": "200000",
-                      "description": "Power Bank",
                       "quantity": "1"
                   }
                   ]
@@ -36,7 +30,7 @@ function TestPayment() {
                 const data1 = 
                 {
                     "auth_token": token,
-                    "amount_cents": "100", 
+                    "amount_cents": "500", 
                     "expiration": 3600, 
                     "order_id": ID,
                     "billing_data": {
