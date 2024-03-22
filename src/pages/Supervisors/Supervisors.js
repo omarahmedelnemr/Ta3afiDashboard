@@ -1,11 +1,21 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import './Supervisors.css';
 import logoImage from '../../content/ta3afiLogo.png';
 import SupervisorsCard from './components/SupervisorCard';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import globalVar from '../../public Func/globalVar'
+import axios from 'axios';
 
 function SupervisorsPage() {
+    const [superList,setSuperList] = useState([])
 
+    useEffect(()=>{
+        axios.get(globalVar.backendURL+"/admin/supervisors").then((res)=>{
+            console.log(res.data)
+        }).catch(err=>{
+            console.log("Error!!\n",err)
+        })
+    },[])
     return (
         <div id="supervisorsPage">
 
