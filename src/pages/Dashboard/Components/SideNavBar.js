@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 function SideNavBar() {
 
-  const navList = ['dashboard',"posts","posts-pending","articles","issues","articles-pending","supervisors"] 
+  const navList = ['dashboard',"posts","posts-pending","articles","articles-pending","supervisors"] 
   const defualtRoute = "dashboard"
     const lang = 'en'// localStorage.getItem('lang') 
     const compText = {
@@ -34,7 +34,6 @@ return (
             <SideNavigationButton route={"posts"} text={compText["posts"]} icon={<FontAwesomeIcon icon="fa-solid fa-comments" />}/>
             <SideNavigationButton route={"articles-pending"} text={compText["ArticlesPending"]} icon={<FontAwesomeIcon icon="fa-solid fa-newspaper" />}/>
             <SideNavigationButton route={"articles"} text={compText["Articles"]} icon={<FontAwesomeIcon icon="fa-solid fa-newspaper" />}/>
-            <SideNavigationButton route={"issues"} text={compText["Support"]} icon={<FontAwesomeIcon icon="fa-solid fa-flag" />}/>
         </SideNavigation>
     </div>
 )

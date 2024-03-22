@@ -3,10 +3,11 @@ import './Dashboard.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import StatusBoxes from './Components/overviewBox';
 import GraphBox from './Components/GraphBox';
-import IssusBox from './Components/IssuesBox';
+import FinancialsBox from './Components/Financials';
 import TimeGraphBox from './Components/TimeGraphBox';
 import axios from 'axios';
 import globalVar from '../../public Func/globalVar';
+import { Chart } from 'chart.js';
 
 function Dashboard() {
 
@@ -101,6 +102,7 @@ function Dashboard() {
         })
     },[])
 
+      
     return (
         <div id='DashboardPage'>
             <div className='row infoBoxes'>
@@ -111,9 +113,10 @@ function Dashboard() {
             </div>           
             <div className='row SecondLevel'>
             <GraphBox title={"Appoinments"} Data={appointmentsData}/>
-            <IssusBox title={"Latest Issus"} Data={supportData}/>
-            </div>
             <TimeGraphBox title={"Appointment Over Time"} postsData={postsOverTime} articlesData={articlessOverTime} appointmentsData={appointmentsOverTime}/>
+
+            </div>
+            <FinancialsBox title={"Financials"} Data={supportData}/>
 
         </div>
     )

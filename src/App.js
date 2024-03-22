@@ -13,7 +13,6 @@ import SingleArticlesPage   from './pages/Articles/SingleArticle';
 import PendingArticlesPage  from './pages/ArticlesPending/PendingArticlesPage';
 import PatientProfile       from './pages/Profiles/PatientProfile';
 import DoctorProfile        from './pages/Profiles/DoctorProfile';
-import IssusPage            from './pages/Issus/Issus';
 import TestChatPage         from './pages/test/TestChat';
 import TestNotifyPage       from './pages/test/TestNotify';
 import TestPayment from './pages/test/TestPayment';
@@ -37,7 +36,6 @@ function App() {
                           <Route path='/articles-pending' element={<PendingArticlesPage/>} />
                           <Route path='/profile/patient/:patientID' element={<PatientProfile/>} />
                           <Route path='/profile/doctor/:doctorID' element={<DoctorProfile/>} />
-                          <Route path='/issues' element={<IssusPage/>} />
                           <Route path='/test' element={<TestChatPage/>} />
                           <Route path='/testnotify' element={<TestNotifyPage/>} />
                           <Route path='/testPay' element={<TestPayment/>} />

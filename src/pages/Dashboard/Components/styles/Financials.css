@@ -1,0 +1,29 @@
+#FinancialsBox{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-width: 190px;
+    padding: 20px 20px;
+    border-radius: 10px;
+    background-color: #ffffffa6;
+    margin: 10px 1%;
+    /* width: 49%; */
+    flex-grow: 1;
+}
+#FinancialsBox .BoxTitle{
+    /* border-bottom: 5px solid black; */
+    width: 100%;
+    text-align: left;
+    margin: 0px;
+    color: #444444;
+
+}
+#FinancialsBox hr{
+    border-bottom: 5px solid gray;
+    width: 20%;
+    margin-left: 0px;
+}
+#FinancialsCanvas{
+    max-height: 260px;
+}
