@@ -4,15 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>File Upload Form</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
 </head>
 <body>
     <h1>File Upload Form</h1>
-    <form action="http://localhost:8000/upload" method="post" enctype="multipart/form-data">
+    <!--  -->
+    <!-- <form id="myForm" action="http://localhost:8000/upload" method="post" enctype="multipart/form-data" > -->
+    <form id="myForm">
         <label for="name">Name:</label>
         <input type="text" id="name" name="name"><br><br>
         <label for="file">Choose a file:</label>
         <input type="file" id="file" name="file"><br><br>
-        <input type="submit">Submit</input>
+        <!-- <input type="submit">Submit</input> -->
     </form>
+    <button onclick="send()">submit</button>
+    <script>
+        function send(event){
+        // Get the form data
+        var formData = new FormData(document.getElementById("myForm"));
+
+        // Send a POST request using Axios
+        axios.post('http://localhost:8000/upload', formData)
+            .then(function (response) {
+                // Handle success
+                console.log('Form submitted successfully:', response);
+            })
+            .catch(function (error) {
+                // Handle error
+                console.error('Form submission failed:', error);
+            });
+        }
+    </script>
 </body>
 </html>
