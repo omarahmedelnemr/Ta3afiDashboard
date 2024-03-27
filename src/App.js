@@ -4,7 +4,7 @@ import './components/FontawesomeIcons'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import LoginForm            from './pages/login/Login';
 import Dashboard            from './pages/Dashboard/Dashboad';
-import SideNavBar           from './pages/Dashboard/Components/SideNavBar';
+import SideNavBar           from './components/SideNavBar';
 import SupervisorsPage      from './pages/Supervisors/Supervisors';
 import PostsPage            from './pages/Posts/PostsPage';
 import PostsPendingPage     from './pages/PostsPending/PostsPendingPage';
@@ -15,6 +15,7 @@ import DoctorProfile        from './pages/Profiles/DoctorProfile';
 import TestChatPage         from './pages/test/TestChat';
 import TestNotifyPage       from './pages/test/TestNotify';
 import TestPayment from './pages/test/TestPayment';
+import AI_Chat from './components/AI_Chat';
 function App() {
   return (
     <div className="App">
@@ -38,6 +39,7 @@ function App() {
                           <Route path='/testnotify' element={<TestNotifyPage/>} />
                           <Route path='/testPay' element={<TestPayment/>} />
                       </Routes>
+                      <AI_Chat/>
                   </>
           } />
         </Routes>

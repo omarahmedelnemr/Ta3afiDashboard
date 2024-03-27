@@ -1,0 +1,113 @@
+#AIChat{
+    position: absolute;
+    bottom: 5%;
+    right: 5%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+#AI_Chat_Icon{
+    width: 60px;
+    height: 60px;
+    background-color: #0a808e;
+    color: white;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+#AI_Chat_Box{
+    background-color: white;
+    width: 350px;
+    height: 430px;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: 0.5s;
+    height: 0px;
+    margin-right: -60px;
+    z-index: 9;
+}
+#AI_Chat_Box .ChatBoxheader{
+    background-color: #0a808e;
+    color: white;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+#AI_Chat_Box .ChatBoxheader .closeButton{
+    border: none;
+    background-color: transparent;
+    color: white;
+    cursor: pointer;
+}
+#AI_Chat_Box .upperMessage{
+    color: gray;
+    font-size: 14px;
+}
+#AI_Chat_Box .chatBox{
+    /* border: 1px solid rgb(193, 193, 193); */
+    border-radius: 10px;
+    height: 75%;
+    width: 95%;
+    margin: auto;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column-reverse;
+    transition: 0.5s;
+
+}
+
+#AI_Chat_Box .chatBox .chatMessage{
+    /* width: max-content; */
+    max-width: 90%;
+    padding: 8px;
+    border-radius: 10px;
+    margin: 5px;
+    transition: 0.5s;
+    text-align:left;
+}
+#AI_Chat_Box .chatBox .chatMessage.sent{
+    background-color: rgb(137, 137, 255);
+    color: white;
+    
+
+}
+#AI_Chat_Box .chatBox .chatMessage.recieved{
+    background-color: rgb(175, 175, 175);
+    color: white;
+    text-align: left;
+}
+#AI_Chat_Box .chatBox .chatMessage.loading{
+    font-size: 10px;
+}
+#AI_Chat_Box .chatInputs{
+    display: flex;
+    flex-direction: row;
+    padding: 0px 10px;
+    margin-top: 10px;
+}
+
+#AI_Chat_Box .chatInputs input{
+    flex-basis: 90%;
+    font-size: 17px;
+    padding: 5px;
+    border-radius: 10px  0px 0px 10px;
+    border:1px solid rgb(177, 177, 177)
+}
+#AI_Chat_Box .chatInputs input:focus{
+    outline: none;
+}
+#AI_Chat_Box .chatInputs button{
+    flex-basis: 10%;
+    border-radius: 0px  10px 10px 0px;
+    background-color: #0a808e;
+    color: white;
+    border:none;  
+    cursor: pointer;  
+}
