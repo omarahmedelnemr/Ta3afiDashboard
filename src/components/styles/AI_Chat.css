@@ -1,7 +1,7 @@
 #AIChat{
     position: absolute;
-    bottom: 5%;
-    right: 5%;
+    bottom: 3%;
+    right: 3%;
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
