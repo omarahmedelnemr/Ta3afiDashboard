@@ -3,6 +3,7 @@ import './components/styles/general.css'
 import './components/FontawesomeIcons'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import LoginForm            from './pages/login/Login';
+import SuperSignupForm            from './pages/SuperLogin/SuperSignup';
 import Dashboard            from './pages/Dashboard/Dashboad';
 import SideNavBar           from './components/SideNavBar';
 import SupervisorsPage      from './pages/Supervisors/Supervisors';
@@ -22,6 +23,7 @@ function App() {
       <Router>
         <Routes>
           <Route path='/Login' element={<LoginForm/>} />
+          <Route path='/supersignup/:token' element={<SuperSignupForm/>} />
           <Route path='/*' element={
                     <>
                     <SideNavBar />
