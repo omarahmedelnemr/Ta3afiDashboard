@@ -51,7 +51,7 @@ function LoginPage() {
       <form onSubmit={handleSubmit}>
         <div id="logoLogin">
           <img alt="Ta3afi Logo" src={logoImage} />
-          <p>Ta3afi Admin Dashboard Login</p>
+          <p>Ta3afi Admin Dashboard Signup</p>
         </div>
         {error && <div className="error-message">{error}</div>}
         <label htmlFor="email">Name</label>
