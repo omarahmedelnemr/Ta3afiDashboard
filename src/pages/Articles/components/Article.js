@@ -164,7 +164,7 @@ function ArticleBox({article}) {
                 </div>
             </div>
             <div className='ArticleReadmoreButtons'>
-                <a href={'/article/'+article.id}><p>Read More</p></a>
+                <a href={'/articles/'+article.id}><p>Read More</p></a>
             </div>
 
             <div className='ReportPopupWindow'>
