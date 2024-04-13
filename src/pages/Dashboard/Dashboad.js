@@ -61,17 +61,6 @@ function Dashboard() {
         })
     },[])
 
-    // Getting Latest Support Issues
-    const [supportData,setSupportData] = useState([])
-    useEffect(()=>{
-        axios.get(globalVar.backendURL+"/admin/supportissues").then((res)=>{
-            setSupportData(res.data)
-            console.log("Support:",res.data)
-        }).catch((err)=>{
-            console.log("Error!!\n",err)
-        })
-    },[])
-
     // Get The Series Data For Time Graph
     const [postsOverTime,setPostsOverTime] = useState([])
     const [articlessOverTime,setArticlesOverTime] = useState([])
@@ -116,7 +105,7 @@ function Dashboard() {
             <TimeGraphBox title={"Appointment Over Time"} postsData={postsOverTime} articlesData={articlessOverTime} appointmentsData={appointmentsOverTime}/>
 
             </div>
-            <FinancialsBox title={"Financials"} Data={supportData}/>
+            <FinancialsBox title={"Financials"} Data={[]}/>
 
         </div>
     )
