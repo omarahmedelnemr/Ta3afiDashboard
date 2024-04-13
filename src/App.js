@@ -32,7 +32,7 @@ function App() {
                           <Route path='/posts' element={<PostsPage/>} />
                           <Route path='/posts-pending' element={<PostsPendingPage/>} />
                           <Route path='/articles' element={<ArtilcesPage/>} />
-                          <Route path='/article/:articleID' element={<SingleArticlesPage/>} />
+                          <Route path='/articles/:articleID' element={<SingleArticlesPage/>} />
                           <Route path='/profile/patient/:patientID' element={<PatientProfile/>} />
                           <Route path='/profile/doctor/:doctorID' element={<DoctorProfile/>} />
                           <Route path='/test' element={<TestChatPage/>} />
