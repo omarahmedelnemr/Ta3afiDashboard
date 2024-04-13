@@ -14,16 +14,19 @@ function LoginPage() {
 
     try {
         console.log(globalVar.backendURL)
-      const response = await axios.post(globalVar.backendURL+'/admin/adminLogin', {
+      const response = await axios.post(globalVar.backendURL+'/super/login', {
         email,
         password,
       });
 
+      console.log(response)
       // Assuming the server responds with a JWT token
-      const token = response.data.token;
 
-      // Store the token in local storage
-      localStorage.setItem('token', token);
+      // Store in local storage
+      localStorage.setItem('id', response.data.id);
+      localStorage.setItem('email', response.data.email);
+      localStorage.setItem('token', response.data.jwt);
+      localStorage.setItem('role', response.data.role);
 
       // Redirect to /dashboard
       window.location.href = '/dashboard';
