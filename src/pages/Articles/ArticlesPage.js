@@ -98,7 +98,7 @@ function ArticlesPage() {
         };
     }, [isAtEnd]);
 
-    // Hnadling Scroll Down Behavior
+    // Handling Scroll Down Behavior
     useEffect(() => {
         const handleScroll = () => {
         const { scrollTop, scrollHeight, clientHeight } = divRef.current;
