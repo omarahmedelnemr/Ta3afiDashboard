@@ -5,7 +5,7 @@ import StatusBoxes from './Components/overviewBox';
 import GraphBox from './Components/GraphBox';
 import FinancialsBox from './Components/Financials';
 import TimeGraphBox from './Components/TimeGraphBox';
-import axios from 'axios';
+import axios from '../../public Func/axiosAuth';
 import globalVar from '../../public Func/globalVar';
 import { Chart } from 'chart.js';
 
