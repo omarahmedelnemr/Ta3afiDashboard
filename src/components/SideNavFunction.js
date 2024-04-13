@@ -49,7 +49,10 @@ function SideNavigation({navList,defualtRoute,children}) {
         document.getElementsByClassName('sideNav')[0].querySelector('.backgroundBlock').style.setProperty('display','none')
 
     }
-
+    function Logout(){
+        localStorage.clear()
+        window.location.href = '/Login';
+    }
     return (
         <div className="sideNav">
             <div className="backgroundBlock" onClick={blockBackground}></div>
@@ -65,13 +68,11 @@ function SideNavigation({navList,defualtRoute,children}) {
                 {children}        
             </div>
             <div className="bottom">
-                <a href={"./logout"}>
 
-                    <div className="logoutButton">
+                    <div className="logoutButton" onClick={Logout}>
                         <FontAwesomeIcon icon="fa-solid fa-right-from-bracket" />
                         <p>logout</p>
                     </div>
-                </a>
                 {/* <a href={"./reportIssu"}>
                     <div className='reportIssu'>
                         <FontAwesomeIcon icon="fa-solid fa-circle-question" />
