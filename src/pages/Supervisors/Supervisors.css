@@ -22,11 +22,58 @@
     /* border-bottom: 2px solid gray; */
     margin-bottom: 20px;
 }
+#supervisorsPage .titleHeader .generateLink{
+    position: relative;
+
+}
 #supervisorsPage .titleHeader .AddNewButton{
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    display: flex;
 
+}
+.signupLink{
+    position: absolute;
+    top: 100%;
+    left: -100%;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    width: max-content;
+    border-radius: 10px;
+    padding: 0px 10px;
+    overflow: hidden;
+    transition: 0.5s;
+    height: 0px;
+
+}
+.signupLink .comment{
+    color: gray;
+    font-size: 15px;
+    margin-top: 5px;
+}
+.signupLink .row{
+    justify-content: space-between;
+    align-items: center;
+}
+.signupLink input{
+    margin: 5px;
+    padding:10px;
+    border-radius: 10px;
+    background-color: #e5e7eb;
+    box-shadow: 0;
+    border: 0px;
+    width: 80%;
+    overflow: hidden;
+    font-size: 15px;
+}
+.signupLink button{
+    background-color: transparent;
+    border: 0 ;
+    cursor: pointer;
+    height: max-content;
+    font-size: 20px;
 }
 #supervisorsPage .titleHeader .AddNewButton svg{
     transition: 0.5s;
@@ -64,14 +111,22 @@
 #supervisorsPage .SupervisorsListSection .supervisorCard .active{
     color: green;
 }
-#supervisorsPage .SupervisorsListSection .supervisorCard .superControlButton .inactiveButton,
-#supervisorsPage .SupervisorsListSection .supervisorCard .superControlButton .deleteButton{
+#supervisorsPage .SupervisorsListSection .supervisorCard .NotActive{
+    color: rgb(164, 162, 0);
+}
+
+#supervisorsPage .SupervisorsListSection .supervisorCard .superControlButton .DeactiveButton,
+#supervisorsPage .SupervisorsListSection .supervisorCard .superControlButton .ActiveButton,
+#supervisorsPage .SupervisorsListSection .supervisorCard .superControlButton .deleteButton,
+#supervisorsPage .SupervisorsListSection .supervisorCard .superControlButton .ConfirmYes,
+#supervisorsPage .SupervisorsListSection .supervisorCard .superControlButton .ConfirmNo{
 
     cursor: pointer;
 }
-#supervisorsPage .SupervisorsListSection .supervisorCard .superControlButton .deleteButton{
+#supervisorsPage .SupervisorsListSection .supervisorCard .superControlButton .deleteButton,#supervisorsPage .SupervisorsListSection .supervisorCard .superControlButton .ConfirmYes{
     color: red;
 }
+
 .SupervisorCard{
     display: flex;
     flex-direction: column;
