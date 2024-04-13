@@ -14,17 +14,19 @@ function AI_Chat({route,text,icon,active=false}) {
 
     const [messageList,setMessageList] = useState([])
     const [messageLoading,setMessageLoading] = useState(false)
+    const [CurrentInputText,setCurrentInputText] = useState(null)
     function sendMessage(event){
         const inputText =  event.currentTarget.parentElement.querySelector("input").value
         if (inputText === ''){
             return
         }
         event.currentTarget.parentElement.querySelector("input").value = ''
-        setMessageList([
-            <div className='chatMessage sent'>
-                <span>{inputText}</span>
-            </div>,...messageList])
-        // setMessageLoading(true)
+        // setMessageList([
+        //     <div className='chatMessage sent'>
+        //         <span>{inputText}</span>
+        //     </div>,...messageList])
+        setCurrentInputText(inputText)
+        setMessageLoading(true)
         axios.get(globalVar.backendURL+`/ai/prompt?prompt=${inputText}`).then((res)=>{
             setMessageList([
                 <div className='chatMessage recieved'>
@@ -34,11 +36,18 @@ function AI_Chat({route,text,icon,active=false}) {
                     <span>{inputText}</span>
                 </div>,
                 ...messageList])
+
+        
             setMessageLoading(false)
         }).catch((err)=>{
             console.log("Error!!\n",err)
         })
     }
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+          event.currentTarget.closest(".chatInputs").querySelector("button").click()
+        }
+      };
     return (
         <div id="AIChat">
             
@@ -50,9 +59,14 @@ function AI_Chat({route,text,icon,active=false}) {
                 <span className='upperMessage'>Messages Will Disappear When You Close the Page</span>
                 <div className='chatBox'>
                     {messageLoading?
-                    <div className='chatMessage recieved loading'>
-                        <span><FontAwesomeIcon icon="fa-solid fa-circle" /> <FontAwesomeIcon icon="fa-solid fa-circle" /> <FontAwesomeIcon icon="fa-solid fa-circle" /></span>
-                    </div>
+                        <>
+                            <div className='chatMessage recieved loading'>
+                                <span><FontAwesomeIcon icon="fa-solid fa-circle" /> <FontAwesomeIcon icon="fa-solid fa-circle" /> <FontAwesomeIcon icon="fa-solid fa-circle" /></span>
+                            </div>
+                            <div className='chatMessage sent'>
+                                <span>{CurrentInputText}</span>
+                            </div>
+                        </>
                     :''}
                     {messageList}
                     
@@ -61,7 +75,7 @@ function AI_Chat({route,text,icon,active=false}) {
                     </div>
                 </div>
                 <div className='chatInputs'>
-                    <input type='text' placeholder='Write Your Message'/>
+                    <input type='text' placeholder='Write Your Message' onKeyDown={handleKeyDown}/>
                     <button onClick={sendMessage}><FontAwesomeIcon icon="fa-solid fa-paper-plane" /></button>
                 </div>
             </div>
