@@ -28,8 +28,81 @@ function SingleArticlesPage() {
     const [loadBlock,IncreaseLoadBlock] = useState(1) 
 
 
-        
+    //// Report Part
+    const [somthingElse,setsomthingElse] = useState(false)
+    const [showErrorMessage,setshowErrorMessage] = useState(null)
+    
+    // Hiding the Popup Window
+    function hideReportForm(event){
+        console.log("Hide Clicked")
+        event.currentTarget.parentElement.style.display = 'none'
+        event.currentTarget.parentElement.querySelector('.ReportForm').style.top = "100%"
+    }
 
+    // Showing the Popup Window
+    function ShowPopupReportForm(event){
+        const ReportForm = event.currentTarget.closest(".SingleArticleBox").querySelector(".ReportPopupWindow")
+        ReportForm.style.display = 'flex'
+        setTimeout(()=> {
+            ReportForm.querySelector(".ReportForm").style.top = "0px";
+          }, 100);
+
+        // Clear the Window
+        setsomthingElse(false)
+        setshowErrorMessage(null)
+        const selected = ReportForm.querySelector(".selected")
+        if (selected !== null){
+            selected.classList.remove("selected")
+        }
+    }
+
+    // Choose a Reason
+    function SelectReportReason(event){
+        const selected = event.currentTarget.parentElement.querySelector(".selected")
+        if (selected !== null){
+            selected.classList.remove("selected")
+        }
+        event.currentTarget.classList.add("selected")
+        if(event.currentTarget.innerHTML === 'Somthing Else'){
+            setsomthingElse(true)
+        }else{
+            setsomthingElse(false)
+        }
+    }   
+    async function submitReportForm(event){
+        var reason = ''
+        const parent = event.currentTarget.closest(".SingleArticleBox")
+        // Data Reading and Validation
+        const selected = event.currentTarget.parentElement.querySelector(".ReportTag.selected")
+        if (selected === null){
+            setshowErrorMessage('You Have To Choose a Reason')
+            return;
+        }
+        reason = selected.innerHTML
+        if (selected.innerHTML === 'Somthing Else'){
+            const inputValue = event.currentTarget.parentElement.querySelector("input").value
+            if (inputValue ==''){
+                setshowErrorMessage('You Have To Write a Reason')
+                return
+            }
+            reason = inputValue
+        }
+        setshowErrorMessage(null)
+        try{
+
+            parent.querySelector('.backgroundBlock').click()
+
+            
+            axios.delete(globalVar.backendURL+"/super/article",{data:{articleID:article.id,reason:reason}}).then((res)=>{
+                window.location.href = '/articles';
+            }).catch((err)=>{
+                console.log("Error!!\n",err)
+            })
+        }catch(err){
+            console.log("Error!!\n",err)
+        }
+
+    }
     // Sending To Get The Article
     useEffect(() => {
         const fetchData = async () => {
@@ -137,7 +210,7 @@ function SingleArticlesPage() {
                 <div className='right'>
                     <div className='Tags'>
                         <span className='Community'>{article.category}</span>
-                        <span className='Report' onClick={()=>{}}>Report</span>
+                        <span className='Report' onClick={ShowPopupReportForm}>Report</span>
                     </div>
                 </div>
             </div>
@@ -179,7 +252,31 @@ function SingleArticlesPage() {
                 </div>
             </div>
 
-
+            <div className='ReportPopupWindow'>
+                <div className='backgroundBlock' onClick={hideReportForm}></div>
+                <div className='ReportForm'>
+                    <h1 className='TitleReport'>Report</h1>
+                    <h3 className='ForNextArticle'>The Article:</h3>
+                    <p className='ReportMainArticleText'>{article.title}</p>
+                    <div className='ReportTagOptions'>
+                        <span className='ReportTag' onClick={SelectReportReason}>Spam</span>
+                        <span className='ReportTag' onClick={SelectReportReason}>Nudity</span>
+                        <span className='ReportTag' onClick={SelectReportReason}>Scam</span>
+                        <span className='ReportTag' onClick={SelectReportReason}>Illigal</span>
+                        <span className='ReportTag' onClick={SelectReportReason}>Sucide or Self-injury</span>
+                        <span className='ReportTag' onClick={SelectReportReason}>Violance</span>
+                        <span className='ReportTag' onClick={SelectReportReason}>Hate Speech</span>
+                        <span className='ReportTag' onClick={SelectReportReason}>Somthing Else</span>
+                    </div>
+                    <div className={'ReasonInputForm'+(somthingElse?" show":"")}>
+                        <h2>Reason:</h2>
+                        <p>Write a Simple Message For the Report Reason</p>
+                        <input type='text' placeholder='Write the Message'/>
+                    </div>
+                    <button className='submutReportButton' onClick={submitReportForm}>Submit Report</button>
+                    <p className={'ErrorMessage'+(showErrorMessage?" show":"")}>{showErrorMessage}</p>
+                </div>
+            </div>
 
             
         </div>
