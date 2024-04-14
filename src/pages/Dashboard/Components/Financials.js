@@ -24,16 +24,16 @@ function FinancialsBox({title,Data}) {
           
           {
             label: "Appointments",
-            backgroundColor: "#75f4f4",
-            borderColor: "#75f4f4",
+            backgroundColor: "#d081ee",
+            borderColor: "#f8ff78",
             borderWidth: 0,
             data: [127, 35, 98, 74, 162, 55, 189, 18, 46, 123, 200, 85]
           },
           
           {
             label: "Chats",
-            backgroundColor: "#d081ee",
-            borderColor: "#f8ff78",
+            backgroundColor: "#75f4f4",
+            borderColor: "#75f4f4",
             borderWidth: 0,
             data: [55, 176, 33, 124, 97, 142, 20, 188, 63, 105, 11, 199]
           }
