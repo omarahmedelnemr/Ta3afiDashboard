@@ -12,7 +12,7 @@ function TestChatPage() {
     // Connect to the Socket.IO server
     // const socket = io('http://192.168.1.105:8000');
     // useEffect(()=>{
-        var n;
+    var n;
     if (localStorage.getItem("id") === null){
         n = "no Users Connected"
     }else{
@@ -110,14 +110,15 @@ function TestChatPage() {
     }
     function sendMessage(){
         const message = document.getElementById("messageInputText").value
+        const tempMesageList = []
         if (message !== ""){
-            MessagesList.push(
+            tempMesageList.push(
                 <div className={'message sent'}>
                     <p>{message}</p>
                     <span>Sending</span>
                 </div>
             )
-            SetMessagesList(MessagesList)
+            SetMessagesList(tempMesageList)
             socket.emit("send_message",{
                 chatroomID:localStorage.getItem("chatID"),
                 senderRole:document.getElementById("userRoleInput").value,
