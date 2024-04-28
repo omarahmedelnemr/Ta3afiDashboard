@@ -29,7 +29,7 @@ return (
         </div>
         <SideNavigation defualtRoute={defualtRoute} navList={navList}>
             <SideNavigationButton route={"dashboard"} text={compText["Dashboard"]} icon={<FontAwesomeIcon icon="fa-solid fa-chart-pie" />} active={true}/>
-            {localStorage.getItem("role").toLowerCase() === "admin" ?
+            {localStorage.getItem("role") === "admin" ?
             <SideNavigationButton route={"supervisors"} text={compText["supervisors"]} icon={<FontAwesomeIcon icon="fa-solid fa-user-tie" />}/>
             :''}
             <SideNavigationButton route={"posts-pending"} text={compText["postsPending"]} icon={<FontAwesomeIcon icon="fa-solid fa-comments" />}/>
