@@ -13,29 +13,27 @@ function LoginPage() {
     e.preventDefault();
 
     try {
-        console.log(globalVar.backendURL)
-      const response = await axios.post(globalVar.backendURL+'/super/login', {
+      const response = axios.post(globalVar.backendURL+'/super/login', {
         email,
         password,
-      });
+      }).then((res)=>{
+        // Store in local storage
+        console.log(res)
+        const data = res.data
+        for(var i of Object.keys(data)){
+          console.log(data[i])
+          localStorage.setItem(i,data[i])
+        }
+        // Redirect to /dashboard
+        window.location.href = '/dashboard';
+      }).catch((err)=>{
+        console.log(err)
+        setError(err.response.data);
 
-      console.log(response)
-      // Assuming the server responds with a JWT token
+      })
 
-      // Store in local storage
-      localStorage.setItem('id', response.data.id);
-      localStorage.setItem('email', response.data.email);
-      localStorage.setItem('token', response.data.jwt);
-      localStorage.setItem('role', response.data.role);
-
-      // Redirect to /dashboard
-      window.location.href = '/dashboard';
     } catch (error) {
-      if (error.response && error.response.data && error.response.data.message) {
-        setError(error.response.data.message);
-      } else {
         setError('An error occurred while logging in. Please try again.');
-      }
     }
   };
 
