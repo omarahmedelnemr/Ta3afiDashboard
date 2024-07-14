@@ -20,13 +20,16 @@ axios.interceptors.response.use(
           // Redirect to the login page when a 401 error is encountered
           if (window.location.pathname !== '/login'){
               window.location.href = '/login'
+            
           }else{
               console.log("Already on Login")
+
           }
+          return Promise.reject("Error Connecting to The Server",error);
         }
-      }else{
-        return Promise.reject("Error Connecting to The Server",error);
       }
+      return Promise.reject(error);
+
        
     }
   );
