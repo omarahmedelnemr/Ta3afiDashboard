@@ -17,7 +17,7 @@
     margin: auto;
 }
 #UserProfile #UserMain  .textMain{
-    text-align: left;
+    text-align: center;
     margin: auto;
     width: max-content;
 
@@ -51,17 +51,58 @@
 }
 
 #UserProfile #UserData .DataSection .DataEntry{
-    width: 40%;
+    width: 70%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     font-size: 20px;
+    text-wrap: nowrap;
+    overflow: auto;
 }
 
 #UserProfile #UserData .DataSection .DataEntry .key{
     font-weight: bolder;
 }
+#UserProfile #UserData .DataSection .DataEntry .card{
+    text-align: start;
+    display: flex;
+    flex-direction: column;
+    padding: 10px ;
+    border-radius: 10px;
+    box-shadow: -2px 2px 5px rgb(221, 221, 221);
+    margin: 10px;
+    transition: 0.2s;
+}
+#UserProfile #UserData .DataSection .DataEntry .card:hover{
+    box-shadow: -5px 5px 5px gray;
+}
 
+#UserProfile #UserData .DataSection .commentKey{
+    color: gray;
+}
+#UserProfile #UserData .DataSection .drName{
+    color: gray;
+}
+.mainInfo{
+    text-align: left;
+    font-weight: bolder;
+}
+.mainInfo span{
+    font-weight: 300;
+}
+
+.mainInfo .doctorStatus{
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    border-radius: 100%;
+}
+.mainInfo .doctorStatus.online{
+    background-color: rgb(74, 255, 74);
+}
+.mainInfo .doctorStatus.offline{
+    background-color: gray;
+}
 @media (max-width: 1000px) {
     #UserProfile{
         flex-direction: column;
