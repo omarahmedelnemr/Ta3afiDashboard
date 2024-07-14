@@ -9,7 +9,8 @@ function GraphBox({title, Data}) {
     
 
     const chartValues= [Data['completed'],Data['canceled'],Data['scheduled']]
-    const chartData = {
+    console.log(Data)
+    var chartData = {
         labels: [  'Completed','Canceled', 'Scheduled' ],
         datasets: [
             {
@@ -19,6 +20,19 @@ function GraphBox({title, Data}) {
               borderWidth: 2,
             }
         ]
+    }
+    if (!Data.length){
+        chartData = {
+            labels: [  'No Appointment Yet' ],
+            datasets: [
+                {
+                  label: 'Popularity of colours',
+                  data: [100],
+                  backgroundColor: [  "gray"],
+                  borderWidth: 2,
+                }
+            ]
+        }
     }
     return (
         <div className="GraphBox">
