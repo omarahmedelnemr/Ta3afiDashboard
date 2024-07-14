@@ -17,6 +17,7 @@ import TestChatPage         from './pages/test/TestChat';
 import TestNotifyPage       from './pages/test/TestNotify';
 import TestPayment from './pages/test/TestPayment';
 import AI_Chat from './components/AI_Chat';
+import Firebaselogin from './pages/test/Flogin';
 function App() {
   return (
     <div className="App">
@@ -40,6 +41,7 @@ function App() {
                           <Route path='/test' element={<TestChatPage/>} />
                           <Route path='/testnotify' element={<TestNotifyPage/>} />
                           <Route path='/testPay' element={<TestPayment/>} />
+                          <Route path='/testlogin' element={<Firebaselogin/>} />
                       </Routes>
                       <AI_Chat/>
                   </>
