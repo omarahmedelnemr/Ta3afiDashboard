@@ -15,7 +15,7 @@ function PostBox({post}) {
                     </div>
         UserName = "Anonymous Member"
     }else{
-        UserImage= <img src={globalVar.backendURL+"/profilepic/"+post.userProfileImage} alt={post.userName + " Profile Pic"}/>
+        UserImage= <img src={post.userProfileImage} alt={post.userName + " Profile Pic"}/>
         UserName = post.userName
     }
 

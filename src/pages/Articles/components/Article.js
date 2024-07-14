@@ -8,7 +8,7 @@ import axios from '../../../public Func/axiosAuth';
 
 function ArticleBox({article}) {
     // Validate For anonymous
-    var UserImage= <img src={globalVar.backendURL+"/profilepic/"+article.doctorProfileImage} alt={article.doctorName + " Profile Pic"}/>
+    var UserImage= <img src={article.doctorProfileImage} alt={article.doctorName + " Profile Pic"}/>
     var UserName = article.doctorName
     
 

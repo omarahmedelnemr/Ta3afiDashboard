@@ -99,7 +99,7 @@ function PostCommentBox({commentData}) {
             <span className='hidden commentID'>{commentData.id}</span>
             <div className='CommentHeader'>
                 <div  className='UserPic'>
-                    <img src={globalVar.backendURL+"/profilepic/"+commentData.patientProfileImage}/>
+                    <img src={commentData.patientProfileImage}/>
                     <a href={"./profile/patient/"+commentData.patientID} target="_blank" className='profileLink'></a>
                 </div>
                 

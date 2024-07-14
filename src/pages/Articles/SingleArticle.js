@@ -117,7 +117,7 @@ function SingleArticlesPage() {
             setArticleList(res.data)
             
             // Validate For anonymous
-            setUserImage(<img src={globalVar.backendURL+"/profilepic/"+res.data.doctorProfileImage} alt={res.data.doctorName + " Profile Pic"}/>)
+            setUserImage(<img src={res.data.doctorProfileImage} alt={res.data.doctorName + " Profile Pic"}/>)
             
             // Uploaded Images
             const images = []
