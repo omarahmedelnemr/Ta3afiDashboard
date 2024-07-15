@@ -1,0 +1,145 @@
+#SuperDoctorsPage{
+    width: 100%;
+    /* display: flex; */
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    overflow-y: auto;
+    background-color: #e5e7eb;
+}
+#SuperDoctorsPage .LoadingScreen{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(212, 212, 212, 0.354);
+    z-index: 99;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#SuperDoctorsPage .LoadingScreen.disabled{
+    display: none;
+}
+#SuperDoctorsPage .LoadingScreen .loadingCircle{
+    width: 70px;
+    height: 70px;
+    border: 7px white dashed;
+    border-radius: 100%;
+    /* background-color: red; */
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    #SuperDoctorsPage .LoadingScreen .loadingCircle {
+      animation: App-logo-spin infinite 20s linear;
+    }
+  }
+#DoctorsSearchFilters{
+    background-color: white;
+    width: 72%;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 10px 10px 10px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    min-width: 375px;
+    box-shadow: 0px 0px 10px rgba(149, 149, 149, 0.286);
+
+}
+#DoctorsSearchFilters p{
+    margin-left: 10px;
+    font-weight: bolder;
+    font-size: 20px;
+    margin-top: 0px
+}
+#DoctorsSearchFilters .row{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+#DoctorsSearchFilters input{
+    flex-basis: 100%;
+    margin: 0px;
+    margin-right:  0.2%;
+    font-size: 15px;
+    padding: 10px;
+    border-radius: 5px;
+    border:1px solid gray;
+}
+#DoctorsSearchFilters .searchButton{
+    flex-basis: 5%;
+    border: 1px solid rgba(0, 0, 0, 0);
+    border-radius: 5px;
+    margin: 0px 0.2%;
+    background-color: #0a808e;
+    color: white;
+    font-weight: bolder;
+    font-size: 17px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#DoctorsSearchFilters .searchButton:hover{
+    background-color: #0db2c4;
+
+}
+
+#AdminDoctorsFeed .NoDoctorsToDisplay{
+    color: rgba(128, 128, 128, 0.395);
+    font-weight: bolder;
+    height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+}
+
+#AdminDoctorsFeed .noMoreDoctors{
+    color: rgba(128, 128, 128, 0.395);
+    font-weight: bolder;
+}
+#AdminDoctorsFeed{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+#AdminDoctorsFeed .doctorCard{
+    width: 250px;
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: -2px 2px 5px gray;
+    margin: 20px;
+    color: black;
+    text-decoration: none;
+    transition: 0.3s;
+    cursor: pointer;
+}
+#AdminDoctorsFeed .doctorCard:hover{
+    box-shadow: -5px 5px 5px gray;
+
+}
+#AdminDoctorsFeed .doctorCard img{
+    width: 100px;
+    height: 100px;
+}
+#AdminDoctorsFeed .doctorCard .doctorName{
+    margin-bottom: 0px;
+}
+#AdminDoctorsFeed .doctorCard .doctorEmail{
+    margin-top: 0px;
+    color: gray;
+}
+#AdminDoctorsFeed .doctorCard .tagsList{
+    margin: 20px 0px;
+}
+#AdminDoctorsFeed .doctorCard .tagsList .tag{
+    background-color: rgb(226, 226, 226);
+    margin: 5px;
+    padding: 5px;
+    border-radius: 10px;
+}

@@ -18,6 +18,7 @@ import TestNotifyPage       from './pages/test/TestNotify';
 import TestPayment from './pages/test/TestPayment';
 import AI_Chat from './components/AI_Chat';
 import Firebaselogin from './pages/test/Flogin';
+import DoctorsPage from './pages/Doctors/DoctorsPage';
 function App() {
   return (
     <div className="App">
@@ -31,7 +32,8 @@ function App() {
                       <Routes>
                           <Route path='/' element={<Navigate to="/dashboard"/>} />
                           <Route path='/dashboard' element={<Dashboard/>} />
-                          <Route path='/supervisors' element={<SupervisorsPage/>} />
+                          {localStorage.getItem('role') === "admin" ?<Route path='/supervisors' element={<SupervisorsPage/>} />:null}
+                          {localStorage.getItem('role') === "admin" ?<Route path='/doctors' element={<DoctorsPage/>} />:null}
                           <Route path='/posts' element={<PostsPage/>} />
                           <Route path='/posts-pending' element={<PostsPendingPage/>} />
                           <Route path='/articles' element={<ArtilcesPage/>} />

@@ -5,17 +5,18 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 function SideNavBar() {
 
-  const navList = ['dashboard',"posts","posts-pending","articles","supervisors"] 
+  const navList = ['dashboard',"posts","posts-pending","articles","supervisors","doctors"] 
   const defualtRoute = "dashboard"
     const lang = 'en'// localStorage.getItem('lang') 
     const compText = {
         Dashboard:         lang === 'en' ? "Dashboard":"الرئيسية",
         posts:             lang === 'en' ? "Posts":"المنشورات",
-        postsPending:   lang === 'en' ? "Posts (Pending)":"المنشورات المتوقفه ",
+        postsPending:      lang === 'en' ? "Posts (Pending)":"المنشورات المتوقفه ",
         Articles:          lang === 'en' ? "Articles" : "المقالات" ,
-        ArticlesPending:          lang === 'en' ? "Articles (Pending)" : "المقالات المتوقفه" ,
+        ArticlesPending:   lang === 'en' ? "Articles (Pending)" : "المقالات المتوقفه" ,
         supervisors:       lang === 'en' ? "Supervisors" :"المسئولون",
-        Support:            lang === 'en' ? "Support Issues":"البلاغات" 
+        doctors:       lang === 'en' ? "Doctors" :"الأطباء",
+        Support:           lang === 'en' ? "Support Issues":"البلاغات" 
     }
     function showHideMinu(){
         document.getElementsByClassName('sideNav')[0].style.setProperty('left','0px')
@@ -31,6 +32,9 @@ return (
             <SideNavigationButton route={"dashboard"} text={compText["Dashboard"]} icon={<FontAwesomeIcon icon="fa-solid fa-chart-pie" />} active={true}/>
             {localStorage.getItem("role") === "admin" ?
             <SideNavigationButton route={"supervisors"} text={compText["supervisors"]} icon={<FontAwesomeIcon icon="fa-solid fa-user-tie" />}/>
+            :''}
+            {localStorage.getItem("role") === "admin" ?
+            <SideNavigationButton route={"doctors"} text={compText["doctors"]} icon={<FontAwesomeIcon icon="fa-solid fa-stethoscope" />}/>
             :''}
             <SideNavigationButton route={"posts-pending"} text={compText["postsPending"]} icon={<FontAwesomeIcon icon="fa-solid fa-comments" />}/>
             <SideNavigationButton route={"posts"} text={compText["posts"]} icon={<FontAwesomeIcon icon="fa-solid fa-comments" />}/>
