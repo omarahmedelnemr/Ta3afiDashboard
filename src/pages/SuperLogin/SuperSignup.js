@@ -86,7 +86,7 @@ function LoginPage() {
           onChange={(e) => setPassword2(e.target.value)}
           placeholder="Re-Write Your Password"
         />
-        <input type="submit" value="Login" />
+        <input type="submit" value="Sign up" />
       </form>
     </div>
   );
