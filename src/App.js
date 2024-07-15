@@ -45,7 +45,7 @@ function App() {
                           <Route path='/testPay' element={<TestPayment/>} />
                           <Route path='/testlogin' element={<Firebaselogin/>} />
                       </Routes>
-                      <AI_Chat/>
+                      {/* <AI_Chat/> */}
                   </>
           } />
         </Routes>
