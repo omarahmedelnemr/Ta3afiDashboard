@@ -1,11 +1,11 @@
 #SuperPostsPage{
     width: 100%;
-    /* display: flex; */
     flex-direction: column;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
     overflow-y: auto;
-    background-color: #e5e7eb;
+    background: linear-gradient(135deg, #e5e7eb 0%, #f3f4f6 100%);
+    padding: 20px 0;
 }
 #SuperPostsPage .LoadingScreen{
     position: absolute;
@@ -39,14 +39,18 @@
     background-color: white;
     width: 72%;
     margin: 20px auto;
-    padding: 20px;
-    border-radius: 10px 10px 10px 10px;
+    padding: 25px;
+    border-radius: 15px;
     display: flex;
     flex-direction: column;
     align-items: start;
     min-width: 375px;
-    box-shadow: 0px 0px 10px rgba(149, 149, 149, 0.286);
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+}
 
+#PostsSearchFilters:hover{
+    box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.12);
 }
 #PostsSearchFilters p{
     margin-left: 10px;

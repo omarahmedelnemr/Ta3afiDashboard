@@ -1,0 +1,141 @@
+#DoctorsHubPage {
+    width: 100%;
+    height: 100vh;
+    overflow-y: auto;
+    background-color: #e5e7eb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.doctorsHubContainer {
+    max-width: 1000px;
+    width: 100%;
+    text-align: center;
+}
+
+.doctorsHubContainer h1 {
+    font-size: 42px;
+    color: #0a808e;
+    margin-bottom: 10px;
+}
+
+.hubDescription {
+    font-size: 18px;
+    color: #6c757d;
+    margin-bottom: 50px;
+}
+
+.hubCardsContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.hubCard {
+    background-color: white;
+    border-radius: 15px;
+    padding: 40px 30px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 3px solid transparent;
+}
+
+.hubCard:hover {
+    transform: translateY(-10px);
+    box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.hubCard.unverified {
+    border-color: #ffc107;
+}
+
+.hubCard.unverified:hover {
+    border-color: #ff9800;
+}
+
+.hubCard.verified {
+    border-color: #28a745;
+}
+
+.hubCard.verified:hover {
+    border-color: #20c997;
+}
+
+.hubCardIcon {
+    font-size: 60px;
+    margin-bottom: 20px;
+}
+
+.hubCard.unverified .hubCardIcon {
+    color: #ffc107;
+}
+
+.hubCard.verified .hubCardIcon {
+    color: #28a745;
+}
+
+.hubCard h2 {
+    font-size: 24px;
+    color: #212529;
+    margin: 15px 0;
+}
+
+.hubCard p {
+    font-size: 16px;
+    color: #6c757d;
+    margin-bottom: 25px;
+    line-height: 1.5;
+}
+
+.hubCardButton {
+    background: linear-gradient(135deg, #0a808e 0%, #0db2c4 100%);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.hubCardButton:hover {
+    background: linear-gradient(135deg, #0db2c4 0%, #0a808e 100%);
+    transform: scale(1.05);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .doctorsHubContainer h1 {
+        font-size: 32px;
+    }
+
+    .hubDescription {
+        font-size: 16px;
+    }
+
+    .hubCardsContainer {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .hubCard {
+        padding: 30px 20px;
+    }
+
+    .hubCardIcon {
+        font-size: 50px;
+    }
+
+    .hubCard h2 {
+        font-size: 20px;
+    }
+
+    .hubCard p {
+        font-size: 14px;
+    }
+}

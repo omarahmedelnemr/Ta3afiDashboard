@@ -18,7 +18,10 @@ import TestNotifyPage       from './pages/test/TestNotify';
 import TestPayment from './pages/test/TestPayment';
 import AI_Chat from './components/AI_Chat';
 import Firebaselogin from './pages/test/Flogin';
-import DoctorsPage from './pages/Doctors/DoctorsPage';
+import UnverifiedDoctors from './pages/Doctors/UnverifiedDoctors';
+import VerifiedDoctors from './pages/Doctors/VerifiedDoctors';
+import DoctorInfo from './pages/Doctors/DoctorInfo';
+import ProtectedRoute from './components/ProtectedRoute';
 function App() {
   return (
     <div className="App">
@@ -27,26 +30,45 @@ function App() {
           <Route path='/Login' element={<LoginForm/>} />
           <Route path='/supersignup/:token' element={<SuperSignupForm/>} />
           <Route path='/*' element={
-                    <>
-                    <SideNavBar />
+                    <ProtectedRoute>
+                      <SideNavBar />
                       <Routes>
                           <Route path='/' element={<Navigate to="/dashboard"/>} />
-                          <Route path='/dashboard' element={<Dashboard/>} />
-                          {localStorage.getItem('role') === "admin" ?<Route path='/supervisors' element={<SupervisorsPage/>} />:null}
-                          {localStorage.getItem('role') === "admin" ?<Route path='/doctors' element={<DoctorsPage/>} />:null}
-                          <Route path='/posts' element={<PostsPage/>} />
-                          <Route path='/posts-pending' element={<PostsPendingPage/>} />
-                          <Route path='/articles' element={<ArtilcesPage/>} />
-                          <Route path='/articles/:articleID' element={<SingleArticlesPage/>} />
-                          <Route path='/profile/patient/:patientID' element={<PatientProfile/>} />
-                          <Route path='/profile/doctor/:doctorID' element={<DoctorProfile/>} />
-                          <Route path='/test' element={<TestChatPage/>} />
-                          <Route path='/testnotify' element={<TestNotifyPage/>} />
-                          <Route path='/testPay' element={<TestPayment/>} />
-                          <Route path='/testlogin' element={<Firebaselogin/>} />
+                          <Route path='dashboard' element={<Dashboard/>} />
+                          <Route path='supervisors' element={
+                            // <ProtectedRoute requiredRole="admin">
+                              <SupervisorsPage/>
+                            // </ProtectedRoute>
+                          } />
+                          <Route path='doctors/unverified' element={
+                            <ProtectedRoute requiredRole="super">
+
+                              <UnverifiedDoctors/>
+                              </ProtectedRoute>
+                          } />
+                          <Route path='doctors/verified' element={
+                            <ProtectedRoute requiredRole="super">
+                              <VerifiedDoctors/>
+                              </ProtectedRoute>
+                          } />
+                          <Route path='doctors/info/:doctorID' element={
+                            <ProtectedRoute requiredRole="super">
+                              <DoctorInfo/>
+                             </ProtectedRoute>
+                          } />
+                          <Route path='posts' element={<PostsPage/>} />
+                          <Route path='posts-pending' element={<PostsPendingPage/>} />
+                          <Route path='articles' element={<ArtilcesPage/>} />
+                          <Route path='articles/:articleID' element={<SingleArticlesPage/>} />
+                          <Route path='profile/patient/:patientID' element={<PatientProfile/>} />
+                          <Route path='profile/doctor/:doctorID' element={<DoctorProfile/>} />
+                          <Route path='test' element={<TestChatPage/>} />
+                          <Route path='testnotify' element={<TestNotifyPage/>} />
+                          <Route path='testPay' element={<TestPayment/>} />
+                          <Route path='testlogin' element={<Firebaselogin/>} />
                       </Routes>
                       {/* <AI_Chat/> */}
-                  </>
+                    </ProtectedRoute>
           } />
         </Routes>
       </Router>

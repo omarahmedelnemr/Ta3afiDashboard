@@ -1,17 +1,21 @@
 .PostBox{
-    background-color: rgb(246, 246, 246);
-    /* box-shadow: -5px 5px 5px gray; */
+    background-color: white;
     width: 75%;
     padding-bottom: 0;
-    margin: 1% auto;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(149, 149, 149, 0.286);
+    margin: 15px auto;
+    border-radius: 15px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.08);
     overflow: hidden;
     min-height: max-content;
     box-sizing: border-box;
     min-width: 370px;
-    transition: 0.5s;
-    
+    transition: all 0.3s ease;
+    border: 1px solid #f0f0f0;
+}
+
+.PostBox:hover{
+    box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
 }
 
 .PostBox .PostHeader{

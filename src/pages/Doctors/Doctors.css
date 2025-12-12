@@ -143,3 +143,40 @@
     padding: 5px;
     border-radius: 10px;
 }
+
+/* Doctor Stats */
+#AdminDoctorsFeed .doctorCard .doctorStats{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 15px 0;
+    font-size: 14px;
+}
+
+#AdminDoctorsFeed .doctorCard .doctorStats .statItem{
+    color: #555;
+}
+
+#AdminDoctorsFeed .doctorCard .doctorStats .statItem strong{
+    color: #0a808e;
+}
+
+/* Verification Badge */
+#AdminDoctorsFeed .doctorCard .verificationBadge{
+    margin-top: 15px;
+    padding: 8px 12px;
+    border-radius: 20px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+#AdminDoctorsFeed .doctorCard .verificationBadge.verified{
+    background-color: #d4edda;
+    color: #155724;
+}
+
+#AdminDoctorsFeed .doctorCard .verificationBadge.unverified{
+    background-color: #fff3cd;
+    color: #856404;
+}

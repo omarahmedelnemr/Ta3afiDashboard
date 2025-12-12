@@ -1,26 +1,56 @@
 #DashboardPage{
-    background: #e5e7eb;
-    height: 100vh;
-    /* min-height: 100vh; */
+    background: linear-gradient(135deg, #e5e7eb 0%, #f3f4f6 100%);
+    min-height: 100vh;
     font-size: 20px;
     flex-basis: 100%;
-    padding: 0px 6vh;
+    padding: 30px 6vh;
     overflow-y: auto;
 }
+
+/* Dashboard Header */
+#DashboardPage::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 200px;
+    background: linear-gradient(135deg, #0a808e 0%, #0db2c4 100%);
+    z-index: 0;
+}
+
 .infoBoxes{
     justify-content: space-evenly;
-
+    position: relative;
+    z-index: 1;
+    margin-bottom: 30px;
 }
+
+.SecondLevel {
+    position: relative;
+    z-index: 1;
+}
+
 @media (max-width:1420px){
     #DashboardPage{
-        padding: 0px 2vh;
+        padding: 30px 2vh;
     }
     .infoBoxes{
         flex-wrap: wrap;
-    
+
     }
     .SecondLevel{
         flex-wrap: wrap;
         justify-content: center;
+    }
+}
+
+@media (max-width: 768px){
+    #DashboardPage{
+        padding: 20px 2vh;
+    }
+
+    #DashboardPage::before {
+        height: 150px;
     }
 }
