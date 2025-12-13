@@ -1,399 +1,640 @@
+/* Modern Doctor Profile Design */
+
 #DoctorInfoPage {
-    width: 100%;
-    height: 100vh;
-    overflow-y: auto;
-    background-color: #e5e7eb;
-    padding: 20px;
+  width: 100%;
+  min-height: 100vh;
+  overflow-y: auto;
+  background: var(--bg-tertiary);
+  padding: var(--space-6);
+  margin-left: var(--sidebar-width);
+  max-width: calc(100vw - var(--sidebar-width));
 }
 
+@media (max-width: 1023px) {
+  #DoctorInfoPage {
+    margin-left: 0;
+    max-width: 100vw;
+  }
+}
+
+/* Loading Screen */
 #DoctorInfoPage .LoadingScreen {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    height: 100%;
-    width: 100%;
-    background-color: rgba(212, 212, 212, 0.354);
-    z-index: 99;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(4px);
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #DoctorInfoPage .LoadingScreen .loadingCircle {
-    width: 70px;
-    height: 70px;
-    border: 7px white dashed;
-    border-radius: 100%;
+  width: 70px;
+  height: 70px;
+  border: 7px var(--primary-500) dashed;
+  border-radius: var(--radius-full);
+  animation: spin 2s linear infinite;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-    #DoctorInfoPage .LoadingScreen .loadingCircle {
-        animation: App-logo-spin infinite 20s linear;
-    }
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
+/* Main Container */
 .doctorInfoContainer {
-    max-width: 1200px;
-    margin: 0 auto;
-    background-color: white;
-    border-radius: 10px;
-    padding: 30px;
-    box-shadow: 0px 0px 10px rgba(149, 149, 149, 0.286);
+  max-width: 1400px;
+  margin: 0 auto;
+  background: var(--bg-primary);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-8);
+  box-shadow: var(--shadow-xl);
+  animation: fadeIn var(--transition-normal) ease-out;
 }
 
+/* Header */
 .doctorInfoHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
-    flex-wrap: wrap;
-    gap: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-8);
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  padding-bottom: var(--space-6);
+  border-bottom: 2px solid var(--border-light);
 }
 
 .doctorInfoHeader h1 {
-    margin: 0;
-    color: #0a808e;
+  margin: 0;
+  color: var(--text-primary);
+  font-size: var(--text-4xl);
+  font-weight: var(--font-bold);
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .backButton {
-    background-color: #6c757d;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: 0.3s;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-medium);
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  font-size: var(--text-base);
+  font-weight: var(--font-semibold);
+  transition: all var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
 }
 
 .backButton:hover {
-    background-color: #5a6268;
+  background: var(--bg-tertiary);
+  border-color: var(--border-dark);
+  transform: translateX(-4px);
 }
 
+/* Verification Status Badge */
 .verificationStatus {
-    padding: 10px 20px;
-    border-radius: 20px;
-    font-weight: bold;
-    font-size: 16px;
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-full);
+  font-weight: var(--font-bold);
+  font-size: var(--text-base);
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-fast);
 }
 
 .verificationStatus.verified {
-    background-color: #d4edda;
-    color: #155724;
+  background: linear-gradient(135deg, var(--success-50) 0%, var(--success-100) 100%);
+  color: var(--success-700);
+  border: 2px solid var(--success-200);
 }
 
 .verificationStatus.unverified {
-    background-color: #fff3cd;
-    color: #856404;
+  background: linear-gradient(135deg, var(--warning-50) 0%, var(--warning-100) 100%);
+  color: var(--warning-700);
+  border: 2px solid var(--warning-200);
 }
 
+/* Info Section */
 .infoSection {
-    margin-bottom: 30px;
-    padding-bottom: 20px;
-    border-bottom: 2px solid #e5e7eb;
+  margin-bottom: var(--space-8);
+  padding-bottom: var(--space-6);
+  border-bottom: 2px solid var(--border-light);
+  animation: slideUp var(--transition-normal) ease-out;
 }
 
 .infoSection:last-of-type {
-    border-bottom: none;
+  border-bottom: none;
+  margin-bottom: 0;
 }
 
 .infoSection h2 {
-    color: #0a808e;
-    margin-bottom: 15px;
-    font-size: 22px;
+  color: var(--text-primary);
+  margin-bottom: var(--space-6);
+  font-size: var(--text-2xl);
+  font-weight: var(--font-bold);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
 }
 
+.infoSection h2::before {
+  content: '';
+  width: 4px;
+  height: 28px;
+  background: var(--gradient-primary);
+  border-radius: var(--radius-sm);
+}
+
+/* Info Grid */
 .infoGrid {
-    display: grid;
-    grid-template-columns: 200px 1fr;
-    gap: 20px;
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: var(--space-6);
 }
 
 @media (max-width: 768px) {
-    .infoGrid {
-        grid-template-columns: 1fr;
-    }
+  .infoGrid {
+    grid-template-columns: 1fr;
+  }
 }
 
+/* Info Card */
 .infoCard {
-    background-color: #f8f9fa;
-    padding: 20px;
-    border-radius: 8px;
+  background: var(--bg-secondary);
+  padding: var(--space-6);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border-light);
+  transition: all var(--transition-fast);
+}
+
+.infoCard:hover {
+  border-color: var(--border-medium);
+  box-shadow: var(--shadow-md);
 }
 
 .infoCard.fullWidth {
-    grid-column: 1 / -1;
+  grid-column: 1 / -1;
 }
 
+/* Doctor Profile Image */
 .doctorProfileImage {
-    width: 100%;
-    max-width: 200px;
-    height: auto;
-    border-radius: 10px;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 240px;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+  border: 4px solid var(--bg-primary);
+  transition: all var(--transition-normal);
 }
 
+.doctorProfileImage:hover {
+  transform: scale(1.02);
+  box-shadow: var(--shadow-xl);
+}
+
+/* Info Row */
 .infoRow {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 0;
-    border-bottom: 1px solid #dee2e6;
+  display: flex;
+  justify-content: space-between;
+  padding: var(--space-4) 0;
+  border-bottom: 1px solid var(--border-light);
+  gap: var(--space-4);
 }
 
 .infoRow:last-child {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 .infoRow strong {
-    color: #495057;
-    margin-right: 10px;
+  color: var(--text-secondary);
+  font-weight: var(--font-semibold);
+  font-size: var(--text-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  flex-shrink: 0;
 }
 
 .infoRow span {
-    color: #212529;
-    text-align: right;
-    flex: 1;
+  color: var(--text-primary);
+  text-align: right;
+  flex: 1;
+  font-size: var(--text-base);
+  font-weight: var(--font-medium);
 }
 
+/* Status Colors */
 .statusOnline {
-    color: #28a745 !important;
-    font-weight: bold;
+  color: var(--success-600) !important;
+  font-weight: var(--font-bold);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
 }
 
 .statusOffline {
-    color: #dc3545 !important;
-    font-weight: bold;
+  color: var(--danger-600) !important;
+  font-weight: var(--font-bold);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
 }
 
 .statusActive {
-    color: #28a745 !important;
-    font-weight: bold;
+  color: var(--success-600) !important;
+  font-weight: var(--font-bold);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
 }
 
 .statusInactive {
-    color: #dc3545 !important;
-    font-weight: bold;
+  color: var(--danger-600) !important;
+  font-weight: var(--font-bold);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
 }
 
+/* Stats Grid */
 .statsGrid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--space-4);
 }
 
 .statCard {
-    background: linear-gradient(135deg, #0a808e 0%, #0db2c4 100%);
-    color: white;
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+  background: var(--gradient-primary);
+  color: white;
+  padding: var(--space-6);
+  border-radius: var(--radius-xl);
+  text-align: center;
+  box-shadow: var(--shadow-lg);
+  transition: all var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.statCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
+  pointer-events: none;
+}
+
+.statCard:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-xl);
 }
 
 .statValue {
-    font-size: 32px;
-    font-weight: bold;
-    margin-bottom: 5px;
+  font-size: var(--text-5xl);
+  font-weight: var(--font-bold);
+  margin-bottom: var(--space-2);
+  position: relative;
+  z-index: 1;
 }
 
 .statLabel {
-    font-size: 14px;
-    opacity: 0.9;
+  font-size: var(--text-sm);
+  opacity: 0.95;
+  font-weight: var(--font-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  position: relative;
+  z-index: 1;
 }
 
+/* List Grid */
 .listGrid {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
 }
 
 .listItem {
-    background-color: #f8f9fa;
-    padding: 15px;
-    border-radius: 8px;
-    border-left: 4px solid #0a808e;
+  background: var(--bg-secondary);
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  border-left: 4px solid var(--primary-500);
+  transition: all var(--transition-fast);
+  color: var(--text-primary);
+  font-size: var(--text-base);
 }
 
+.listItem:hover {
+  background: var(--bg-tertiary);
+  border-left-color: var(--primary-600);
+  transform: translateX(4px);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Pricing Item */
 .pricingItem {
-    background: linear-gradient(135deg, #f4c075 0%, #ee9981 100%);
-    color: white;
-    padding: 15px;
-    border-radius: 8px;
-    text-align: center;
-    font-size: 16px;
+  background: var(--gradient-accent);
+  color: white;
+  padding: var(--space-4) var(--space-6);
+  border-radius: var(--radius-lg);
+  text-align: center;
+  font-size: var(--text-lg);
+  font-weight: var(--font-bold);
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-fast);
 }
 
+.pricingItem:hover {
+  transform: scale(1.02);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Tags Container */
 .tagsContainer {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
 }
 
 .tag {
-    background-color: #e9ecef;
-    padding: 8px 16px;
-    border-radius: 20px;
-    font-size: 14px;
-    color: #495057;
-    border: 1px solid #dee2e6;
+  background: var(--bg-tertiary);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-medium);
+  transition: all var(--transition-fast);
 }
 
+.tag:hover {
+  background: var(--primary-50);
+  border-color: var(--primary-200);
+  color: var(--primary-700);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Days Container */
 .daysContainer {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
 }
 
 .dayBadge {
-    background-color: #0a808e;
-    color: white;
-    padding: 8px 16px;
-    border-radius: 5px;
-    font-size: 14px;
-    font-weight: bold;
+  background: var(--gradient-teal-blue);
+  color: white;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-lg);
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-fast);
 }
 
+.dayBadge:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Action Buttons */
 .actionButtons {
-    display: flex;
-    gap: 15px;
-    justify-content: center;
-    margin-top: 30px;
-    flex-wrap: wrap;
+  display: flex;
+  gap: var(--space-4);
+  justify-content: center;
+  margin-top: var(--space-8);
+  padding-top: var(--space-6);
+  border-top: 2px solid var(--border-light);
+  flex-wrap: wrap;
 }
 
 .verifyButton,
 .rejectButton {
-    padding: 15px 40px;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
+  padding: var(--space-4) var(--space-8);
+  border: none;
+  border-radius: var(--radius-xl);
+  font-size: var(--text-lg);
+  font-weight: var(--font-bold);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  box-shadow: var(--shadow-md);
+  min-width: 180px;
+  position: relative;
+  overflow: hidden;
+}
+
+.verifyButton::before,
+.rejectButton::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.verifyButton:hover::before,
+.rejectButton:hover::before {
+  width: 300px;
+  height: 300px;
 }
 
 .verifyButton {
-    background-color: #28a745;
-    color: white;
+  background: var(--gradient-success);
+  color: white;
 }
 
 .verifyButton:hover:not(:disabled) {
-    background-color: #218838;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
 }
 
 .rejectButton {
-    background-color: #dc3545;
-    color: white;
+  background: var(--gradient-danger);
+  color: white;
 }
 
 .rejectButton:hover:not(:disabled) {
-    background-color: #c82333;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
 }
 
 .verifyButton:disabled,
 .rejectButton:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
 }
 
 /* Modal Styles */
 .modalOverlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease-out;
 }
 
 .modalContent {
-    background-color: white;
-    padding: 30px;
-    border-radius: 10px;
-    max-width: 500px;
-    width: 90%;
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+  background: var(--bg-primary);
+  padding: var(--space-8);
+  border-radius: var(--radius-2xl);
+  max-width: 600px;
+  width: 90%;
+  box-shadow: var(--shadow-2xl);
+  animation: slideUp 0.3s ease-out;
+  border: 1px solid var(--border-light);
 }
 
 .modalContent h2 {
-    margin-top: 0;
-    color: #0a808e;
+  margin: 0 0 var(--space-6) 0;
+  color: var(--text-primary);
+  font-size: var(--text-3xl);
+  font-weight: var(--font-bold);
 }
 
 .rejectionTextarea {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ced4da;
-    border-radius: 5px;
-    font-size: 14px;
-    font-family: inherit;
-    resize: vertical;
+  width: 100%;
+  min-height: 150px;
+  padding: var(--space-4);
+  border: 2px solid var(--border-medium);
+  border-radius: var(--radius-lg);
+  font-size: var(--text-base);
+  font-family: inherit;
+  resize: vertical;
+  transition: border-color var(--transition-fast);
+  color: var(--text-primary);
+  background: var(--bg-secondary);
+}
+
+.rejectionTextarea:focus {
+  outline: none;
+  border-color: var(--primary-500);
+  box-shadow: 0 0 0 3px var(--primary-100);
 }
 
 .modalButtons {
-    display: flex;
-    gap: 10px;
-    justify-content: flex-end;
-    margin-top: 20px;
+  display: flex;
+  gap: var(--space-3);
+  justify-content: flex-end;
+  margin-top: var(--space-6);
 }
 
 .modalCancelButton,
 .modalRejectButton {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    font-size: 14px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
+  padding: var(--space-3) var(--space-6);
+  border: none;
+  border-radius: var(--radius-lg);
+  font-size: var(--text-base);
+  font-weight: var(--font-bold);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  box-shadow: var(--shadow-sm);
 }
 
 .modalCancelButton {
-    background-color: #6c757d;
-    color: white;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-medium);
 }
 
 .modalCancelButton:hover:not(:disabled) {
-    background-color: #5a6268;
+  background: var(--bg-tertiary);
+  border-color: var(--border-dark);
+  transform: translateY(-2px);
 }
 
 .modalRejectButton {
-    background-color: #dc3545;
-    color: white;
+  background: var(--gradient-danger);
+  color: white;
 }
 
 .modalRejectButton:hover:not(:disabled) {
-    background-color: #c82333;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
 }
 
 .modalCancelButton:disabled,
 .modalRejectButton:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 /* Mobile Responsive */
 @media (max-width: 768px) {
-    .doctorInfoContainer {
-        padding: 15px;
-    }
+  #DoctorInfoPage {
+    padding: var(--space-4);
+  }
 
-    .doctorInfoHeader {
-        flex-direction: column;
-        align-items: flex-start;
-    }
+  .doctorInfoContainer {
+    padding: var(--space-4);
+  }
 
-    .actionButtons {
-        flex-direction: column;
-        width: 100%;
-    }
+  .doctorInfoHeader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 
-    .verifyButton,
-    .rejectButton {
-        width: 100%;
-    }
+  .doctorInfoHeader h1 {
+    font-size: var(--text-2xl);
+  }
+
+  .statsGrid {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  }
+
+  .actionButtons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .verifyButton,
+  .rejectButton {
+    width: 100%;
+  }
+
+  .modalContent {
+    padding: var(--space-6);
+  }
+
+  .modalButtons {
+    flex-direction: column-reverse;
+  }
+
+  .modalCancelButton,
+  .modalRejectButton {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .statsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .infoRow {
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .infoRow span {
+    text-align: left;
+  }
 }

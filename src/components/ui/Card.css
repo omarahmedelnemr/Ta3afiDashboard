@@ -1,0 +1,132 @@
+/* Card Component Styles */
+
+.card {
+  background: var(--bg-primary);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-base);
+  overflow: hidden;
+  border: 1px solid var(--border-light);
+}
+
+/* Card Variants */
+.card-default {
+  background: var(--bg-primary);
+}
+
+.card-elevated {
+  box-shadow: var(--shadow-lg);
+}
+
+.card-bordered {
+  border: 2px solid var(--border-medium);
+  box-shadow: none;
+}
+
+.card-ghost {
+  background: transparent;
+  border: 1px dashed var(--border-medium);
+  box-shadow: none;
+}
+
+/* Card Padding */
+.card-padding-none {
+  padding: 0;
+}
+
+.card-padding-sm {
+  padding: var(--space-3);
+}
+
+.card-padding-md {
+  padding: var(--space-6);
+}
+
+.card-padding-lg {
+  padding: var(--space-8);
+}
+
+/* Card States */
+.card-hoverable:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.card-clickable {
+  cursor: pointer;
+  user-select: none;
+}
+
+.card-clickable:active {
+  transform: scale(0.98);
+}
+
+/* Gradient Card */
+.card-gradient {
+  position: relative;
+  background: var(--gradient-primary);
+  border: none;
+  color: var(--text-inverse);
+}
+
+.card-gradient::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+  pointer-events: none;
+}
+
+/* Card Sections */
+.card-header {
+  padding: var(--space-6);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.card-padding-none .card-header {
+  padding: var(--space-6);
+}
+
+.card-body {
+  flex: 1;
+}
+
+.card-padding-none .card-body {
+  padding: var(--space-6);
+}
+
+.card-footer {
+  padding: var(--space-6);
+  border-top: 1px solid var(--border-light);
+  background: var(--bg-secondary);
+}
+
+.card-padding-none .card-footer {
+  padding: var(--space-6);
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .card-padding-md {
+    padding: var(--space-4);
+  }
+
+  .card-padding-lg {
+    padding: var(--space-6);
+  }
+
+  .card-header,
+  .card-body,
+  .card-footer {
+    padding: var(--space-4);
+  }
+
+  .card-padding-none .card-header,
+  .card-padding-none .card-body,
+  .card-padding-none .card-footer {
+    padding: var(--space-4);
+  }
+}

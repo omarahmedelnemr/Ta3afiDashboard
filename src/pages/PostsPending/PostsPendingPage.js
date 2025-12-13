@@ -1,186 +1,208 @@
-import React, { useRef, useEffect, useState } from 'react';
-import './PostsPending.css';
-import PostBox from './components/PostPending';
-// import randomizeData from '../../public Func/RandomData';
+import React, { useRef, useEffect, useState, useMemo } from 'react';
 import axios from '../../public Func/axiosAuth';
 import globalVar from '../../public Func/globalVar';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { SearchBar, Select, LoadingSkeleton } from '../../components/ui';
+import PostBox from './components/PostPending';
 import { useSearchParams } from 'react-router-dom';
-
+import './PostsPending.css';
 
 function PostsPendingPage() {
-    const [postList,setPostList] = useState([])
-    const [isAtEnd, setIsAtEnd] = useState(true);
-    const [loadBlock,setIncreaseLoadBlock] = useState(1);
-    const [categoryList,setCategoryList]   = useState([])
-    let [searchParams, setSearchParams] = useSearchParams();
-    let keyword  = searchParams.get('keyword');
-    let category  = searchParams.get('category');
-    
-    const [loadingStatus,setLoadingStatus] = useState('shown')
-    const [activeCategory,setActiveCategory] = useState(category?category:-1)
-    const [activeCategoryName,setActiveCategoryName] = useState("All")
-    const divRef = useRef(null);
+  const [postList, setPostList] = useState([]);
+  const [isAtEnd, setIsAtEnd] = useState(true);
+  const [loadBlock, setIncreaseLoadBlock] = useState(1);
+  const [categoryList, setCategoryList] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-    // Getting All Available Categories
-    useEffect(()=>{
-        axios.get(globalVar.backendURL + "/community/community-list").then((res)=>{
-            console.log(res.data)
-            const categoryListElements = []
-            // Remove Active From Default All Category
-            if(Number(activeCategory) !== -1){
-                categoryListElements.push(<span id='-1' className='categoryOption' onClick={SelectCategory}>All</span>)
-            }else{
-                categoryListElements.push(<span id='-1' className='categoryOption activeCategory' onClick={SelectCategory}>All</span>)
+  let [searchParams, setSearchParams] = useSearchParams();
+  let keyword = searchParams.get('keyword');
+  let category = searchParams.get('category');
 
-            }
+  const [searchQuery, setSearchQuery] = useState(keyword || '');
+  const [activeCategory, setActiveCategory] = useState(category ? category : -1);
+  const divRef = useRef(null);
 
-            for(var cat of res.data){
+  // Fetch categories
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const res = await axios.get(globalVar.backendURL + '/community/community-list');
+        setCategoryList([
+          { id: -1, name: 'All' },
+          ...res.data
+        ]);
+      } catch (err) {
+        console.error('Error fetching categories:', err);
+      }
+    };
 
-                if(Number(activeCategory) === Number(cat.id)){
-                    setActiveCategoryName(cat.name)
-                    categoryListElements.push(<span id={cat.id} key={cat.id} className={'categoryOption activeCategory'} onClick={SelectCategory}>{cat.name}</span>)
-                }else{
-                    categoryListElements.push(<span id={cat.id} key={cat.id} className={'categoryOption'} onClick={SelectCategory}>{cat.name}</span>)
+    fetchCategories();
+  }, []);
 
-                }
-            }
+  // Fetch posts
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!isAtEnd) return;
 
-            setCategoryList(categoryListElements);
-        }).catch((err)=>{
-            console.log("Error!!");
-            console.log(err);
-        })
-    },[])
+      setLoading(true);
 
-    // Sending To Get The First Posts
-    useEffect(() => {
-        const fetchData = async () => {
-        try {
-            if (isAtEnd){
-            const res = await axios.get(
-            globalVar.backendURL +
-                "/super/unapproved-posts?loadBlock=" +
-                loadBlock +
-                "&effect=0" +
-                (keyword ? "&searchText=" + keyword : '') +
-                ((Number(category)!== -1 &&category) ? "&communityID=" + category : "")
-            );
-    
-            const newPostList = res.data.map((post) => (
-                <PostBox id={post.id} key={post.id} post={post} />
-            ));
-            if (newPostList.length >0){
-                setPostList([...postList,newPostList]);
-                setIncreaseLoadBlock(loadBlock + 1);
-                setIsAtEnd(false)
-            }
-            else if(postList.length === 0){
-                setPostList([<div className={'NoPostsToDisplay'}>
-                                <p>No Posts To Display</p>
-                            </div>])
-            }
-            else{
-                setPostList([...postList,<p className='noMorePosts'>No More Posts To Display</p>])
-            }
-            setLoadingStatus("disabled")
+      try {
+        const res = await axios.get(
+          globalVar.backendURL +
+            '/super/unapproved-posts?loadBlock=' +
+            loadBlock +
+            '&effect=0' +
+            (keyword ? '&searchText=' + keyword : '') +
+            (Number(category) !== -1 && category ? '&communityID=' + category : '')
+        );
+
+        const newPostList = res.data.map((post) => (
+          <PostBox id={post.id} key={post.id} post={post} />
+        ));
+
+        if (newPostList.length > 0) {
+          setPostList([...postList, ...newPostList]);
+          setIncreaseLoadBlock(loadBlock + 1);
         }
-        } catch (err) {
-            console.log("Error!!");
-            console.log(err);
-        }
-        };
-    
-        fetchData();
-    
-        // Cleanup function to handle potential cancellation or cleanup tasks
-        return () => {
-        
-        };
-    }, [isAtEnd]);
+      } catch (err) {
+        console.error('Error fetching pending posts:', err);
+      } finally {
+        setLoading(false);
+        setIsAtEnd(false);
+      }
+    };
 
-    // Hnadling Scroll Down Behavior
-    useEffect(() => {
-        const handleScroll = () => {
-        const { scrollTop, scrollHeight, clientHeight } = divRef.current;
-        // Check if scroll position is at the bottom of the div
-        if(scrollHeight - scrollTop === clientHeight){
-            setIsAtEnd(scrollHeight - scrollTop === clientHeight);
-        }
-        };
+    fetchData();
+  }, [isAtEnd]);
 
-        const divElement = divRef.current;
-        divElement.addEventListener('scroll', handleScroll);
+  // Handle scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!divRef.current) return;
+      const { scrollTop, scrollHeight, clientHeight } = divRef.current;
+      if (scrollHeight - scrollTop === clientHeight) {
+        setIsAtEnd(true);
+      }
+    };
 
-        return () => {
+    const divElement = divRef.current;
+    if (divElement) {
+      divElement.addEventListener('scroll', handleScroll);
+    }
+
+    return () => {
+      if (divElement) {
         divElement.removeEventListener('scroll', handleScroll);
-        };
-    }, []);
+      }
+    };
+  }, []);
 
-    // Toggle Category List Options
-    function DropDownMenuToggle(event){
-        if (event.currentTarget.querySelector(".arrowIcon").style.rotate === '180deg'){
-            event.currentTarget.querySelector(".arrowIcon").style.rotate = "0deg"
-            event.currentTarget.querySelector(".CategoryOptionsDropList").style.height = "0px"
+  // Handle search
+  const handleSearch = () => {
+    const params = {};
+    if (searchQuery) params.keyword = searchQuery;
+    if (Number(activeCategory) !== -1) params.category = activeCategory;
 
-        }else{
-            event.currentTarget.querySelector(".arrowIcon").style.rotate = "180deg"
+    setSearchParams(params);
+    window.location.reload();
+  };
 
-            //// Get List Max Height
-            const dropDownListHeight = event.currentTarget.querySelector(".CategoryOptionsDropList").scrollHeight;
-            event.currentTarget.querySelector(".CategoryOptionsDropList").style.height = dropDownListHeight+"px"
-            
-        }
+  // Category options for Select
+  const categoryOptions = useMemo(() => {
+    return categoryList.map(cat => ({
+      value: cat.id.toString(),
+      label: cat.name
+    }));
+  }, [categoryList]);
 
-    }
-    
-    // Set an Active Community
-    function SelectCategory(event){
-        setActiveCategory(Number(event.currentTarget.id))  
-        setActiveCategoryName(event.currentTarget.innerHTML)  
-        event.currentTarget.parentElement.querySelector(".activeCategory").classList.remove("activeCategory")
-        event.currentTarget.classList.add("activeCategory") 
-    }
-
-    function Search(event){
-        const inp = event.currentTarget.parentElement
-        const keyword   = inp.querySelector(".SearchKeyWord").value?inp.querySelector(".SearchKeyWord").value:""
-        const category  = activeCategory ? activeCategory : 'All'
-
-
-        setSearchParams({keyword:keyword,category:category})
-        console.log(keyword)
-        window.location.reload()
-    }
-
-    return (
-        <div id="SuperPendingPostsPage"  ref={divRef}>
-            <div className={'LoadingScreen '+loadingStatus} >
-                <div className='loadingCircle'></div>
-            </div>
-            <div id='PostsSearchFilters'>
-                <p>Find Posts</p>
-                <div className='row'> 
-                    <input type='text' className='SearchKeyWord' placeholder='Search By Key Word' defaultValue={keyword?keyword:""}/>
-                    <div className='categories' onClick={DropDownMenuToggle}>
-                        <span className='placeHolder'>{activeCategoryName}</span>
-                        <FontAwesomeIcon icon="fa-solid fa-chevron-down" className='arrowIcon' />
-                        <div className='CategoryOptionsDropList'>
-                            {categoryList}
-                        </div>
-
-                    </div>
-                    <button className='searchButton' onClick={Search }><FontAwesomeIcon icon="fa-solid fa-magnifying-glass" /></button>
-                </div> 
-
-            </div>
-            <div id='AdminPostsFeed'>
-            
-                {postList}  
-
-            </div>
+  return (
+    <div className="posts-pending-page" ref={divRef}>
+      {/* Header */}
+      <div className="posts-header">
+        <div>
+          <h1 className="page-title">Pending Posts</h1>
+          <p className="page-subtitle">
+            {loading
+              ? 'Loading...'
+              : `${postList.length} pending ${postList.length === 1 ? 'post' : 'posts'} awaiting moderation`}
+          </p>
         </div>
-    );
+      </div>
+
+      {/* Search & Filters */}
+      <div className="posts-search-section">
+        <div className="posts-search-bar">
+          <SearchBar
+            value={searchQuery}
+            onChange={setSearchQuery}
+            placeholder="Search by keyword..."
+            size="lg"
+            fullWidth
+            disabled={loading}
+          />
+        </div>
+        <div className="posts-filters">
+          <Select
+            value={activeCategory.toString()}
+            onChange={(e) => setActiveCategory(e.target.value)}
+            options={categoryOptions}
+            placeholder="Select Community"
+            size="lg"
+            disabled={loading}
+          />
+          <button className="posts-search-btn" onClick={handleSearch}>
+            Search
+          </button>
+        </div>
+      </div>
+
+      {/* Posts Feed */}
+      <div className="posts-feed">
+        {loading ? (
+          Array.from({ length: 6 }).map((_, index) => (
+            <div key={index} className="post-skeleton">
+              <LoadingSkeleton width="100%" height="200px" />
+              <LoadingSkeleton width="80%" height="24px" style={{ marginTop: '16px' }} />
+              <LoadingSkeleton width="60%" height="16px" style={{ marginTop: '8px' }} />
+            </div>
+          ))
+        ) : postList.length > 0 ? (
+          <>
+            {postList}
+            {loading && postList.length > 0 && (
+              <div className="posts-loading-more">
+                <LoadingSkeleton width="100%" height="150px" />
+              </div>
+            )}
+          </>
+        ) : (
+          <div className="empty-state">
+            <div className="empty-state-icon">
+              <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path
+                  d="M9 11l3 3L22 4"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </div>
+            <h3 className="empty-state-title">No pending posts</h3>
+            <p className="empty-state-description">
+              {searchQuery || Number(activeCategory) !== -1
+                ? 'Try adjusting your search criteria'
+                : 'All posts have been reviewed'}
+            </p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
 }
 
 export default PostsPendingPage;

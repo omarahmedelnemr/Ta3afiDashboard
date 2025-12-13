@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
+import ReactDOM from 'react-dom';
 import './SingleArticle.css';
 import ArticleBox from './components/Article';
 // import randomizeData from '../../public Func/RandomData';
@@ -30,40 +31,33 @@ function SingleArticlesPage() {
 
     //// Report Part
     const [somthingElse,setsomthingElse] = useState(false)
+    const [showReportModal, setShowReportModal] = useState(false)
+    const [selectedReason, setSelectedReason] = useState(null)
     const [showErrorMessage,setshowErrorMessage] = useState(null)
     
     // Hiding the Popup Window
-    function hideReportForm(event){
-        console.log("Hide Clicked")
-        event.currentTarget.parentElement.style.display = 'none'
-        event.currentTarget.parentElement.querySelector('.ReportForm').style.top = "100%"
+    function hideReportForm(){
+        setShowReportModal(false)
+        setTimeout(() => {
+            setsomthingElse(false)
+            setshowErrorMessage(null)
+            setSelectedReason(null)
+        }, 300)
     }
 
     // Showing the Popup Window
-    function ShowPopupReportForm(event){
-        const ReportForm = event.currentTarget.closest(".SingleArticleBox").querySelector(".ReportPopupWindow")
-        ReportForm.style.display = 'flex'
-        setTimeout(()=> {
-            ReportForm.querySelector(".ReportForm").style.top = "0px";
-          }, 100);
-
-        // Clear the Window
+    function ShowPopupReportForm(){
+        setShowReportModal(true)
         setsomthingElse(false)
         setshowErrorMessage(null)
-        const selected = ReportForm.querySelector(".selected")
-        if (selected !== null){
-            selected.classList.remove("selected")
-        }
+        setSelectedReason(null)
     }
 
     // Choose a Reason
     function SelectReportReason(event){
-        const selected = event.currentTarget.parentElement.querySelector(".selected")
-        if (selected !== null){
-            selected.classList.remove("selected")
-        }
-        event.currentTarget.classList.add("selected")
-        if(event.currentTarget.innerHTML === 'Somthing Else'){
+        const reason = event.currentTarget.innerHTML
+        setSelectedReason(reason)
+        if(reason === 'Somthing Else'){
             setsomthingElse(true)
         }else{
             setsomthingElse(false)
@@ -71,15 +65,13 @@ function SingleArticlesPage() {
     }   
     async function submitReportForm(event){
         var reason = ''
-        const parent = event.currentTarget.closest(".SingleArticleBox")
         // Data Reading and Validation
-        const selected = event.currentTarget.parentElement.querySelector(".ReportTag.selected")
-        if (selected === null){
+        if (selectedReason === null){
             setshowErrorMessage('You Have To Choose a Reason')
             return;
         }
-        reason = selected.innerHTML
-        if (selected.innerHTML === 'Somthing Else'){
+        reason = selectedReason
+        if (selectedReason === 'Somthing Else'){
             const inputValue = event.currentTarget.parentElement.querySelector("input").value
             if (inputValue ==''){
                 setshowErrorMessage('You Have To Write a Reason')
@@ -89,9 +81,7 @@ function SingleArticlesPage() {
         }
         setshowErrorMessage(null)
         try{
-
-            parent.querySelector('.backgroundBlock').click()
-
+            hideReportForm()
             
             axios.delete(globalVar.backendURL+"/super/article",{data:{articleID:article.id,reason:reason}}).then((res)=>{
                 window.location.href = '/articles';
@@ -113,7 +103,6 @@ function SingleArticlesPage() {
                 `articleID=${articleID}`
 
             );
-            console.log(res.data)
             setArticleList(res.data)
             
             // Validate For anonymous
@@ -122,27 +111,28 @@ function SingleArticlesPage() {
             // Uploaded Images
             const images = []
             for(var i of res.data.images){
-                images.push(<img src={globalVar.backendURL+"/file/"+i.link}/>)
+                images.push(<img src={globalVar.backendURL+"/file/"+i.link} alt="Article content"/>)
             }
             setImageList(images)
 
             // AI Rating Colors
             if (Number(res.data.AI_saftyRate)<50){
-                setRateColor("rateYellow")
+                setRateColor("rateRed")
             }else if (Number(res.data.AI_saftyRate)<75){
                 setRateColor("rateYellow")
+            } else {
+                setRateColor("rateGreen")
             }
             setLoadingStatus("disabled")
         
             // Comments
             if (res.data.commentsNumber ==0){
-                setButtonText("No Comments on This Post")
+                setButtonText("No Comments on This Article")
                 SetButtonState("disabled")
             }
 
         } catch (err) {
-            console.log("Error!!");
-            console.log(err);
+            console.error("Error fetching article:", err);
         }
         };
     
@@ -150,7 +140,7 @@ function SingleArticlesPage() {
     
         // Cleanup function to handle potential cancellation or cleanup tasks
         return () => {};
-    }, [isAtEnd]);
+    }, [articleID]);
 
 
     // Load a Comment according to the Current LoadBlock
@@ -167,9 +157,6 @@ function SingleArticlesPage() {
                 TempCommentList.push(<ArticleCommentBox commentData = {comment}/>)
             }
             setCommentList(TempCommentList)
-            console.log("Hello")
-            console.log(commentList)
-            console.log(res.data)
             IncreaseLoadBlock(loadBlock+1)
             setButtonText("See More Comments")
             if(res.data.length <2 || commentList.length >= article.commentsNumber){
@@ -189,94 +176,100 @@ function SingleArticlesPage() {
 
     })
     return (
-        <div className='SingleArticleBox'>
-            <div className='ArticleHeader'>
-                <div className='left'>
-                    <span className='starRate' title={`${article.doctorName} Star Rating`}>
-                        <FontAwesomeIcon icon="fa-solid fa-star" /> {article.doctorStarRate}
-                    </span>
-                    <span title={`The Number of Session ${article.doctorName} Had`}>
-                        <FontAwesomeIcon icon="fa-solid fa-calendar-check" /> {article.doctorSessionNumber}
-                    </span>
-                </div>
-                <div className='center'>
-                    {UserImage}
-                    <div className='AutherInfo'>
-                        <p>{article.doctorName}</p>
-                        <p>{article.doctorTitle}</p>
-                        <p className='date'>{formatDate(article.date)}</p>
+        <div className='single-article-page'>
+            <div className='SingleArticleBox'>
+                <div className='ArticleHeader'>
+                    <div className='left'>
+                        <span className='starRate' title={`${article.doctorName} Star Rating`}>
+                            <FontAwesomeIcon icon="fa-solid fa-star" /> {article.doctorStarRate}
+                        </span>
+                        <span title={`The Number of Session ${article.doctorName} Had`}>
+                            <FontAwesomeIcon icon="fa-solid fa-calendar-check" /> {article.doctorSessionNumber}
+                        </span>
+                        <span className={'aiRate ' + RateColor} title="AI Safety Rating">
+                            <FontAwesomeIcon icon="fa-solid fa-robot" /> {article.AI_saftyRate}% - ({article.AI_saftyWord})
+                        </span>
+                    </div>
+                    <div className='center'>
+                        {UserImage}
+                        <div className='AutherInfo'>
+                            <p>{article.doctorName}</p>
+                            <p>{article.doctorTitle}</p>
+                            <p className='date'>{formatDate(article.date)}</p>
+                        </div>
+                    </div>
+                    <div className='right'>
+                        <div className='Tags'>
+                            <span className='Community'>{article.category}</span>
+                            <span className='Report' onClick={ShowPopupReportForm}>Report</span>
+                        </div>
                     </div>
                 </div>
-                <div className='right'>
-                    <div className='Tags'>
-                        <span className='Community'>{article.category}</span>
-                        <span className='Report' onClick={ShowPopupReportForm}>Report</span>
+                <div className='ArticleBody'>
+                    {article.covorImage?<div className='CoverImage'>
+                        <img src={globalVar.backendURL+"/file/"+article.covorImage} alt="Article Cover"/>
+                    </div>:''}
+                    <div className='ArticleText'>
+                        <h1>{article.title}</h1>
+                        <p>{article.mainText}</p>
+                    </div>
+                    <div className='ArticleImages'>
+                        {imageList}
                     </div>
                 </div>
-            </div>
-            <div className='ArticleBody'>
-                {article.covorImage?<div className='CoverImage'>
-                    <img src={globalVar.backendURL+"/file/"+article.covorImage}/>
-                </div>:''}
-                <div className='ArticleText'>
-                    <h1>{article.title}</h1>
-                    <p>{article.mainText}</p>
+                <div className='Reactions'>
+                    <div className='left'>
+                        <span title='How Many Times the Article Was Displayed on a Screen'>
+                            <FontAwesomeIcon icon="fa-solid fa-eye" /> {article.views}
+                        </span>
+                    </div>
+                    <div className='right'>
+                        <span title='How Many People Reacted To This Article (Doctors and Patients)'>
+                            <FontAwesomeIcon icon="fa-solid fa-heart" /> {Number(article.upVotes) || 0 + Number(article.DoctorUpVotes) || 0}
+                        </span>
+                        <span title='Total Comment Number'>
+                            <FontAwesomeIcon icon="fa-solid fa-comment" /> {article.commentsNumber}
+                        </span>
+                    </div>
                 </div>
-                <div className='ArticleImages'>
-                    {imageList}
-                </div>
-            </div>
-            <div className='Reactions'>
-            <div className='left'>
-                    <span title='How Many Times the Article Was Displayed on a Screen'>
-                        <FontAwesomeIcon icon="fa-solid fa-eye" /> {article.views}
-                    </span>
-                
-                </div>
-                <div className='right'>
-                    <span title='How Many People Reacted To This Article (Doctors and Patients)'>
-                        <FontAwesomeIcon icon="fa-solid fa-heart" /> {article.upVotes+article.DoctorUpVotes}
-                    </span>
-                    <span title='Total Comment Number'>
-                        <FontAwesomeIcon icon="fa-solid fa-comment" /> {article.commentsNumber}
-                    </span>
-                </div>
-                
-            </div>
-            <div className='Comments'>
-                <div className='CommentsBox'>
-                    {commentList}
-                </div>
-                <div className={'CommentsButton '+CommentButtenState} onClick={loadComments}>
-                    {SeeCommentButton}
+                <div className='Comments'>
+                    <div className='CommentsBox'>
+                        {commentList}
+                    </div>
+                    <div className={'CommentsButton '+CommentButtenState} onClick={loadComments}>
+                        {SeeCommentButton}
+                    </div>
                 </div>
             </div>
 
-            <div className='ReportPopupWindow'>
-                <div className='backgroundBlock' onClick={hideReportForm}></div>
-                <div className='ReportForm'>
-                    <h1 className='TitleReport'>Report</h1>
-                    <h3 className='ForNextArticle'>The Article:</h3>
-                    <p className='ReportMainArticleText'>{article.title}</p>
-                    <div className='ReportTagOptions'>
-                        <span className='ReportTag' onClick={SelectReportReason}>Spam</span>
-                        <span className='ReportTag' onClick={SelectReportReason}>Nudity</span>
-                        <span className='ReportTag' onClick={SelectReportReason}>Scam</span>
-                        <span className='ReportTag' onClick={SelectReportReason}>Illigal</span>
-                        <span className='ReportTag' onClick={SelectReportReason}>Sucide or Self-injury</span>
-                        <span className='ReportTag' onClick={SelectReportReason}>Violance</span>
-                        <span className='ReportTag' onClick={SelectReportReason}>Hate Speech</span>
-                        <span className='ReportTag' onClick={SelectReportReason}>Somthing Else</span>
+            {showReportModal && ReactDOM.createPortal(
+                <div className='ReportPopupWindow'>
+                    <div className='backgroundBlock' onClick={hideReportForm}></div>
+                    <div className='ReportForm'>
+                        <h1 className='TitleReport'>Report</h1>
+                        <h3 className='ForNextArticle'>The Article:</h3>
+                        <p className='ReportMainArticleText'>{article.title}</p>
+                        <div className='ReportTagOptions'>
+                            <span className={'ReportTag' + (selectedReason === 'Spam' ? ' selected' : '')} onClick={SelectReportReason}>Spam</span>
+                            <span className={'ReportTag' + (selectedReason === 'Nudity' ? ' selected' : '')} onClick={SelectReportReason}>Nudity</span>
+                            <span className={'ReportTag' + (selectedReason === 'Scam' ? ' selected' : '')} onClick={SelectReportReason}>Scam</span>
+                            <span className={'ReportTag' + (selectedReason === 'Illigal' ? ' selected' : '')} onClick={SelectReportReason}>Illigal</span>
+                            <span className={'ReportTag' + (selectedReason === 'Sucide or Self-injury' ? ' selected' : '')} onClick={SelectReportReason}>Sucide or Self-injury</span>
+                            <span className={'ReportTag' + (selectedReason === 'Violance' ? ' selected' : '')} onClick={SelectReportReason}>Violance</span>
+                            <span className={'ReportTag' + (selectedReason === 'Hate Speech' ? ' selected' : '')} onClick={SelectReportReason}>Hate Speech</span>
+                            <span className={'ReportTag' + (selectedReason === 'Somthing Else' ? ' selected' : '')} onClick={SelectReportReason}>Somthing Else</span>
+                        </div>
+                        <div className={'ReasonInputForm'+(somthingElse?" show":"")}>
+                            <h2>Reason:</h2>
+                            <p>Write a Simple Message For the Report Reason</p>
+                            <input type='text' placeholder='Write the Message'/>
+                        </div>
+                        <button className='submutReportButton' onClick={submitReportForm}>Submit Report</button>
+                        <p className={'ErrorMessage'+(showErrorMessage?" show":"")}>{showErrorMessage}</p>
                     </div>
-                    <div className={'ReasonInputForm'+(somthingElse?" show":"")}>
-                        <h2>Reason:</h2>
-                        <p>Write a Simple Message For the Report Reason</p>
-                        <input type='text' placeholder='Write the Message'/>
-                    </div>
-                    <button className='submutReportButton' onClick={submitReportForm}>Submit Report</button>
-                    <p className={'ErrorMessage'+(showErrorMessage?" show":"")}>{showErrorMessage}</p>
-                </div>
-            </div>
+                </div>,
+                document.body
+            )}
 
             
         </div>

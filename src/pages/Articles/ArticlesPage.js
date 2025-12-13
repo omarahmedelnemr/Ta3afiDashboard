@@ -1,185 +1,217 @@
-import React, { useRef, useEffect, useState } from 'react';
-import './Articles.css';
-import ArticleBox from './components/Article';
-// import randomizeData from '../../public Func/RandomData';
+import React, { useRef, useEffect, useState, useMemo } from 'react';
 import axios from '../../public Func/axiosAuth';
 import globalVar from '../../public Func/globalVar';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { SearchBar, Select, LoadingSkeleton } from '../../components/ui';
+import ArticleBox from './components/Article';
 import { useSearchParams } from 'react-router-dom';
-
+import './Articles.css';
 
 function ArticlesPage() {
-    const [articleList,setArticleList] = useState([])
-    const [isAtEnd, setIsAtEnd] = useState(true);
-    const [loadBlock,setIncreaseLoadBlock] = useState(1);
-    const [categoryList,setCategoryList]   = useState([])
-    let [searchParams, setSearchParams] = useSearchParams();
-    let keyword  = searchParams.get('keyword');
-    let category  = searchParams.get('category');
-    const [loadingStatus,setLoadingStatus] = useState('shown')
-    const [activeCategory,setActiveCategory] = useState(category?category:-1)
-    const [activeCategoryName,setActiveCategoryName] = useState("All")
-    const divRef = useRef(null);
+  const [articleList, setArticleList] = useState([]);
+  const [isAtEnd, setIsAtEnd] = useState(true);
+  const [loadBlock, setIncreaseLoadBlock] = useState(1);
+  const [categoryList, setCategoryList] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-    // Getting All Available Categories
-    useEffect(()=>{
-        axios.get(globalVar.backendURL + "/blog/category-list").then((res)=>{
-            console.log(res.data)
-            const categoryListElements = []
-            // Remove Active From Default All Category
-            if(Number(activeCategory) !== -1){
-                categoryListElements.push(<span id='-1' className='categoryOption' onClick={SelectCategory}>All</span>)
-            }else{
-                categoryListElements.push(<span id='-1' className='categoryOption activeCategory' onClick={SelectCategory}>All</span>)
+  let [searchParams, setSearchParams] = useSearchParams();
+  let keyword = searchParams.get('keyword');
+  let category = searchParams.get('category');
 
-            }
+  const [searchQuery, setSearchQuery] = useState(keyword || '');
+  const [activeCategory, setActiveCategory] = useState(category ? category : -1);
+  const divRef = useRef(null);
 
-            for(var cat of res.data){
+  // Fetch categories
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const res = await axios.get(globalVar.backendURL + '/blog/category-list');
+        setCategoryList([
+          { id: -1, name: 'All' },
+          ...res.data.map(cat => ({
+            ...cat,
+            name: cat.en_category || cat.category || cat.mal_category || 'Unnamed Category'
+          }))
+        ]);
+      } catch (err) {
+        console.error('Error fetching categories:', err);
+      }
+    };
 
-                if(Number(activeCategory) === Number(cat.id)){
-                    setActiveCategoryName(cat.name)
-                    categoryListElements.push(<span id={cat.id} key={cat.id} className={'categoryOption activeCategory'} onClick={SelectCategory}>{cat.name}</span>)
-                }else{
-                    categoryListElements.push(<span id={cat.id} key={cat.id} className={'categoryOption'} onClick={SelectCategory}>{cat.name}</span>)
+    fetchCategories();
+  }, []);
 
-                }
-            }
+  // Reset when search params change
+  useEffect(() => {
+    setArticleList([]);
+    setIncreaseLoadBlock(1);
+    setIsAtEnd(true);
+  }, [keyword, category]);
 
-            setCategoryList(categoryListElements);
-        }).catch((err)=>{
-            console.log("Error!!");
-            console.log(err);
-        })
-    },[])
+  // Fetch articles
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!isAtEnd) return;
 
-    // Sending To Get The First Articles
-    useEffect(() => {
-        const fetchData = async () => {
-        try {
-            if (isAtEnd){
-            const res = await axios.get(
-            globalVar.backendURL +
-                "/blog/article-feed-admin?loadBlock=" +
-                loadBlock +
-                "&effect=0" +
-                (keyword ? "&searchText=" + keyword : '') +
-                ((Number(category)!== -1 &&category) ? "&categoryID=" + category : "")
-            );
-    
-            const newArticleList = res.data.map((article) => (
-                <ArticleBox id={article.id} key={article.id} article={article} />
-            ));
-            if (newArticleList.length >0){
-                setArticleList([...articleList,newArticleList]);
-                setIncreaseLoadBlock(loadBlock + 1);
-                setIsAtEnd(false)
-            }
-            else if(articleList.length === 0){
-                setArticleList([<div className={'NoArticlesToDisplay'}>
-                                <p>No Articles To Display</p>
-                            </div>])
-            }
-            else{
-                setArticleList([...articleList,<p className='noMoreArticles'>No More Articles To Display</p>])
-            }
-            setLoadingStatus("disabled")
+      setLoading(true);
+
+      try {
+        const res = await axios.get(
+          globalVar.backendURL +
+            '/blog/article-feed-admin?loadBlock=' +
+            loadBlock +
+            '&effect=0' +
+            (keyword ? '&searchText=' + keyword : '') +
+            (Number(category) !== -1 && category ? '&categoryID=' + category : '')
+        );
+
+        const newArticleList = res.data.map((article) => (
+          <ArticleBox id={article.id} key={article.id} article={article} />
+        ));
+
+        if (newArticleList.length > 0) {
+          setArticleList(prevList => [...prevList, ...newArticleList]);
+          setIncreaseLoadBlock(loadBlock + 1);
         }
-        } catch (err) {
-            console.log("Error!!");
-            console.log(err);
-        }
-        };
-    
-        fetchData();
-    
-        // Cleanup function to handle potential cancellation or cleanup tasks
-        return () => {
-        
-        };
-    }, [isAtEnd]);
+      } catch (err) {
+        console.error('Error fetching articles:', err);
+      } finally {
+        setLoading(false);
+        setIsAtEnd(false);
+      }
+    };
 
-    // Handling Scroll Down Behavior
-    useEffect(() => {
-        const handleScroll = () => {
-        const { scrollTop, scrollHeight, clientHeight } = divRef.current;
-        // Check if scroll position is at the bottom of the div
-        if(scrollHeight - scrollTop === clientHeight){
-            setIsAtEnd(scrollHeight - scrollTop === clientHeight);
-        }
-        };
+    fetchData();
+  }, [isAtEnd, keyword, category, loadBlock]);
 
-        const divElement = divRef.current;
-        divElement.addEventListener('scroll', handleScroll);
+  // Handle scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!divRef.current) return;
+      const { scrollTop, scrollHeight, clientHeight } = divRef.current;
+      if (scrollHeight - scrollTop === clientHeight) {
+        setIsAtEnd(true);
+      }
+    };
 
-        return () => {
+    const divElement = divRef.current;
+    if (divElement) {
+      divElement.addEventListener('scroll', handleScroll);
+    }
+
+    return () => {
+      if (divElement) {
         divElement.removeEventListener('scroll', handleScroll);
-        };
-    }, []);
+      }
+    };
+  }, []);
 
-    // Toggle Category List Options
-    function DropDownMenuToggle(event){
-        if (event.currentTarget.querySelector(".arrowIcon").style.rotate === '180deg'){
-            event.currentTarget.querySelector(".arrowIcon").style.rotate = "0deg"
-            event.currentTarget.querySelector(".CategoryOptionsDropList").style.height = "0px"
+  // Handle search
+  const handleSearch = () => {
+    const params = {};
+    if (searchQuery) params.keyword = searchQuery;
+    if (Number(activeCategory) !== -1) params.category = activeCategory;
 
-        }else{
-            event.currentTarget.querySelector(".arrowIcon").style.rotate = "180deg"
+    setSearchParams(params);
+    window.location.reload();
+  };
 
-            //// Get List Max Height
-            const dropDownListHeight = event.currentTarget.querySelector(".CategoryOptionsDropList").scrollHeight;
-            event.currentTarget.querySelector(".CategoryOptionsDropList").style.height = dropDownListHeight+"px"
-            
-        }
+  // Category options for Select
+  const categoryOptions = useMemo(() => {
+    return categoryList.map(cat => ({
+      value: cat.id.toString(),
+      label: cat.name
+    }));
+  }, [categoryList]);
 
-    }
-    
-    // Set an Active Community
-    function SelectCategory(event){
-        setActiveCategory(Number(event.currentTarget.id))  
-        setActiveCategoryName(event.currentTarget.innerHTML)  
-        event.currentTarget.parentElement.querySelector(".activeCategory").classList.remove("activeCategory")
-        event.currentTarget.classList.add("activeCategory") 
-    }
-
-    function Search(event){
-        const inp = event.currentTarget.parentElement
-        const keyword   = inp.querySelector(".SearchKeyWord").value?inp.querySelector(".SearchKeyWord").value:""
-        const category  = activeCategory ? activeCategory : 'All'
-
-
-        setSearchParams({keyword:keyword,category:category})
-        console.log(keyword)
-        window.location.reload()
-    }
-
-    return (
-        <div id="SuperArticlesPage"  ref={divRef}>
-            <div className={'LoadingScreen '+loadingStatus} >
-                <div className='loadingCircle'></div>
-            </div>
-            <div id='ArticlesSearchFilters'>
-                <p>Find Articles</p>
-                <div className='row'> 
-                    <input type='text' className='SearchKeyWord' placeholder='Search By Key Word' defaultValue={keyword?keyword:""}/>
-                    <div className='categories' onClick={DropDownMenuToggle}>
-                        <span className='placeHolder'>{activeCategoryName}</span>
-                        <FontAwesomeIcon icon="fa-solid fa-chevron-down" className='arrowIcon' />
-                        <div className='CategoryOptionsDropList'>
-                            {categoryList}
-                        </div>
-
-                    </div>
-                    <button className='searchButton' onClick={Search }><FontAwesomeIcon icon="fa-solid fa-magnifying-glass" /></button>
-                </div> 
-
-            </div>
-            <div id='AdminArticlesFeed'>
-            
-                {articleList}  
-
-            </div>
+  return (
+    <div className="articles-page" ref={divRef}>
+      {/* Header */}
+      <div className="articles-header">
+        <div>
+          <h1 className="page-title">Articles</h1>
+          <p className="page-subtitle">
+            {loading
+              ? 'Loading...'
+              : `${articleList.length} ${articleList.length === 1 ? 'article' : 'articles'} available`}
+          </p>
         </div>
-    );
+      </div>
+
+      {/* Search & Filters */}
+      <div className="articles-search-section">
+        <div className="articles-search-bar">
+          <SearchBar
+            value={searchQuery}
+            onChange={setSearchQuery}
+            placeholder="Search articles..."
+            size="lg"
+            fullWidth
+            disabled={loading}
+          />
+        </div>
+        <div className="articles-filters">
+          <Select
+            value={activeCategory.toString()}
+            onChange={(e) => setActiveCategory(e.target.value)}
+            options={categoryOptions}
+            placeholder="Select Category"
+            size="lg"
+            disabled={loading}
+          />
+          <button className="articles-search-btn" onClick={handleSearch}>
+            Search
+          </button>
+        </div>
+      </div>
+
+      {/* Articles Grid */}
+      <div className="articles-grid">
+        {loading ? (
+          Array.from({ length: 6 }).map((_, index) => (
+            <div key={index} className="article-skeleton">
+              <LoadingSkeleton width="100%" height="200px" />
+              <LoadingSkeleton width="80%" height="24px" style={{ marginTop: '16px' }} />
+              <LoadingSkeleton width="60%" height="16px" style={{ marginTop: '8px' }} />
+              <LoadingSkeleton width="100%" height="60px" style={{ marginTop: '12px' }} />
+            </div>
+          ))
+        ) : articleList.length > 0 ? (
+          <>
+            {articleList}
+            {loading && articleList.length > 0 && (
+              <div className="articles-loading-more">
+                <LoadingSkeleton width="100%" height="300px" />
+              </div>
+            )}
+          </>
+        ) : (
+          <div className="empty-state">
+            <div className="empty-state-icon">
+              <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path
+                  d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path d="M14 2v6h6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M16 13H8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M16 17H8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M10 9H8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </div>
+            <h3 className="empty-state-title">No articles found</h3>
+            <p className="empty-state-description">
+              {searchQuery || Number(activeCategory) !== -1
+                ? 'Try adjusting your search criteria'
+                : 'No articles available at the moment'}
+            </p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
 }
 
 export default ArticlesPage;

@@ -11,7 +11,7 @@
 #AI_Chat_Icon{
     width: 60px;
     height: 60px;
-    background-color: #0a808e;
+    background-color: var(--primary-500);
     color: white;
     border-radius: 100%;
     display: flex;
@@ -33,7 +33,7 @@
     z-index: 9;
 }
 #AI_Chat_Box .ChatBoxheader{
-    background-color: #0a808e;
+    background-color: var(--primary-500);
     color: white;
     padding: 10px;
     display: flex;
@@ -106,7 +106,7 @@
 #AI_Chat_Box .chatInputs button{
     flex-basis: 10%;
     border-radius: 0px  10px 10px 0px;
-    background-color: #0a808e;
+    background-color: var(--primary-500);
     color: white;
     border:none;  
     cursor: pointer;  

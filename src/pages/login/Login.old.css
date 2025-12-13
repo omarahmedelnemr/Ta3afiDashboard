@@ -1,0 +1,72 @@
+#adminLoginPage{
+    background: #e5e7eb;
+    height: 100vh;
+    width: 100%;
+    /* overflow: hidden; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+}
+#adminLoginPage #logoLogin img{
+    width: 200px;
+}
+#adminLoginPage #logoLogin p{
+    color: #0a818e;
+    margin-bottom: 10px;
+}
+@media (max-width:450px){
+    #adminLoginPage form{
+        zoom: 0.8;
+    }
+}
+#adminLoginPage form{
+    background-color: white;
+    padding: 20px 50px;
+    border-top: 10px solid #0a808e;
+    box-shadow: 0px 4px 12px 9px rgb(224, 224, 224);
+    display: flex;
+    flex-direction: column;
+    /* border-radius: 10px; */
+}
+#adminLoginPage form h2{
+    margin-bottom: 0px;
+}
+#adminLoginPage form .error-message{
+    font-size: 17px;
+    color: rgb(255, 27, 27);
+}
+#adminLoginPage form label{
+    text-align: left;
+    color: gray;
+    margin: 5px 0px;
+}
+#adminLoginPage form input{
+    margin-bottom: 10px;
+    font-size: 20px;
+    padding: 10px;
+    border: 2px solid #60606026;
+    transition: 0.1s;
+
+}
+#adminLoginPage form input:focus{
+    box-shadow: 0px 0px 10px 1px #0a818e97;
+    border-color: #0a808e;
+    outline: #00ff6b26;
+}
+
+#adminLoginPage form input[type="submit"]{
+    border:none;
+    color: white;
+    background-image: linear-gradient(135deg, #0a808e, #0995a4);
+    font-weight: bolder;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: 0.5s;
+}
+#adminLoginPage form input[type="submit"]:hover{
+    box-shadow: -2px 2px 5px 1px gray;
+}

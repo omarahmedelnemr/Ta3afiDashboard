@@ -1,0 +1,133 @@
+/* SearchBar Component Styles */
+
+.search-bar {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-xl);
+  transition: all var(--transition-base);
+}
+
+.search-bar:focus-within {
+  border-color: var(--primary-500);
+  box-shadow: 0 0 0 3px rgba(124, 102, 244, 0.1);
+}
+
+/* Search Bar Sizes */
+.search-bar-sm {
+  height: 36px;
+  padding: 0 var(--space-3);
+}
+
+.search-bar-sm .search-bar-input {
+  font-size: var(--text-sm);
+}
+
+.search-bar-md {
+  height: 44px;
+  padding: 0 var(--space-4);
+}
+
+.search-bar-md .search-bar-input {
+  font-size: var(--text-base);
+}
+
+.search-bar-lg {
+  height: 52px;
+  padding: 0 var(--space-5);
+}
+
+.search-bar-lg .search-bar-input {
+  font-size: var(--text-lg);
+}
+
+/* Full Width */
+.search-bar-full-width {
+  width: 100%;
+}
+
+/* Search Icon */
+.search-bar-icon {
+  color: var(--text-tertiary);
+  margin-right: var(--space-3);
+  font-size: var(--text-lg);
+  flex-shrink: 0;
+}
+
+/* Input */
+.search-bar-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-family: var(--font-sans);
+  color: var(--text-primary);
+  width: 100%;
+  min-width: 0;
+}
+
+.search-bar-input::placeholder {
+  color: var(--text-tertiary);
+}
+
+.search-bar-input:disabled {
+  color: var(--text-tertiary);
+  cursor: not-allowed;
+}
+
+/* Clear Button */
+.search-bar-clear {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  margin-left: var(--space-2);
+  border: none;
+  background: var(--gray-200);
+  color: var(--text-secondary);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.search-bar-clear:hover {
+  background: var(--gray-300);
+  color: var(--text-primary);
+}
+
+.search-bar-clear:active {
+  transform: scale(0.95);
+}
+
+/* Disabled State */
+.search-bar-disabled {
+  background: var(--gray-100);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.search-bar-disabled .search-bar-icon,
+.search-bar-disabled .search-bar-clear {
+  pointer-events: none;
+}
+
+/* Hover State */
+.search-bar:hover:not(.search-bar-disabled) {
+  border-color: var(--primary-400);
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .search-bar-lg {
+    height: 48px;
+    padding: 0 var(--space-4);
+  }
+
+  .search-bar-lg .search-bar-input {
+    font-size: var(--text-base);
+  }
+}

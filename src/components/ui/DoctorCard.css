@@ -1,0 +1,197 @@
+/* Doctor Card Component */
+
+.doctor-card {
+  position: relative;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-6);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  box-shadow: var(--shadow-sm);
+}
+
+.doctor-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--primary-200);
+}
+
+.doctor-card:active {
+  transform: translateY(-2px);
+}
+
+/* Badge */
+.doctor-card-badge {
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-4);
+  z-index: 2;
+}
+
+/* Doctor Image */
+.doctor-card-image {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  background: var(--gray-100);
+}
+
+.doctor-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+
+.doctor-card:hover .doctor-card-image img {
+  transform: scale(1.05);
+}
+
+/* Rating Badge */
+.doctor-card-rating {
+  position: absolute;
+  bottom: var(--space-3);
+  left: var(--space-3);
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-2) var(--space-3);
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+  border-radius: var(--radius-full);
+  color: var(--text-inverse);
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+}
+
+.doctor-card-rating svg {
+  color: #fbbf24;
+  font-size: var(--text-sm);
+}
+
+/* Doctor Content */
+.doctor-card-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.doctor-card-name {
+  font-size: var(--text-xl);
+  font-weight: var(--font-semibold);
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 1.3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.doctor-card-title {
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--primary-600);
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.doctor-card-description {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.5;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+/* Doctor Stats */
+.doctor-card-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--border-light);
+}
+
+.doctor-stat {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
+.stat-icon {
+  color: var(--text-tertiary);
+  font-size: var(--text-sm);
+}
+
+.stat-label {
+  font-weight: var(--font-medium);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .doctor-card {
+    padding: var(--space-5);
+    gap: var(--space-3);
+  }
+
+  .doctor-card-name {
+    font-size: var(--text-lg);
+  }
+
+  .doctor-card-stats {
+    gap: var(--space-2);
+  }
+}
+
+@media (max-width: 640px) {
+  .doctor-card {
+    padding: var(--space-4);
+  }
+
+  .doctor-card-badge {
+    top: var(--space-3);
+    right: var(--space-3);
+  }
+}
+
+/* Focus Styles */
+.doctor-card:focus-visible {
+  outline: 2px solid var(--primary-500);
+  outline-offset: 2px;
+}
+
+/* Loading State */
+.doctor-card.loading {
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+/* Empty State */
+.doctor-card.empty {
+  border-style: dashed;
+  cursor: default;
+  opacity: 0.6;
+}
+
+.doctor-card.empty:hover {
+  transform: none;
+  box-shadow: var(--shadow-sm);
+}

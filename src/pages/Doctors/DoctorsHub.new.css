@@ -1,0 +1,174 @@
+/* Doctors Hub Page Styles */
+
+.doctors-hub-page {
+  padding: var(--space-8);
+  margin-left: var(--sidebar-width);
+  min-height: 100vh;
+  background: var(--bg-secondary);
+  animation: fadeIn var(--transition-slow) ease-out;
+}
+
+/* Header */
+.doctors-hub-header {
+  margin-bottom: var(--space-6);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.page-title {
+  font-size: var(--text-3xl);
+  font-weight: var(--font-bold);
+  color: var(--text-primary);
+  margin: 0 0 var(--space-2) 0;
+  line-height: 1.2;
+}
+
+.page-subtitle {
+  font-size: var(--text-base);
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* Search */
+.doctors-hub-search {
+  margin-bottom: var(--space-8);
+}
+
+/* Doctors Grid */
+.doctors-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--space-6);
+  animation: slideUp var(--transition-slow) ease-out;
+}
+
+/* Skeleton Doctor Card */
+.skeleton-doctor-card {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* Empty State */
+.empty-state {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-16) var(--space-8);
+  text-align: center;
+}
+
+.empty-state-icon {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--space-4);
+  color: var(--text-tertiary);
+}
+
+.empty-state-title {
+  font-size: var(--text-2xl);
+  font-weight: var(--font-semibold);
+  color: var(--text-primary);
+  margin: 0 0 var(--space-2) 0;
+}
+
+.empty-state-description {
+  font-size: var(--text-base);
+  color: var(--text-secondary);
+  margin: 0;
+  max-width: 500px;
+}
+
+/* Responsive */
+@media (max-width: 1279px) {
+  .doctors-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--space-5);
+  }
+}
+
+@media (max-width: 1023px) {
+  .doctors-hub-page {
+    margin-left: 0;
+    padding: var(--space-6) var(--space-4);
+    padding-top: 80px;
+  }
+
+  .doctors-grid {
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: var(--space-4);
+  }
+}
+
+@media (max-width: 768px) {
+  .doctors-hub-page {
+    padding: var(--space-5) var(--space-3);
+    padding-top: 72px;
+  }
+
+  .page-title {
+    font-size: var(--text-2xl);
+  }
+
+  .doctors-hub-search {
+    margin-bottom: var(--space-6);
+  }
+
+  .doctors-grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: var(--space-3);
+  }
+}
+
+@media (max-width: 640px) {
+  .doctors-hub-page {
+    padding: var(--space-4) var(--space-3);
+    padding-top: 68px;
+  }
+
+  .page-title {
+    font-size: var(--text-xl);
+  }
+
+  .page-subtitle {
+    font-size: var(--text-sm);
+  }
+
+  .doctors-hub-search {
+    margin-bottom: var(--space-5);
+  }
+
+  .doctors-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+
+  .empty-state {
+    padding: var(--space-12) var(--space-4);
+  }
+
+  .empty-state-icon {
+    width: 64px;
+    height: 64px;
+  }
+
+  .empty-state-title {
+    font-size: var(--text-xl);
+  }
+
+  .empty-state-description {
+    font-size: var(--text-sm);
+  }
+}

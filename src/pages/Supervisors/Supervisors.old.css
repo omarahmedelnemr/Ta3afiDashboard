@@ -1,0 +1,195 @@
+#supervisorsPage{
+    background: #e5e7eb;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    font-size: 20px;
+    flex-basis: 100%;
+    overflow-y: auto;
+    padding: 0px 100px;
+}
+
+
+#supervisorsPage .titleHeader{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    /* border-bottom: 2px solid gray; */
+    margin-bottom: 20px;
+}
+#supervisorsPage .titleHeader .generateLink{
+    position: relative;
+
+}
+#supervisorsPage .titleHeader .AddNewButton{
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+
+}
+.signupLink{
+    position: absolute;
+    top: 100%;
+    left: -100%;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    width: max-content;
+    border-radius: 10px;
+    padding: 0px 10px;
+    overflow: hidden;
+    transition: 0.5s;
+    height: 0px;
+
+}
+.signupLink .comment{
+    color: gray;
+    font-size: 15px;
+    margin-top: 5px;
+}
+.signupLink .row{
+    justify-content: space-between;
+    align-items: center;
+}
+.signupLink input{
+    margin: 5px;
+    padding:10px;
+    border-radius: 10px;
+    background-color: #e5e7eb;
+    box-shadow: 0;
+    border: 0px;
+    width: 80%;
+    overflow: hidden;
+    font-size: 15px;
+}
+.signupLink button{
+    background-color: transparent;
+    border: 0 ;
+    cursor: pointer;
+    height: max-content;
+    font-size: 20px;
+}
+#supervisorsPage .titleHeader .AddNewButton svg{
+    transition: 0.5s;
+}
+#supervisorsPage .titleHeader .AddNewButton svg.clicked{
+    transform: rotate(180deg);
+}
+#supervisorsPage .SupervisorsListSection{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+    /* box-shadow: -2px 2px 10px rgb(179, 179, 179); */
+}
+#supervisorsPage .SupervisorsListSection .supervisorCard{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 98%;
+    padding: 1%;
+    /* background-color: white; */
+    transition: 0.2s;
+    border-bottom: 1px solid gray;
+
+}
+#supervisorsPage .SupervisorsListSection .supervisorCard:hover{
+    background-color: rgb(236, 236, 236);
+
+}
+#supervisorsPage .SupervisorsListSection .supervisorCard .email{
+    color: rgb(93, 93, 255);
+}
+#supervisorsPage .SupervisorsListSection .supervisorCard .active{
+    color: green;
+}
+#supervisorsPage .SupervisorsListSection .supervisorCard .NotActive{
+    color: rgb(164, 162, 0);
+}
+
+#supervisorsPage .SupervisorsListSection .supervisorCard .superControlButton .DeactiveButton,
+#supervisorsPage .SupervisorsListSection .supervisorCard .superControlButton .ActiveButton,
+#supervisorsPage .SupervisorsListSection .supervisorCard .superControlButton .deleteButton,
+#supervisorsPage .SupervisorsListSection .supervisorCard .superControlButton .ConfirmYes,
+#supervisorsPage .SupervisorsListSection .supervisorCard .superControlButton .ConfirmNo{
+
+    cursor: pointer;
+}
+#supervisorsPage .SupervisorsListSection .supervisorCard .superControlButton .deleteButton,#supervisorsPage .SupervisorsListSection .supervisorCard .superControlButton .ConfirmYes{
+    color: red;
+}
+
+.SupervisorCard{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    border-radius: 10px;
+    margin: 20px;
+    transition: 0.5s;
+    /* border:1px solid black; */
+    box-shadow: -2px 2px 10px gray;
+    width: max-content;
+    height: max-content;
+}
+.SupervisorCard:hover{
+    box-shadow: -5px 5px 10px gray;
+
+}
+.SupervisorCard img{
+
+    width: 100px;
+    height: 100px;
+    border-radius: 100%;
+}
+.SupervisorCard .SupervisorCardInfo{
+    margin-bottom: 50px;
+}
+.SupervisorCard .SupervisorCardInfo h3{
+    margin: 0px;
+    margin-top: 15px;
+}
+.SupervisorCard .SupervisorCardInfo h4{
+    color: gray;
+    margin: 0px;
+}
+.SupervisorCardButtons{
+    justify-content: space-evenly;
+    width: 100%;
+}
+.SupervisorCard .SupervisorCardButtons .deleteButton{
+    color: rgb(255, 105, 105);
+    cursor: pointer;
+    transition: 0.2s;
+}
+.SupervisorCard .SupervisorCardButtons .deleteButton:hover{
+    color: rgb(163, 0, 0);
+
+}
+
+.pendingButton .Status{
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    margin: 0px 5px;
+}
+.pendingButton .Status.online{
+    background-color: rgb(0, 176, 12);
+}
+.pendingButton .Status.offline{
+    background-color: rgb(111, 111, 111);
+}
+.pendingButton .Status.pending{
+    /* background-color: rgb(111, 111, 111); */
+    background-image: linear-gradient(-45deg, rgb(111, 111, 111) 60%, white 50%);
+}

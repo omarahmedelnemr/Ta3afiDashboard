@@ -1,195 +1,488 @@
-#supervisorsPage{
-    background: #e5e7eb;
-    height: 100vh;
-    display: flex;
+/* Supervisors Page Styles */
+
+.supervisors-page {
+  padding: var(--space-8);
+  margin-left: var(--sidebar-width);
+  min-height: 100vh;
+  background: var(--bg-secondary);
+  overflow-y: auto;
+  animation: fadeIn var(--transition-slow) ease-out;
+  max-width: calc(100vw - var(--sidebar-width));
+  width: 100%;
+}
+
+/* Header */
+.supervisors-header {
+  margin-bottom: var(--space-6);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.page-title {
+  font-size: var(--text-3xl);
+  font-weight: var(--font-bold);
+  color: var(--text-primary);
+  margin: 0 0 var(--space-2) 0;
+  line-height: 1.2;
+}
+
+.page-subtitle {
+  font-size: var(--text-base);
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* Signup Link Card */
+.signup-link-card {
+  margin-bottom: var(--space-6);
+  animation: slideDown var(--transition-normal) ease-out;
+}
+
+.link-card-warning {
+  color: var(--warning-600);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  margin: 0 0 var(--space-3) 0;
+}
+
+.link-input-group {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+.link-input-group .copy-btn {
+  flex-shrink: 0;
+}
+
+/* Supervisors Table Card */
+.supervisors-table-card {
+  animation: slideUp var(--transition-slow) ease-out;
+  overflow: visible;
+}
+
+/* Table */
+.supervisors-table {
+  width: 100%;
+  overflow: visible;
+}
+
+.table-header {
+  display: grid;
+  grid-template-columns: 2fr 3fr 1.5fr 2.5fr;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-6);
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  font-weight: var(--font-semibold);
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.table-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.table-row {
+  display: grid;
+  grid-template-columns: 2fr 3fr 1.5fr 2.5fr;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-6);
+  border-bottom: 1px solid var(--border-light);
+  transition: background-color var(--transition-fast);
+  align-items: center;
+}
+
+.table-row:hover {
+  background: var(--bg-secondary);
+}
+
+.table-row:last-child {
+  border-bottom: none;
+}
+
+.table-cell {
+  display: flex;
+  align-items: center;
+  font-size: var(--text-base);
+  color: var(--text-primary);
+  overflow: visible;
+}
+
+.supervisor-name {
+  font-weight: var(--font-semibold);
+}
+
+.supervisor-email {
+  color: var(--primary-500);
+  font-size: var(--text-sm);
+}
+
+.supervisor-status {
+  justify-content: flex-start;
+}
+
+.supervisor-actions {
+  justify-content: flex-start;
+  min-width: 250px;
+}
+
+/* Action Buttons - Enhanced Style */
+.superControlButton {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  padding: var(--space-2) 0;
+}
+
+.superControlButton .DeactiveButton,
+.superControlButton .ActiveButton {
+  cursor: pointer;
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  transition: all var(--transition-fast);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-lg);
+  border: none;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 90px;
+  box-shadow: var(--shadow-sm);
+}
+
+.superControlButton .DeactiveButton {
+  background: var(--warning-500);
+  color: white;
+}
+
+.superControlButton .DeactiveButton:hover {
+  background: var(--warning-600);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.superControlButton .DeactiveButton:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+
+.superControlButton .ActiveButton {
+  background: var(--success-500);
+  color: white;
+}
+
+.superControlButton .ActiveButton:hover {
+  background: var(--success-600);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.superControlButton .ActiveButton:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+
+.superControlButton > span:not(.DeactiveButton):not(.ActiveButton):not(.deleteButton):not(.ConfirmDelete):not(.ConfirmYes):not(.ConfirmNo) {
+  color: var(--text-tertiary);
+  font-weight: var(--font-normal);
+  user-select: none;
+  margin: 0 var(--space-1);
+}
+
+.superControlButton .deleteButton {
+  color: var(--danger-500);
+  font-weight: var(--font-semibold);
+  font-size: var(--text-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-md);
+  white-space: nowrap;
+}
+
+.superControlButton .deleteButton:hover {
+  color: var(--danger-600);
+  background: var(--danger-50);
+  padding: var(--space-1) var(--space-2);
+}
+
+.superControlButton .deleteButton:active {
+  background: var(--danger-100);
+}
+
+.superControlButton .ConfirmDelete {
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-2) var(--space-3);
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-light);
+}
+
+.superControlButton .ConfirmYes {
+  color: var(--danger-500);
+  font-weight: var(--font-semibold);
+  cursor: pointer;
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+}
+
+.superControlButton .ConfirmYes:hover {
+  color: var(--danger-600);
+  background: var(--danger-50);
+}
+
+.superControlButton .ConfirmYes:active {
+  background: var(--danger-100);
+}
+
+.superControlButton .ConfirmNo {
+  color: var(--text-secondary);
+  font-weight: var(--font-semibold);
+  cursor: pointer;
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+}
+
+.superControlButton .ConfirmNo:hover {
+  color: var(--text-primary);
+  background: var(--bg-tertiary);
+}
+
+.superControlButton .ConfirmNo:active {
+  background: var(--gray-200);
+}
+
+.superControlButton .hide {
+  display: none;
+}
+
+.supervisor-actions .no-actions {
+  color: var(--text-tertiary);
+  font-size: var(--text-sm);
+  font-style: italic;
+  padding: var(--space-2) 0;
+  display: inline-block;
+}
+
+/* Skeleton Loading */
+.supervisors-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.supervisor-row-skeleton {
+  display: grid;
+  grid-template-columns: 2fr 3fr 1.5fr 2fr;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-6);
+  align-items: center;
+}
+
+/* Empty State */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-16) var(--space-8);
+  text-align: center;
+}
+
+.empty-state-icon {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--space-4);
+  color: var(--text-tertiary);
+}
+
+.empty-state-title {
+  font-size: var(--text-2xl);
+  font-weight: var(--font-semibold);
+  color: var(--text-primary);
+  margin: 0 0 var(--space-2) 0;
+}
+
+.empty-state-description {
+  font-size: var(--text-base);
+  color: var(--text-secondary);
+  margin: 0;
+  max-width: 500px;
+}
+
+/* Responsive */
+@media (max-width: 1279px) {
+  .supervisors-page {
+    padding: var(--space-6);
+  }
+}
+
+@media (max-width: 1023px) {
+  .supervisors-page {
+    margin-left: 0;
+    padding: var(--space-6) var(--space-4);
+    padding-top: 80px;
+    max-width: 100vw;
+  }
+
+  .table-header,
+  .table-row {
+    grid-template-columns: 1.5fr 2fr 1fr 2fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .supervisors-page {
+    padding: var(--space-5) var(--space-3);
+    padding-top: 72px;
+  }
+
+  .page-title {
+    font-size: var(--text-2xl);
+  }
+
+  .supervisors-header {
     flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .supervisors-header button {
+    width: 100%;
+  }
+
+  .link-input-group {
+    flex-direction: column;
+  }
+
+  .link-input-group .copy-btn {
+    width: 100%;
+  }
+
+  /* Stack table on mobile */
+  .table-header {
+    display: none;
+  }
+
+  .table-row {
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+    padding: var(--space-4);
+    background: var(--bg-tertiary);
+    margin-bottom: var(--space-3);
+    border-radius: var(--radius-lg);
+    border-bottom: none;
+  }
+
+  .table-cell {
+    justify-content: space-between;
+  }
+
+  .table-cell::before {
+    content: attr(data-label);
+    font-weight: var(--font-semibold);
+    color: var(--text-secondary);
+    font-size: var(--text-sm);
+  }
+
+  .supervisor-name::before {
+    content: 'Name: ';
+  }
+
+  .supervisor-email::before {
+    content: 'Email: ';
+  }
+
+  .supervisor-status::before {
+    content: 'Status: ';
+  }
+
+  .supervisor-actions {
     justify-content: flex-start;
-    align-items: center;
-    flex-wrap: wrap;
-    font-size: 20px;
-    flex-basis: 100%;
-    overflow-y: auto;
-    padding: 0px 100px;
-}
+    flex-direction: column;
+    gap: var(--space-2);
+  }
 
-
-#supervisorsPage .titleHeader{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+  .supervisor-actions::before {
+    content: 'Actions';
     width: 100%;
-    /* border-bottom: 2px solid gray; */
-    margin-bottom: 20px;
-}
-#supervisorsPage .titleHeader .generateLink{
-    position: relative;
+    font-weight: var(--font-semibold);
+    color: var(--text-secondary);
+    font-size: var(--text-sm);
+    margin-bottom: var(--space-2);
+  }
 
-}
-#supervisorsPage .titleHeader .AddNewButton{
+  .superControlButton {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+  }
+
+  .superControlButton .DeactiveButton,
+  .superControlButton .ActiveButton {
+    width: 100%;
     justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    display: flex;
+  }
 
-}
-.signupLink{
-    position: absolute;
-    top: 100%;
-    left: -100%;
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    width: max-content;
-    border-radius: 10px;
-    padding: 0px 10px;
-    overflow: hidden;
-    transition: 0.5s;
-    height: 0px;
+  .superControlButton > span:not(.DeactiveButton):not(.ActiveButton):not(.deleteButton):not(.ConfirmDelete):not(.ConfirmYes):not(.ConfirmNo) {
+    display: none;
+  }
 
-}
-.signupLink .comment{
-    color: gray;
-    font-size: 15px;
-    margin-top: 5px;
-}
-.signupLink .row{
-    justify-content: space-between;
-    align-items: center;
-}
-.signupLink input{
-    margin: 5px;
-    padding:10px;
-    border-radius: 10px;
-    background-color: #e5e7eb;
-    box-shadow: 0;
-    border: 0px;
-    width: 80%;
-    overflow: hidden;
-    font-size: 15px;
-}
-.signupLink button{
-    background-color: transparent;
-    border: 0 ;
-    cursor: pointer;
-    height: max-content;
-    font-size: 20px;
-}
-#supervisorsPage .titleHeader .AddNewButton svg{
-    transition: 0.5s;
-}
-#supervisorsPage .titleHeader .AddNewButton svg.clicked{
-    transform: rotate(180deg);
-}
-#supervisorsPage .SupervisorsListSection{
-    display: flex;
-    flex-direction: column;
+  .superControlButton .deleteButton,
+  .superControlButton .ConfirmDelete {
     width: 100%;
-    border-radius: 20px;
-    overflow: hidden;
-    /* box-shadow: -2px 2px 10px rgb(179, 179, 179); */
-}
-#supervisorsPage .SupervisorsListSection .supervisorCard{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    width: 98%;
-    padding: 1%;
-    /* background-color: white; */
-    transition: 0.2s;
-    border-bottom: 1px solid gray;
-
-}
-#supervisorsPage .SupervisorsListSection .supervisorCard:hover{
-    background-color: rgb(236, 236, 236);
-
-}
-#supervisorsPage .SupervisorsListSection .supervisorCard .email{
-    color: rgb(93, 93, 255);
-}
-#supervisorsPage .SupervisorsListSection .supervisorCard .active{
-    color: green;
-}
-#supervisorsPage .SupervisorsListSection .supervisorCard .NotActive{
-    color: rgb(164, 162, 0);
-}
-
-#supervisorsPage .SupervisorsListSection .supervisorCard .superControlButton .DeactiveButton,
-#supervisorsPage .SupervisorsListSection .supervisorCard .superControlButton .ActiveButton,
-#supervisorsPage .SupervisorsListSection .supervisorCard .superControlButton .deleteButton,
-#supervisorsPage .SupervisorsListSection .supervisorCard .superControlButton .ConfirmYes,
-#supervisorsPage .SupervisorsListSection .supervisorCard .superControlButton .ConfirmNo{
-
-    cursor: pointer;
-}
-#supervisorsPage .SupervisorsListSection .supervisorCard .superControlButton .deleteButton,#supervisorsPage .SupervisorsListSection .supervisorCard .superControlButton .ConfirmYes{
-    color: red;
-}
-
-.SupervisorCard{
-    display: flex;
-    flex-direction: column;
+    text-align: center;
     justify-content: center;
-    align-items: center;
-    padding: 40px 20px;
-    border-radius: 10px;
-    margin: 20px;
-    transition: 0.5s;
-    /* border:1px solid black; */
-    box-shadow: -2px 2px 10px gray;
-    width: max-content;
-    height: max-content;
-}
-.SupervisorCard:hover{
-    box-shadow: -5px 5px 10px gray;
+  }
 
-}
-.SupervisorCard img{
-
-    width: 100px;
-    height: 100px;
-    border-radius: 100%;
-}
-.SupervisorCard .SupervisorCardInfo{
-    margin-bottom: 50px;
-}
-.SupervisorCard .SupervisorCardInfo h3{
-    margin: 0px;
-    margin-top: 15px;
-}
-.SupervisorCard .SupervisorCardInfo h4{
-    color: gray;
-    margin: 0px;
-}
-.SupervisorCardButtons{
-    justify-content: space-evenly;
-    width: 100%;
-}
-.SupervisorCard .SupervisorCardButtons .deleteButton{
-    color: rgb(255, 105, 105);
-    cursor: pointer;
-    transition: 0.2s;
-}
-.SupervisorCard .SupervisorCardButtons .deleteButton:hover{
-    color: rgb(163, 0, 0);
-
+  .empty-state {
+    padding: var(--space-12) var(--space-4);
+  }
 }
 
-.pendingButton .Status{
-    display: inline-block;
-    width: 10px;
-    height: 10px;
-    border-radius: 100%;
-    margin: 0px 5px;
-}
-.pendingButton .Status.online{
-    background-color: rgb(0, 176, 12);
-}
-.pendingButton .Status.offline{
-    background-color: rgb(111, 111, 111);
-}
-.pendingButton .Status.pending{
-    /* background-color: rgb(111, 111, 111); */
-    background-image: linear-gradient(-45deg, rgb(111, 111, 111) 60%, white 50%);
+@media (max-width: 640px) {
+  .supervisors-page {
+    padding: var(--space-4) var(--space-3);
+    padding-top: 68px;
+  }
+
+  .page-title {
+    font-size: var(--text-xl);
+  }
+
+  .page-subtitle {
+    font-size: var(--text-sm);
+  }
+
+  .empty-state-icon {
+    width: 64px;
+    height: 64px;
+  }
+
+  .empty-state-title {
+    font-size: var(--text-xl);
+  }
+
+  .empty-state-description {
+    font-size: var(--text-sm);
+  }
 }

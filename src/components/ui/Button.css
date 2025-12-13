@@ -1,0 +1,206 @@
+/* Button Component Styles */
+
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  font-family: var(--font-sans);
+  font-weight: var(--font-semibold);
+  text-align: center;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  user-select: none;
+  white-space: nowrap;
+  outline: none;
+}
+
+/* Button Sizes */
+.btn-sm {
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--text-sm);
+  border-radius: var(--radius-md);
+  height: 32px;
+}
+
+.btn-md {
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--text-base);
+  border-radius: var(--radius-lg);
+  height: 40px;
+}
+
+.btn-lg {
+  padding: var(--space-4) var(--space-6);
+  font-size: var(--text-lg);
+  border-radius: var(--radius-lg);
+  height: 48px;
+}
+
+/* Button Variants */
+
+/* Primary */
+.btn-primary {
+  background: var(--gradient-primary);
+  color: var(--text-inverse);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-primary:hover:not(.btn-disabled):not(.btn-loading) {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-primary:active:not(.btn-disabled):not(.btn-loading) {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Secondary */
+.btn-secondary {
+  background: var(--gradient-secondary);
+  color: var(--text-inverse);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-secondary:hover:not(.btn-disabled):not(.btn-loading) {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-secondary:active:not(.btn-disabled):not(.btn-loading) {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Outline */
+.btn-outline {
+  background: transparent;
+  color: var(--primary-600);
+  border: 2px solid var(--primary-500);
+  box-shadow: none;
+}
+
+.btn-outline:hover:not(.btn-disabled):not(.btn-loading) {
+  background: var(--primary-50);
+  border-color: var(--primary-600);
+}
+
+/* Ghost */
+.btn-ghost {
+  background: transparent;
+  color: var(--text-secondary);
+  box-shadow: none;
+}
+
+.btn-ghost:hover:not(.btn-disabled):not(.btn-loading) {
+  background: var(--gray-100);
+  color: var(--text-primary);
+}
+
+/* Success */
+.btn-success {
+  background: var(--gradient-success);
+  color: var(--text-inverse);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-success:hover:not(.btn-disabled):not(.btn-loading) {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Warning */
+.btn-warning {
+  background: var(--gradient-warning);
+  color: var(--text-inverse);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-warning:hover:not(.btn-disabled):not(.btn-loading) {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Danger */
+.btn-danger {
+  background: var(--gradient-error);
+  color: var(--text-inverse);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-danger:hover:not(.btn-disabled):not(.btn-loading) {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Link */
+.btn-link {
+  background: transparent;
+  color: var(--text-link);
+  box-shadow: none;
+  text-decoration: underline;
+}
+
+.btn-link:hover:not(.btn-disabled):not(.btn-loading) {
+  color: var(--primary-700);
+}
+
+/* Button States */
+.btn-disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.btn-loading {
+  cursor: wait;
+  pointer-events: none;
+}
+
+.btn-loading .btn-text {
+  opacity: 0.7;
+}
+
+/* Full Width */
+.btn-full-width {
+  width: 100%;
+}
+
+/* Icon Styles */
+.btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-icon svg {
+  width: 1em;
+  height: 1em;
+}
+
+.btn-spinner {
+  position: absolute;
+  left: var(--space-3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Focus Styles */
+.btn:focus-visible {
+  outline: 2px solid var(--primary-500);
+  outline-offset: 2px;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .btn-lg {
+    padding: var(--space-3) var(--space-5);
+    font-size: var(--text-base);
+    height: 44px;
+  }
+}

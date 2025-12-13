@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import ReactDOM from 'react-dom';
 import './PostPending.css';
 // import CommentBox from './Comment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -21,7 +22,6 @@ function PostBox({post}) {
 
     // AI Rating Colors
     var RateColor = 'rateGreen'
-    console.log(Number(post.AI_saftyRate))
     if (Number(post.AI_saftyRate)<50){
         RateColor = 'rateRed'
     }else if (Number(post.AI_saftyRate)<75){
@@ -38,39 +38,32 @@ function PostBox({post}) {
 
     //// Report Part
     const [somthingElse,setsomthingElse] = useState(false)
+    const [showReportModal, setShowReportModal] = useState(false)
+    const [selectedReason, setSelectedReason] = useState(null)
     
     // Hiding the Popup Window
-    function hideReportForm(event){
-        console.log("Hide Clicked")
-        event.currentTarget.parentElement.style.display = 'none'
-        event.currentTarget.parentElement.querySelector('.ReportForm').style.top = "100%"
+    function hideReportForm(){
+        setShowReportModal(false)
+        setTimeout(() => {
+            setsomthingElse(false)
+            setshowErrorMessage(null)
+            setSelectedReason(null)
+        }, 300)
     }
 
     // Showing the Popup Window
-    function RejectPost(event){
-        const ReportForm = event.currentTarget.parentElement.parentElement.parentElement.parentElement.querySelector(".ReportPopupWindow")
-        ReportForm.style.display = 'flex'
-        setTimeout(()=> {
-            ReportForm.querySelector(".ReportForm").style.top = "0px";
-          }, 100);
-
-        // Clear the Window
+    function RejectPost(){
+        setShowReportModal(true)
         setsomthingElse(false)
         setshowErrorMessage(null)
-        const selected = ReportForm.querySelector(".selected")
-        if (selected !== null){
-            selected.classList.remove("selected")
-        }
+        setSelectedReason(null)
     }
 
     // Choose a Reason
     function SelectReportReason(event){
-        const selected = event.currentTarget.parentElement.querySelector(".selected")
-        if (selected !== null){
-            selected.classList.remove("selected")
-        }
-        event.currentTarget.classList.add("selected")
-        if(event.currentTarget.innerHTML === 'Somthing Else'){
+        const reason = event.currentTarget.innerHTML
+        setSelectedReason(reason)
+        if(reason === 'Somthing Else'){
             setsomthingElse(true)
         }else{
             setsomthingElse(false)
@@ -79,17 +72,18 @@ function PostBox({post}) {
 
     // Submit the Form
     const [showErrorMessage,setshowErrorMessage] = useState(null)
+    const [isRejecting, setIsRejecting] = useState(false)
+    const [isAccepting, setIsAccepting] = useState(false)
+    
     async function submitReportForm(event){
         var reason = ''
-        const parent = event.currentTarget.closest(".PendingPostBox")
         // Data Reading and Validation
-        const selected = event.currentTarget.parentElement.querySelector(".ReportTag.selected")
-        if (selected === null){
+        if (selectedReason === null){
             setshowErrorMessage('You Have To Choose a Reason')
             return;
         }
-        reason = selected.innerHTML
-        if (selected.innerHTML === 'Somthing Else'){
+        reason = selectedReason
+        if (selectedReason === 'Somthing Else'){
             const inputValue = event.currentTarget.parentElement.querySelector("input").value
             if (inputValue ==''){
                 setshowErrorMessage('You Have To Write a Reason')
@@ -98,56 +92,91 @@ function PostBox({post}) {
             reason = inputValue
         }
         setshowErrorMessage(null)
+        setIsRejecting(true)
         try{
-            parent.querySelector('.backgroundBlock').click()
+            hideReportForm()
 
-            parent.style.height =  parent.scrollHeight+"px"
-            function hid(){
-                parent.style.height = '0px'
-                parent.style.padding = '0px'
-                parent.style.margin = '0px auto'
-            }
-
-            axios.post(globalVar.backendURL+"/super/post-decision",{postID:post.id,approve:false,reason:reason}).then((res)=>{
-                setTimeout(hid, 100).then(()=>{
+            const parent = document.getElementById(post.id)
+            if (parent) {
+                parent.style.height =  parent.scrollHeight+"px"
+                function hid(){
+                    parent.style.height = '0px'
+                    parent.style.padding = '0px'
+                    parent.style.margin = '0px auto'
+                }
+                function dissolve(){
                     parent.style.display = 'none'
-                }); 
-            }).catch((err)=>{
-                console.log("Error!!\n",err)
-            })
+                }
+
+                axios.post(globalVar.backendURL+"/super/post-decision",{postID:post.id,approve:false,reason:reason}).then((res)=>{
+                    setTimeout(hid, 100)
+                    setTimeout(dissolve, 2000)
+                }).catch((err)=>{
+                    console.log("Error!!\n",err)
+                    setIsRejecting(false)
+                })
+            }
 
         }catch(err){
             console.log("Error!!\n",err)
+            setIsRejecting(false)
         }
 
     }
 
     async function AcceptPost(event){
-        
+        setIsAccepting(true)
         try{
-            const parent = event.currentTarget.parentElement.parentElement.parentElement.parentElement
-            parent.style.height =  parent.scrollHeight+"px"
-            function hid(){
-                parent.style.height = '0px'
-                parent.style.padding = '0px'
-                parent.style.margin = '0px auto'
-            }
-
-            axios.post(globalVar.backendURL+"/super/post-decision",{postID:post.id,approve:true}).then((res)=>{
-                setTimeout(hid, 100).then(()=>{
+            const parent = document.getElementById(post.id)
+            if (parent) {
+                parent.style.height =  parent.scrollHeight+"px"
+                function hid(){
+                    parent.style.height = '0px'
+                    parent.style.padding = '0px'
+                    parent.style.margin = '0px auto'
+                }
+                function dissolve(){
                     parent.style.display = 'none'
-                }); 
-            }).catch((err)=>{
-                console.log("Error!!\n",err)
-            })
-            
+                }
+
+                axios.post(globalVar.backendURL+"/super/post-decision",{postID:post.id,approve:true}).then((res)=>{
+                    setTimeout(hid, 100)
+                    setTimeout(dissolve, 2000)
+                }).catch((err)=>{
+                    console.log("Error!!\n",err)
+                    setIsAccepting(false)
+                })
+            }
 
         }catch(err){
             console.log("Error!!\n",err)
+            setIsAccepting(false)
         }
     }
     return (
         <div className="PendingPostBox" id={post.id}>
+            {(isRejecting || isAccepting) && (
+                <div className="post-loading-overlay">
+                    <div className="post-loading-spinner">
+                        <svg className="animate-spin" width="32" height="32" viewBox="0 0 24 24" fill="none" style={{opacity: 1}}>
+                            <circle
+                                cx="12"
+                                cy="12"
+                                r="10"
+                                stroke="currentColor"
+                                strokeWidth="4"
+                                style={{opacity: 0.25}}
+                            />
+                            <path
+                                fill="currentColor"
+                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                                style={{opacity: 0.75}}
+                            />
+                        </svg>
+                        <p>{isAccepting ? 'Accepting post...' : 'Rejecting post...'}</p>
+                    </div>
+                </div>
+            )}
             <span className='hidden postID'>{post.id}</span>
             <div className='PostHeader'>
                 <div  className='UserPic'>
@@ -158,14 +187,14 @@ function PostBox({post}) {
                     <div className='left'>
                         <p>{UserName} {post.edited? <span className='GrayText'>(edited)</span>:''}</p>
                         <span className='GrayText'>{formatDate(post.date)}</span>
-                    </div>
-                    <div className='center AIRate'>
-                        <p>AI Rating: <span className={RateColor}>{post.AI_saftyRate}%</span> - ({post.AI_saftyWord})</p>
+                        <span className={'aiRate ' + RateColor} title="AI Safety Rating">
+                            <FontAwesomeIcon icon="fa-solid fa-robot" /> {post.AI_saftyRate}% - ({post.AI_saftyWord})
+                        </span>
                     </div>
                     <div className='Tags right'>
                         <span className='Community'>{post.community}</span>
-                        <span className='Accept' onClick={AcceptPost}>Accept</span>
-                        <span className='Report' onClick={RejectPost}>Reject</span>
+                        <span className={'Accept' + (isAccepting || isRejecting ? ' disabled' : '')} onClick={AcceptPost} style={{pointerEvents: (isAccepting || isRejecting) ? 'none' : 'auto'}}>Accept</span>
+                        <span className={'Report' + (isAccepting || isRejecting ? ' disabled' : '')} onClick={RejectPost} style={{pointerEvents: (isAccepting || isRejecting) ? 'none' : 'auto'}}>Reject</span>
                     </div>
                 </div>
             </div>
@@ -190,31 +219,34 @@ function PostBox({post}) {
                 </div>
             </div>
 
-            <div className='ReportPopupWindow'>
-                <div className='backgroundBlock' onClick={hideReportForm}></div>
-                <div className='ReportForm'>
-                    <h1 className='TitleReport'>Reject</h1>
-                    <h3 className='ForNextPost'>The Post:</h3>
-                    <p className='ReportMainPostText'>{post.mainText}</p>
-                    <div className='ReportTagOptions'>
-                        <span className='ReportTag' onClick={SelectReportReason}>Spam</span>
-                        <span className='ReportTag' onClick={SelectReportReason}>Nudity</span>
-                        <span className='ReportTag' onClick={SelectReportReason}>Scam</span>
-                        <span className='ReportTag' onClick={SelectReportReason}>Illigal</span>
-                        <span className='ReportTag' onClick={SelectReportReason}>Sucide or Self-injury</span>
-                        <span className='ReportTag' onClick={SelectReportReason}>Violance</span>
-                        <span className='ReportTag' onClick={SelectReportReason}>Hate Speech</span>
-                        <span className='ReportTag' onClick={SelectReportReason}>Somthing Else</span>
+            {showReportModal && ReactDOM.createPortal(
+                <div className='ReportPopupWindow'>
+                    <div className='backgroundBlock' onClick={hideReportForm}></div>
+                    <div className='ReportForm'>
+                        <h1 className='TitleReport'>Reject</h1>
+                        <h3 className='ForNextPost'>The Post:</h3>
+                        <p className='ReportMainPostText'>{post.mainText}</p>
+                        <div className='ReportTagOptions'>
+                            <span className={'ReportTag' + (selectedReason === 'Spam' ? ' selected' : '')} onClick={SelectReportReason}>Spam</span>
+                            <span className={'ReportTag' + (selectedReason === 'Nudity' ? ' selected' : '')} onClick={SelectReportReason}>Nudity</span>
+                            <span className={'ReportTag' + (selectedReason === 'Scam' ? ' selected' : '')} onClick={SelectReportReason}>Scam</span>
+                            <span className={'ReportTag' + (selectedReason === 'Illigal' ? ' selected' : '')} onClick={SelectReportReason}>Illigal</span>
+                            <span className={'ReportTag' + (selectedReason === 'Sucide or Self-injury' ? ' selected' : '')} onClick={SelectReportReason}>Sucide or Self-injury</span>
+                            <span className={'ReportTag' + (selectedReason === 'Violance' ? ' selected' : '')} onClick={SelectReportReason}>Violance</span>
+                            <span className={'ReportTag' + (selectedReason === 'Hate Speech' ? ' selected' : '')} onClick={SelectReportReason}>Hate Speech</span>
+                            <span className={'ReportTag' + (selectedReason === 'Somthing Else' ? ' selected' : '')} onClick={SelectReportReason}>Somthing Else</span>
+                        </div>
+                        <div className={'ReasonInputForm'+(somthingElse?" show":"")}>
+                            <h2>Reason:</h2>
+                            <p>Write a Simple Message For the Reject Reason</p>
+                            <input type='text' placeholder='Write the Message'/>
+                        </div>
+                        <button className='submutReportButton' onClick={submitReportForm}>Submit Reject</button>
+                        <p className={'ErrorMessage'+(showErrorMessage?" show":"")}>{showErrorMessage}</p>
                     </div>
-                    <div className={'ReasonInputForm'+(somthingElse?" show":"")}>
-                        <h2>Reason:</h2>
-                        <p>Write a Simple Message For the Reject Reason</p>
-                        <input type='text' placeholder='Write the Message'/>
-                    </div>
-                    <button className='submutReportButton' onClick={submitReportForm}>Submit Reject</button>
-                    <p className={'ErrorMessage'+(showErrorMessage?" show":"")}>{showErrorMessage}</p>
-                </div>
-            </div>
+                </div>,
+                document.body
+            )}
         </div>
   );
 }

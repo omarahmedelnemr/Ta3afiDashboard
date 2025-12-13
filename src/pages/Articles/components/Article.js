@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import ReactDOM from 'react-dom';
 import './Article.css';
 import CommentBox from './ArticleComment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -11,15 +12,14 @@ function ArticleBox({article}) {
     var UserImage= <img src={article.doctorProfileImage} alt={article.doctorName + " Profile Pic"}/>
     var UserName = article.doctorName
     
-
     // AI Rating Colors
     var RateColor = 'rateGreen'
-    console.log(Number(article.AI_saftyRate))
     if (Number(article.AI_saftyRate)<50){
         RateColor = 'rateRed'
     }else if (Number(article.AI_saftyRate)<75){
         RateColor = 'rateYellow'
     }
+
 
     // // Comments
     // var [SeeCommentButton,setButtonText] = useState("See Comments")
@@ -32,39 +32,32 @@ function ArticleBox({article}) {
 
     //// Report Part
     const [somthingElse,setsomthingElse] = useState(false)
-    
+    const [showReportModal, setShowReportModal] = useState(false)
+    const [selectedReason, setSelectedReason] = useState(null)
+
     // Hiding the Popup Window
-    function hideReportForm(event){
-        console.log("Hide Clicked")
-        event.currentTarget.parentElement.style.display = 'none'
-        event.currentTarget.parentElement.querySelector('.ReportForm').style.top = "100%"
+    function hideReportForm(){
+        setShowReportModal(false)
+        setTimeout(() => {
+            setsomthingElse(false)
+            setshowErrorMessage(null)
+            setSelectedReason(null)
+        }, 300)
     }
 
     // Showing the Popup Window
-    function ShowPopupReportForm(event){
-        const ReportForm = event.currentTarget.closest(".ArticleBox").querySelector(".ReportPopupWindow")
-        ReportForm.style.display = 'flex'
-        setTimeout(()=> {
-            ReportForm.querySelector(".ReportForm").style.top = "0px";
-          }, 100);
-
-        // Clear the Window
+    function ShowPopupReportForm(){
+        setShowReportModal(true)
         setsomthingElse(false)
         setshowErrorMessage(null)
-        const selected = ReportForm.querySelector(".selected")
-        if (selected !== null){
-            selected.classList.remove("selected")
-        }
+        setSelectedReason(null)
     }
 
     // Choose a Reason
     function SelectReportReason(event){
-        const selected = event.currentTarget.parentElement.querySelector(".selected")
-        if (selected !== null){
-            selected.classList.remove("selected")
-        }
-        event.currentTarget.classList.add("selected")
-        if(event.currentTarget.innerHTML === 'Somthing Else'){
+        const reason = event.currentTarget.innerHTML
+        setSelectedReason(reason)
+        if(reason === 'Somthing Else'){
             setsomthingElse(true)
         }else{
             setsomthingElse(false)
@@ -75,15 +68,13 @@ function ArticleBox({article}) {
     const [showErrorMessage,setshowErrorMessage] = useState(null)
     async function submitReportForm(event){
         var reason = ''
-        const parent = event.currentTarget.closest(".ArticleBox")
         // Data Reading and Validation
-        const selected = event.currentTarget.parentElement.querySelector(".ReportTag.selected")
-        if (selected === null){
+        if (selectedReason === null){
             setshowErrorMessage('You Have To Choose a Reason')
             return;
         }
-        reason = selected.innerHTML
-        if (selected.innerHTML === 'Somthing Else'){
+        reason = selectedReason
+        if (selectedReason === 'Somthing Else'){
             const inputValue = event.currentTarget.parentElement.querySelector("input").value
             if (inputValue ==''){
                 setshowErrorMessage('You Have To Write a Reason')
@@ -93,25 +84,26 @@ function ArticleBox({article}) {
         }
         setshowErrorMessage(null)
         try{
+            hideReportForm()
 
-            parent.querySelector('.backgroundBlock').click()
-
-            parent.style.height =  parent.scrollHeight+"px"
-            function hideScroll(){
-                parent.style.height = '0px'
-                parent.style.padding = '0px'
-                parent.style.margin = '0px auto'
+            const parent = document.getElementById(article.id)
+            if (parent) {
+                parent.style.height =  parent.scrollHeight+"px"
+                function hideScroll(){
+                    parent.style.height = '0px'
+                    parent.style.padding = '0px'
+                    parent.style.margin = '0px auto'
+                }
+                function dissolve(){
+                    parent.style.display = 'none'
+                }
+                axios.delete(globalVar.backendURL+"/super/article",{data:{articleID:article.id,reason:reason}}).then((res)=>{
+                    setTimeout(hideScroll, 100)
+                    setTimeout(dissolve, 2000)
+                }).catch((err)=>{
+                    console.log("Error!!\n",err)
+                })
             }
-            function dissolve(){
-                parent.style.display = 'none'
-
-            }
-            axios.delete(globalVar.backendURL+"/super/article",{data:{articleID:article.id,reason:reason}}).then((res)=>{
-                setTimeout(hideScroll, 100) 
-                setTimeout(dissolve, 2000) 
-            }).catch((err)=>{
-                console.log("Error!!\n",err)
-            })
         }catch(err){
             console.log("Error!!\n",err)
         }
@@ -129,9 +121,9 @@ function ArticleBox({article}) {
                     <div className='left'>
                         <p>{UserName} {article.edited? <span className='GrayText'>(edited)</span>:''}</p>
                         <span className='GrayText'>{formatDate(article.date)}</span>
-                    </div>
-                    <div className='center AIRate'>
-                        <p>AI Rating: <span className={RateColor}>{article.AI_saftyRate}%</span> - ({article.AI_saftyWord})</p>
+                        <span className={'aiRate ' + RateColor} title="AI Safety Rating">
+                            <FontAwesomeIcon icon="fa-solid fa-robot" /> {article.AI_saftyRate}% - ({article.AI_saftyWord})
+                        </span>
                     </div>
                     <div className='Tags right'>
                         <span className='Community'>{article.category}</span>
@@ -167,31 +159,34 @@ function ArticleBox({article}) {
                 <a href={'/articles/'+article.id}><p>Read More</p></a>
             </div>
 
-            <div className='ReportPopupWindow'>
-                <div className='backgroundBlock' onClick={hideReportForm}></div>
-                <div className='ReportForm'>
-                    <h1 className='TitleReport'>Report</h1>
-                    <h3 className='ForNextArticle'>The Article:</h3>
-                    <p className='ReportMainArticleText'>{article.title}</p>
-                    <div className='ReportTagOptions'>
-                        <span className='ReportTag' onClick={SelectReportReason}>Spam</span>
-                        <span className='ReportTag' onClick={SelectReportReason}>Nudity</span>
-                        <span className='ReportTag' onClick={SelectReportReason}>Scam</span>
-                        <span className='ReportTag' onClick={SelectReportReason}>Illigal</span>
-                        <span className='ReportTag' onClick={SelectReportReason}>Sucide or Self-injury</span>
-                        <span className='ReportTag' onClick={SelectReportReason}>Violance</span>
-                        <span className='ReportTag' onClick={SelectReportReason}>Hate Speech</span>
-                        <span className='ReportTag' onClick={SelectReportReason}>Somthing Else</span>
+            {showReportModal && ReactDOM.createPortal(
+                <div className='ReportPopupWindow'>
+                    <div className='backgroundBlock' onClick={hideReportForm}></div>
+                    <div className='ReportForm'>
+                        <h1 className='TitleReport'>Report Article</h1>
+                        <h3 className='ForNextArticle'>Article Title:</h3>
+                        <p className='ReportMainArticleText'>{article.title}</p>
+                        <div className='ReportTagOptions'>
+                            <span className={'ReportTag' + (selectedReason === 'Spam' ? ' selected' : '')} onClick={SelectReportReason}>Spam</span>
+                            <span className={'ReportTag' + (selectedReason === 'Nudity' ? ' selected' : '')} onClick={SelectReportReason}>Nudity</span>
+                            <span className={'ReportTag' + (selectedReason === 'Scam' ? ' selected' : '')} onClick={SelectReportReason}>Scam</span>
+                            <span className={'ReportTag' + (selectedReason === 'Illigal' ? ' selected' : '')} onClick={SelectReportReason}>Illigal</span>
+                            <span className={'ReportTag' + (selectedReason === 'Sucide or Self-injury' ? ' selected' : '')} onClick={SelectReportReason}>Sucide or Self-injury</span>
+                            <span className={'ReportTag' + (selectedReason === 'Violance' ? ' selected' : '')} onClick={SelectReportReason}>Violance</span>
+                            <span className={'ReportTag' + (selectedReason === 'Hate Speech' ? ' selected' : '')} onClick={SelectReportReason}>Hate Speech</span>
+                            <span className={'ReportTag' + (selectedReason === 'Somthing Else' ? ' selected' : '')} onClick={SelectReportReason}>Somthing Else</span>
+                        </div>
+                        <div className={'ReasonInputForm'+(somthingElse?" show":"")}>
+                            <h2>Reason:</h2>
+                            <p>Write a Simple Message For the Report Reason</p>
+                            <input type='text' placeholder='Write the Message'/>
+                        </div>
+                        <button className='submutReportButton' onClick={submitReportForm}>Submit Report</button>
+                        <p className={'ErrorMessage'+(showErrorMessage?" show":"")}>{showErrorMessage}</p>
                     </div>
-                    <div className={'ReasonInputForm'+(somthingElse?" show":"")}>
-                        <h2>Reason:</h2>
-                        <p>Write a Simple Message For the Report Reason</p>
-                        <input type='text' placeholder='Write the Message'/>
-                    </div>
-                    <button className='submutReportButton' onClick={submitReportForm}>Submit Report</button>
-                    <p className={'ErrorMessage'+(showErrorMessage?" show":"")}>{showErrorMessage}</p>
-                </div>
-            </div>
+                </div>,
+                document.body
+            )}
         </div>
   );
 }

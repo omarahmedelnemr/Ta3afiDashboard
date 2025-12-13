@@ -1,72 +1,299 @@
-#SupervisorSignup{
-    background: #e5e7eb;
-    height: 100vh;
-    width: 100%;
-    /* overflow: hidden; */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-size: 20px;
-}
-#SupervisorSignup #logoLogin img{
-    width: 200px;
-}
-#SupervisorSignup #logoLogin p{
-    color: #0a818e;
-    margin-bottom: 10px;
-}
-@media (max-width:450px){
-    #SupervisorSignup form{
-        zoom: 0.8;
-    }
-}
-#SupervisorSignup form{
-    background-color: white;
-    padding: 20px 50px;
-    border-top: 10px solid #0a808e;
-    box-shadow: 0px 4px 12px 9px rgb(224, 224, 224);
-    display: flex;
-    flex-direction: column;
-    /* border-radius: 10px; */
-}
-#SupervisorSignup form h2{
-    margin-bottom: 0px;
-}
-#SupervisorSignup form .error-message{
-    font-size: 17px;
-    color: rgb(255, 27, 27);
-}
-#SupervisorSignup form label{
-    text-align: left;
-    color: gray;
-    margin: 5px 0px;
-}
-#SupervisorSignup form input{
-    margin-bottom: 10px;
-    font-size: 20px;
-    padding: 10px;
-    border: 2px solid #60606026;
-    transition: 0.1s;
+/* Modern Supervisor Signup Page Styles */
 
-}
-#SupervisorSignup form input:focus{
-    box-shadow: 0px 0px 10px 1px #0a818e97;
-    border-color: #0a808e;
-    outline: #00ff6b26;
+.signup-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding: var(--space-4);
+  background: var(--bg-secondary);
 }
 
-#SupervisorSignup form input[type="submit"]{
-    border:none;
-    color: white;
-    background-image: linear-gradient(135deg, #0a808e, #0995a4);
-    font-weight: bolder;
-    padding: 10px;
-    border-radius: 5px;
-    margin-top: 20px;
-    cursor: pointer;
-    transition: 0.5s;
+/* Background */
+.login-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  overflow: hidden;
 }
-#SupervisorSignup form input[type="submit"]:hover{
-    box-shadow: -2px 2px 5px 1px gray;
+
+.background-pattern {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image:
+    radial-gradient(circle at 20% 50%, rgba(124, 102, 244, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(6, 182, 212, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 40% 80%, rgba(168, 85, 247, 0.08) 0%, transparent 50%);
+  animation: backgroundShift 20s ease-in-out infinite;
+}
+
+@keyframes backgroundShift {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-20px) scale(1.05);
+  }
+}
+
+.background-gradient {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg,
+    rgba(124, 102, 244, 0.03) 0%,
+    transparent 50%,
+    rgba(6, 182, 212, 0.03) 100%);
+}
+
+/* Signup Container */
+.login-container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 500px;
+  animation: slideUp var(--transition-slow) ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Signup Card */
+.login-card {
+  background: var(--bg-primary);
+  border-radius: var(--radius-3xl);
+  box-shadow: var(--shadow-2xl);
+  padding: var(--space-10);
+  border: 1px solid var(--border-light);
+  position: relative;
+  overflow: hidden;
+}
+
+.login-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--gradient-primary);
+}
+
+/* Signup Header */
+.login-header {
+  text-align: center;
+  margin-bottom: var(--space-8);
+}
+
+.login-logo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: var(--space-6);
+}
+
+.logo-img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  animation: logoFloat 3s ease-in-out infinite;
+}
+
+@keyframes logoFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.login-title {
+  font-size: var(--text-3xl);
+  font-weight: var(--font-bold);
+  color: var(--text-primary);
+  margin: 0 0 var(--space-2) 0;
+  line-height: 1.2;
+}
+
+.login-subtitle {
+  font-size: var(--text-base);
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* Error Message */
+.login-error {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  background: var(--error-50);
+  border: 1px solid var(--error-200);
+  border-radius: var(--radius-xl);
+  color: var(--error-700);
+  font-size: var(--text-sm);
+  margin-bottom: var(--space-6);
+  animation: shake 0.4s ease-in-out;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-10px); }
+  75% { transform: translateX(10px); }
+}
+
+.login-error svg {
+  flex-shrink: 0;
+}
+
+/* Signup Form */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.password-field {
+  position: relative;
+}
+
+.password-toggle {
+  background: none;
+  border: none;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color var(--transition-base);
+}
+
+.password-toggle:hover {
+  color: var(--text-primary);
+}
+
+/* Footer */
+.login-footer {
+  margin-top: var(--space-8);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--border-light);
+  text-align: center;
+}
+
+.login-footer-text {
+  font-size: var(--text-sm);
+  color: var(--text-tertiary);
+  margin: 0;
+}
+
+/* Additional Info */
+.login-info {
+  margin-top: var(--space-6);
+  text-align: center;
+}
+
+.login-info p {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.login-info a {
+  color: var(--primary-500);
+  text-decoration: none;
+  font-weight: var(--font-semibold);
+  transition: color var(--transition-fast);
+}
+
+.login-info a:hover {
+  color: var(--primary-600);
+  text-decoration: underline;
+}
+
+/* Focus States */
+.login-form input:focus {
+  outline: none;
+}
+
+/* Loading State */
+.login-card.loading {
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+/* Responsive Styles */
+@media (max-width: 640px) {
+  .signup-page {
+    padding: var(--space-3);
+  }
+
+  .login-card {
+    padding: var(--space-8);
+    border-radius: var(--radius-2xl);
+  }
+
+  .login-title {
+    font-size: var(--text-2xl);
+  }
+
+  .login-subtitle {
+    font-size: var(--text-sm);
+  }
+
+  .logo-img {
+    width: 80px;
+    height: 80px;
+  }
+
+  .login-form {
+    gap: var(--space-5);
+  }
+}
+
+@media (max-width: 480px) {
+  .login-card {
+    padding: var(--space-6);
+  }
+
+  .login-header {
+    margin-bottom: var(--space-6);
+  }
+
+  .logo-img {
+    width: 70px;
+    height: 70px;
+  }
+}
+
+/* Accessibility */
+.password-toggle:focus-visible {
+  outline: 2px solid var(--primary-500);
+  outline-offset: 2px;
+  border-radius: var(--radius-md);
+}
+
+/* Print Styles */
+@media print {
+  .login-background {
+    display: none;
+  }
 }
