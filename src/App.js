@@ -21,6 +21,7 @@ import Firebaselogin from './pages/test/Flogin';
 import UnverifiedDoctors from './pages/Doctors/UnverifiedDoctors';
 import VerifiedDoctors from './pages/Doctors/VerifiedDoctors';
 import DoctorInfo from './pages/Doctors/DoctorInfo';
+import SendNotifications from './pages/Notifications/SendNotifications';
 import ProtectedRoute from './components/ProtectedRoute';
 function App() {
   return (
@@ -60,6 +61,7 @@ function App() {
                           <Route path='posts-pending' element={<PostsPendingPage/>} />
                           <Route path='articles' element={<ArtilcesPage/>} />
                           <Route path='articles/:articleID' element={<SingleArticlesPage/>} />
+                          <Route path='notifications' element={<SendNotifications/>} />
                           <Route path='profile/patient/:patientID' element={<PatientProfile/>} />
                           <Route path='profile/doctor/:doctorID' element={<DoctorProfile/>} />
                           <Route path='test' element={<TestChatPage/>} />

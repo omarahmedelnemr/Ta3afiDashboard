@@ -10,7 +10,8 @@ import {
   faNewspaper,
   faBars,
   faXmark,
-  faRightFromBracket
+  faRightFromBracket,
+  faBell
 } from '@fortawesome/free-solid-svg-icons';
 import logoImage from '../content/smallLogo.png';
 import './styles/SideNav.css';
@@ -96,6 +97,13 @@ const SideNavBar = () => {
       icon: faNewspaper,
       path: '/articles',
       color: 'var(--accent-teal)'
+    },
+    {
+      id: 'notifications',
+      label: 'Send Notifications',
+      icon: faBell,
+      path: '/notifications',
+      color: 'var(--accent-purple)'
     }
   ];
 
