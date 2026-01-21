@@ -86,6 +86,7 @@
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: var(--space-4);
   margin-bottom: var(--space-6);
+  justify-content: center;
 }
 
 /* Charts Grid */
@@ -107,6 +108,10 @@
 
 /* Large screens - both charts side by side */
 @media (min-width: 1280px) {
+  .stats-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+  
   .chart-card {
     grid-column: span 6;
   }
@@ -166,7 +171,7 @@
 
   .stats-grid {
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: var(--space-5);
+    gap: var(--space-4);
   }
 
   .chart-card,

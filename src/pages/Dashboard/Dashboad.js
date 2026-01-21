@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faUserDoctor, faNewspaper, faComments, faHeart, faComment, faCalendarCheck, faUsers, faUserShield, faUserPlus, faCalendarPlus } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faUserDoctor, faNewspaper, faComments, faComment, faCalendarCheck, faUsers, faUserShield, faUserPlus, faCalendarPlus } from '@fortawesome/free-solid-svg-icons';
 import { Line, Doughnut, Bar } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
@@ -41,7 +41,6 @@ function Dashboard() {
   const [articlesCount, setArticlesCount] = useState(null);
   const [postsCount, setPostsCount] = useState(null);
   const [commentsCount, setCommentsCount] = useState(null);
-  const [reactionsCount, setReactionsCount] = useState(null);
   const [appointmentsCount, setAppointmentsCount] = useState(null);
   const [supervisorsCount, setSupervisorsCount] = useState(null);
   const [activeUsersCount, setActiveUsersCount] = useState(null);
@@ -112,14 +111,13 @@ function Dashboard() {
         if (toDate) dateParams.append('toDate', new Date(toDate).toISOString());
         const queryString = dateParams.toString() ? `?${dateParams.toString()}` : '';
 
-        const [patients, doctors, articles, posts, appointments, comments, reactions, appointmentsTotal, supervisors, activeUsers, totalUsers, newUsers, registrationsByRole] = await Promise.all([
+        const [patients, doctors, articles, posts, appointments, comments, appointmentsTotal, supervisors, activeUsers, totalUsers, newUsers, registrationsByRole] = await Promise.all([
           axios.get(globalVar.backendURL + '/admin/patients-number' + queryString),
           axios.get(globalVar.backendURL + '/admin/doctors-number' + queryString),
           axios.get(globalVar.backendURL + '/admin/articles-number' + queryString),
           axios.get(globalVar.backendURL + '/admin/posts-number' + queryString),
           axios.get(globalVar.backendURL + '/admin/appointment-status' + queryString),
           axios.get(globalVar.backendURL + '/admin/comments-number' + queryString),
-          axios.get(globalVar.backendURL + '/admin/reactions-number' + queryString),
           axios.get(globalVar.backendURL + '/admin/appointments-number' + queryString),
           axios.get(globalVar.backendURL + '/admin/supervisors-number' + queryString),
           axios.get(globalVar.backendURL + '/admin/active-users-number' + queryString),
@@ -134,7 +132,6 @@ function Dashboard() {
         setPostsCount(posts.data.number);
         setAppointmentsData(appointments.data);
         setCommentsCount(comments.data.number);
-        setReactionsCount(reactions.data.number);
         setAppointmentsCount(appointmentsTotal.data.number);
         setSupervisorsCount(supervisors.data.number);
         setActiveUsersCount(activeUsers.data.number);
@@ -686,13 +683,6 @@ function Dashboard() {
           value={commentsCount?.toLocaleString()}
           icon={<FontAwesomeIcon icon={faComment} />}
           gradient="var(--gradient-green)"
-          loading={loading}
-        />
-        <StatCard
-          title="Total Reactions"
-          value={reactionsCount?.toLocaleString()}
-          icon={<FontAwesomeIcon icon={faHeart} />}
-          gradient="var(--gradient-red)"
           loading={loading}
         />
         <StatCard
