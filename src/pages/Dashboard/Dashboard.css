@@ -1,18 +1,18 @@
 /* Modern Dashboard Page Styles */
 
 .dashboard-page {
-  padding: var(--space-8);
-  margin-left: 240px;
+  padding: var(--space-6);
+  margin-left: var(--sidebar-width);
   min-height: 100vh;
   background: var(--bg-secondary);
   animation: fadeIn var(--transition-slow) ease-out;
-  max-width: calc(100vw - 240px);
+  max-width: calc(100vw - var(--sidebar-width));
   width: 100%;
 }
 
 /* Dashboard Header */
 .dashboard-header {
-  margin-bottom: var(--space-8);
+  margin-bottom: var(--space-6);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -35,17 +35,17 @@
 /* Stats Grid */
 .stats-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: var(--space-6);
-  margin-bottom: var(--space-8);
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
 }
 
 /* Charts Grid */
 .charts-grid {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
-  gap: var(--space-6);
-  margin-bottom: var(--space-8);
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
 }
 
 .chart-card {
@@ -84,7 +84,7 @@
 
 .chart-container {
   position: relative;
-  height: 400px;
+  height: 350px;
   width: 100%;
 }
 

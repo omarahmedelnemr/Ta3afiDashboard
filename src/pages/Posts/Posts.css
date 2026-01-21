@@ -1,7 +1,7 @@
 /* Posts Page Styles */
 
 .posts-page {
-  padding: var(--space-8);
+  padding: var(--space-6);
   margin-left: var(--sidebar-width);
   min-height: 100vh;
   background: var(--bg-secondary);
@@ -13,19 +13,19 @@
 
 /* Header */
 .posts-header {
-  margin-bottom: var(--space-6);
+  margin-bottom: var(--space-5);
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: var(--space-4);
+  gap: var(--space-3);
 }
 
 .page-title {
-  font-size: var(--text-3xl);
+  font-size: var(--text-2xl);
   font-weight: var(--font-bold);
   color: var(--text-primary);
-  margin: 0 0 var(--space-2) 0;
+  margin: 0 0 var(--space-1) 0;
   line-height: 1.2;
 }
 
@@ -40,8 +40,8 @@
   background: var(--bg-primary);
   border: 1px solid var(--border-light);
   border-radius: var(--radius-2xl);
-  padding: var(--space-6);
-  margin-bottom: var(--space-6);
+  padding: var(--space-5);
+  margin-bottom: var(--space-5);
   box-shadow: var(--shadow-sm);
   animation: slideUp var(--transition-slow) ease-out;
 }
@@ -87,7 +87,7 @@
 .posts-feed {
   display: flex;
   flex-direction: column;
-  gap: var(--space-6);
+  gap: var(--space-4);
   animation: fadeIn var(--transition-slow) ease-out;
 }
 

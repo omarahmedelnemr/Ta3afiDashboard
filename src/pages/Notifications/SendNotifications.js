@@ -297,9 +297,33 @@ function SendNotifications() {
 
               {/* Selected Count */}
               {selectedUsers.length > 0 && (
-                <div className="selected-count">
-                  <strong>{selectedUsers.length}</strong> user(s) selected
-                </div>
+                <>
+                  <div className="selected-count">
+                    <strong>{selectedUsers.length}</strong> user(s) selected
+                  </div>
+                  <div className="quick-send-section">
+                    <Button
+                      variant="primary"
+                      size="medium"
+                      onClick={handleSend}
+                      disabled={sending}
+                      className="quick-send-button"
+                      fullWidth
+                    >
+                      {sending ? (
+                        <>
+                          <span className="spinner"></span>
+                          Sending...
+                        </>
+                      ) : (
+                        <>
+                          <FontAwesomeIcon icon={faPaperPlane} />
+                          Send to Selected ({selectedUsers.length})
+                        </>
+                      )}
+                    </Button>
+                  </div>
+                </>
               )}
 
               {/* Users List */}
