@@ -22,6 +22,8 @@ import UnverifiedDoctors from './pages/Doctors/UnverifiedDoctors';
 import VerifiedDoctors from './pages/Doctors/VerifiedDoctors';
 import DoctorInfo from './pages/Doctors/DoctorInfo';
 import SendNotifications from './pages/Notifications/SendNotifications';
+import CreatePostPage from './pages/CreatePost/CreatePostPage';
+import CreateArticlePage from './pages/CreateArticle/CreateArticlePage';
 import ProtectedRoute from './components/ProtectedRoute';
 function App() {
   return (
@@ -59,7 +61,9 @@ function App() {
                           } />
                           <Route path='posts' element={<PostsPage/>} />
                           <Route path='posts-pending' element={<PostsPendingPage/>} />
+                          <Route path='posts/create' element={<CreatePostPage/>} />
                           <Route path='articles' element={<ArtilcesPage/>} />
+                          <Route path='articles/create' element={<CreateArticlePage/>} />
                           <Route path='articles/:articleID' element={<SingleArticlesPage/>} />
                           <Route path='notifications' element={<SendNotifications/>} />
                           <Route path='profile/patient/:patientID' element={<PatientProfile/>} />

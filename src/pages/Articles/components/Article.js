@@ -8,9 +8,22 @@ import globalVar from '../../../public Func/globalVar';
 import axios from '../../../public Func/axiosAuth';
 
 function ArticleBox({article}) {
-    // Validate For anonymous
-    var UserImage= <img src={article.doctorProfileImage} alt={article.doctorName + " Profile Pic"}/>
-    var UserName = article.doctorName
+    // Validate For admin, supervisor, or doctor
+    var UserImage, UserName;
+    if(article.isAdmin){
+        UserImage= <div className='anonymous' style={{background: 'var(--primary-500)'}}>
+                        <FontAwesomeIcon icon="fa-solid fa-user-shield" />
+                    </div>
+        UserName = article.doctorName || `Admin`
+    }else if(article.isSupervisor){
+        UserImage= <div className='anonymous' style={{background: 'var(--accent-purple)'}}>
+                        <FontAwesomeIcon icon="fa-solid fa-user-tie" />
+                    </div>
+        UserName = article.doctorName || article.supervisorName || `Supervisor`
+    }else{
+        UserImage= <img src={article.doctorProfileImage} alt={article.doctorName + " Profile Pic"}/>
+        UserName = article.doctorName
+    }
     
     // AI Rating Colors
     var RateColor = 'rateGreen'
@@ -115,7 +128,7 @@ function ArticleBox({article}) {
             <div className='ArticleHeader'>
                 <div  className='UserPic'>
                     {UserImage}
-                    <a href={"./profile/doctor/"+article.doctorID} className='profileLink' target="_blank"></a>
+                    {article.isAdmin || article.isSupervisor || !article.doctorID ? '' : <a href={"./profile/doctor/"+article.doctorID} className='profileLink' target="_blank"></a>}
                 </div>
                 <div className='NameAndDateAndData'>
                     <div className='left'>

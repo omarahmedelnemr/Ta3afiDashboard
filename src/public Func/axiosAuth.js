@@ -4,7 +4,11 @@ import axios from "axios";
 // Add a request interceptor
 axios.interceptors.request.use(function (config) {
     const token = localStorage.getItem("token")
+    const role = localStorage.getItem("role")
     config.headers.Authorization =  token;
+    if (role) {
+        config.headers.role = role;
+    }
      
     return config;
 });

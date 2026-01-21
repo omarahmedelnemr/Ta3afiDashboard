@@ -11,7 +11,8 @@ import {
   faBars,
   faXmark,
   faRightFromBracket,
-  faBell
+  faBell,
+  faFilePen
 } from '@fortawesome/free-solid-svg-icons';
 import logoImage from '../content/smallLogo.png';
 import './styles/SideNav.css';
@@ -96,6 +97,13 @@ const SideNavBar = () => {
       label: 'Articles',
       icon: faNewspaper,
       path: '/articles',
+      color: 'var(--accent-teal)'
+    },
+    {
+      id: 'create-article',
+      label: 'Create Article',
+      icon: faFilePen,
+      path: '/articles/create',
       color: 'var(--accent-teal)'
     },
     {

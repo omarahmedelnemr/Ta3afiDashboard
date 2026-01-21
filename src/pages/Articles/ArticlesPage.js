@@ -1,9 +1,11 @@
 import React, { useRef, useEffect, useState, useMemo } from 'react';
 import axios from '../../public Func/axiosAuth';
 import globalVar from '../../public Func/globalVar';
-import { SearchBar, Select, LoadingSkeleton } from '../../components/ui';
+import { SearchBar, Select, LoadingSkeleton, Button } from '../../components/ui';
 import ArticleBox from './components/Article';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFilePen } from '@fortawesome/free-solid-svg-icons';
 import './Articles.css';
 
 function ArticlesPage() {
@@ -16,6 +18,7 @@ function ArticlesPage() {
   let [searchParams, setSearchParams] = useSearchParams();
   let keyword = searchParams.get('keyword');
   let category = searchParams.get('category');
+  const navigate = useNavigate();
 
   const [searchQuery, setSearchQuery] = useState(keyword || '');
   const [activeCategory, setActiveCategory] = useState(category ? category : -1);
@@ -136,6 +139,14 @@ function ArticlesPage() {
               : `${articleList.length} ${articleList.length === 1 ? 'article' : 'articles'} available`}
           </p>
         </div>
+        <Button
+          variant="primary"
+          onClick={() => navigate('/articles/create')}
+          style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}
+        >
+          <FontAwesomeIcon icon={faFilePen} />
+          Create Article
+        </Button>
       </div>
 
       {/* Search & Filters */}
