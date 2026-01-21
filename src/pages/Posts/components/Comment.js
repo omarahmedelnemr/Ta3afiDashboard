@@ -91,14 +91,20 @@ function PostCommentBox({commentData}) {
             <span className='hidden commentID'>{commentData.id}</span>
             <div className='CommentHeader'>
                 <div  className='UserPic'>
-                    <img src={commentData.patientProfileImage}/>
-                    <a href={"./profile/patient/"+commentData.patientID} target="_blank" className='profileLink'></a>
+                    <img src={commentData.authorProfileImage || commentData.patientProfileImage || commentData.doctorProfileImage}/>
+                    {commentData.isDoctor && commentData.doctorID ? 
+                        <a href={"./profile/doctor/"+commentData.doctorID} target="_blank" className='profileLink'></a> :
+                        (commentData.patientID ? <a href={"./profile/patient/"+commentData.patientID} target="_blank" className='profileLink'></a> : '')
+                    }
                 </div>
                 
             </div>
             <div className='CommentData'>
                 <div className='NameAndDate'>
-                    <p className='UserName'>{commentData.patientName}</p>
+                    <p className='UserName'>
+                        {commentData.authorName || commentData.doctorName || commentData.patientName}
+                        {commentData.authorTitle || commentData.doctorTitle ? ` - ${commentData.authorTitle || commentData.doctorTitle}` : ''}
+                    </p>
                     <span className='GrayText'>{formatDate(commentData.date)}</span>
                 </div>
                 <div className='CommentBody'>

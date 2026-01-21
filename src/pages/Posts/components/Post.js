@@ -8,7 +8,7 @@ import globalVar from '../../../public Func/globalVar';
 import axios from '../../../public Func/axiosAuth';
 
 function PostBox({post}) {
-    // Validate For anonymous, admin, or supervisor
+    // Validate For anonymous, admin, supervisor, or doctor
     var UserImage,UserName;
     if(post.hideIdentity){
         UserImage= <div className='anonymous'>
@@ -25,6 +25,9 @@ function PostBox({post}) {
                         <FontAwesomeIcon icon="fa-solid fa-user-tie" />
                     </div>
         UserName = post.userName || post.supervisorName || `Supervisor`
+    }else if(post.isDoctor){
+        UserImage= <img src={post.userProfileImage} alt={post.userName + " Profile Pic"}/>
+        UserName = post.userName + (post.userTitle ? ` - ${post.userTitle}` : '')
     }else{
         UserImage= <img src={post.userProfileImage} alt={post.userName + " Profile Pic"}/>
         UserName = post.userName
@@ -199,7 +202,12 @@ function PostBox({post}) {
             <div className='PostHeader'>
                 <div  className='UserPic'>
                     {UserImage}
-                    {post.hideIdentity || post.isAdmin || post.isSupervisor || !post.patientID ? '' : <a href={"./profile/patient/"+post.patientID} className='profileLink' target="_blank"></a>}
+                    {post.hideIdentity || post.isAdmin || post.isSupervisor ? '' : 
+                        (post.isDoctor && post.doctorID ? 
+                            <a href={"./profile/doctor/"+post.doctorID} className='profileLink' target="_blank"></a> :
+                            (post.patientID ? <a href={"./profile/patient/"+post.patientID} className='profileLink' target="_blank"></a> : '')
+                        )
+                    }
                 </div>
                 <div className='NameAndDateAndData'>
                     <div className='left'>
